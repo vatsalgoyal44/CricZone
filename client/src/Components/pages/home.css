@@ -5,13 +5,13 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;;
 }
-body {    background-color: rgb(50, 53, 81);
-}
+
 
 .homepage{
     padding: 20px;
-    height: 100%;
+    height: 100vw;
     width: 100%;
+    background-color: rgb(50, 53, 81);
 }
 
 .pagename{
