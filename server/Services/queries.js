@@ -13,7 +13,7 @@ const pool = new Pool({
 
 // sample:
 // these function will be called from user.js and will use a pool to connect to database
-
+//function for getting match specific info (completed match)
 const getmatchinfo = async (matchid) => {
     const text0 = 'SELECT * FROM match WHERE id = $1'
     const values0 = [matchid]
@@ -36,7 +36,12 @@ const getmatchinfo = async (matchid) => {
                 player_deets: res2.rows 
             } 
         }else{
-
+            return {
+                match_deets: null, 
+                team1: null, 
+                team1: null, 
+                player_deets: null
+            } 
         }
     }catch (err) {
         console.log(err.stack)
