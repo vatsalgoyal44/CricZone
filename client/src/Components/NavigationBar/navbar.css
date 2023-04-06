@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;;
+}
+
+.navbar{
+    line-height: 7vh;
+    height: 7vh;
+    box-shadow: rgba(50, 50, 93, 0.23) 0 10px 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-bottom: 5px;
+    background-color: #27293F;
+}
+.criczone{
+    background-color: #27293F;
+    font-size: 30px;
+    color: rgb(252, 253, 256);
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.nav-links{
+    background-color: #27293F;
+    display: flex;
+    justify-content: flex-end;
+    width: 75%;
+}
+
+.cont{
+    background-color: #27293F;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 90%;
+    margin: auto;
+}
+
+.nav-links li{
+    list-style: none;
+    position: relative;
+    padding: 0 10px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    background-color: #27293F;
+
+}
+
+.nav-links Link{
+    background-color: #27293F;
+}
+
+a{    text-decoration: none; 
+
+}
+.cont li {
+    
+    text-decoration: none; 
+    transition: all 0.3s ease-in-out;
+    color: rgb(252, 253, 256);
+    font-size: 20px;
+    font-weight: 600;
+    
+ 
+}
+
+.cont li:hover{
+    color: #c0b7dc;
+}
+
+.cont li:hover::after{
+    content: "";
+    width: 40%;
+    height: 3px;
+    background: #c0b7dc;
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+}
+
+.criczone:hover{
+    color: #c0b7dc;
+}
+
+.criczone:hover::after{
+    content: "";
+    width: 40%;
+    height: 3px;
+    background: #c0b7dc;
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+}
+
+/* .ul li {
+    padding:  32px;
+    width: 100%;
+    transition: all 0.5 ease-in-out;
+    text-align: center;
+} */
+.dropdown{
+    background-color: #27293F;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    margin-top: -10px;
+    background-color: #27293F;
+    min-width: 180px;
+    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+    z-index: 1;
+    transition: 0.1s ease-in-out;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  .dropdown-content a {
+    background-color: #27293F;
+    color: rgb(252, 253, 256);
+    padding-left: 10px;
+    text-decoration: none;
+    display: block;
+    transition: 0.1s ease-in-out;
+    font-size: 18px;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {color: #c0b7dc;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
