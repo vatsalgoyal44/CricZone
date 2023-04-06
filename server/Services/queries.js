@@ -1,17 +1,14 @@
+const Pool = require('pg').Pool
 const fs = require("fs");
 const path = require("path");
 
-const mysql = require('mysql');
-
 var config = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../config.txt')).toString())
-const pool = mysql.createPool({
-    connectionLimit : 100, 
+const pool = new Pool({
     user: config.user,
     host: config.host,
     database: config.database,
     password: config.password,
     port: config.port,
-    debug: false
 })
 
 // sample:
