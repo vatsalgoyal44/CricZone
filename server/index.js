@@ -29,14 +29,6 @@ app.get('/teamallmatchinfo/:teamid', async (request, response) => {
   User.getteamallmatchinfo(request, response)
 });
 
-app.get('/matchcard/:matchid', async (request, response) => {
-  User.getmatchcard(request, response)
-});
-
-app.get('/teamplayerstats/:teamid', async (request, response) => {
-  User.getteamplayerstats(request, response)
-});
-
 app.get('/matchinfo/:matchid',async(request,response) => {
   User.getmatchinfo(request,response)
 });
