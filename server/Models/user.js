@@ -10,4 +10,22 @@ const queries         = require('../Services/queries')
 //     res.status(200).send(queryresponse)
 // }
 
+const getteaminfo = async function(req, res){
+    const { teamid } = req.params
+    const queryresponse = await queries.teaminfo(teamid);
+    console.log(queryresponse)
+    res.status(200).send(queryresponse)
+}
+
+const getteammatchinfo = async function(req, res){
+    const { teamid } = req.params
+    const queryresponse = await queries.teaminfo(teamid);
+    console.log(queryresponse)
+    res.status(200).send(queryresponse)
+}
+
+
+module.exports.getteaminfo = getteaminfo;
+module.exports.getteammatchinfo = getteammatchinfo;
+
 // module.exports.instrstudgetinfo = instrstudgetinfo;

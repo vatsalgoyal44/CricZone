@@ -69,5 +69,39 @@ const pool = new Pool({
 
 // }
 
+const teaminfo = async (teamid) => {
+
+    const text0 = 'SELECT * FROM team WHERE teamid = $1'
+    const values0 = [teamid]
+
+    try{
+        const res0 = await pool.query(text0, values0)
+        return res0.rows;
+    } catch (err) {
+        console.log(err.stack)
+    }
+
+}
+
+const teammatchinfo = async (teamid) => {
+    const text0 = 'SELECT * FROM match WHERE team1 = $1 or team2 = $2 order by date DESC limit 3'
+    const values0 = [teamid,teamid]
+
+    try {
+        const res0 = await pool.query(text0, values0)
+        return res0.rows;
+    } catch (err) {
+        console.log(err.stack)
+    }
+
+}
+
+const teamplayerstats = async (teamid) => {
+
+}
+
+
+module.exports.teaminfo = teaminfo;
+module.exports.teammatchinfo = teammatchinfo;
 
 // module.exports.instrstudentinfo = instrstudentinfo;

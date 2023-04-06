@@ -1,7 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
-var sessions = require('express-session');
 
 const app = express()
 const port = 4001
@@ -21,6 +20,11 @@ app.use(
     extended: true,
   })
 )
+
+app.get('/teaminfo/:teamid', async (request, response) => {
+  User.getteaminfo(request, response)
+});
+
 
 // this is how we make a call to functions in user.js
 
