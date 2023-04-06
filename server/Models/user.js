@@ -9,16 +9,6 @@ const getmatchinfo = async function(req, res){
     res.status(200).send(queryresponse)
 }
 
-module.exports.getmatchinfo = getmatchinfo;
-
-// const instrstudgetinfo = async function(req, res){
-//     const ID=req.id;
-//     const { studid } = req.params
-//     const queryresponse = await queries.instrstudentinfo(ID,studid);
-//     console.log(queryresponse)
-//     res.status(200).send(queryresponse)
-// }
-
 const getteaminfo = async function(req, res){
     const { teamid } = req.params
     const queryresponse = await queries.teaminfo(teamid);
@@ -47,6 +37,7 @@ const getteamplayerstats = async function(req, res){
     res.status(200).send(queryresponse)
 }
 
+module.exports.getmatchinfo = getmatchinfo;
 module.exports.getteaminfo = getteaminfo;
 module.exports.getteamallmatchinfo = getteamallmatchinfo;
 module.exports.getmatchcard = getmatchcard;

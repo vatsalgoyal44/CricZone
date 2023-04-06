@@ -12,7 +12,6 @@ const pool = new Pool({
 })
 
 // sample:
-// these function will be called from user.js and will use a pool to connect to database
 //function for getting match specific info (completed match)
 const getmatchinfo = async (matchid) => {
     const text0 = 'SELECT * FROM match WHERE id = $1'
@@ -47,63 +46,6 @@ const getmatchinfo = async (matchid) => {
         console.log(err.stack)
     }
 }
-
-module.exports.getmatchinfo = getmatchinfo;
-
-// const instrstudentinfo = async (inst_ID,ID) => {
-
-//     const text0 = 'SELECT * FROM instructor WHERE id = $1'
-//     const values0 = [inst_ID]
-
-//     try{
-//         const res0 = await pool.query(text, values)
-//         if(res0.rows.length===0){
-//             return {
-//                 studentdetails: res0.rows,
-//                 coursedetails: res0.rows
-//             }        
-//         }
-//         const text = 'SELECT * FROM student WHERE id = $1'
-//         const values = [ID]
-
-//         try {
-//             const res = await pool.query(text, values)
-//             const text2 = 'with cursem_details(yr,sem) as\
-//                            (select year,semester from reg_dates\
-//                             where start_time<=now() \
-//                             and start_time>=all \
-//                             (SELECT start_time from reg_dates where start_time <=now())\
-//                             )\
-//                            SELECT * \
-//                            FROM takes NATURAL JOIN course, cursem_details \
-//                            WHERE id = $1 \
-//                            ORDER BY year DESC, \
-//                            CASE semester \
-//                             WHEN \'Spring\' THEN 4 \
-//                             WHEN \'Summer\' THEN 3 \
-//                             WHEN \'Fall\' THEN 2 \
-//                             WHEN \'Winter\' THEN 1 \
-//                            END'
-//             const values2 = [ID]
-//             try {
-//                 const res2 = await pool.query(text2, values2)
-//                 // return res.rows[0];
-//                 return {
-//                     studentdetails: res.rows[0],
-//                     coursedetails: res2.rows
-//                 }
-
-//             } catch (err) {
-//                 console.log(err.stack)
-//             }
-//         } catch (err) {
-//             console.log(err.stack)
-//         }
-//     } catch (err) {
-//         console.log(err.stack)
-//     }
-
-// }
 
 const teaminfo = async (teamid) => {
 
@@ -210,7 +152,7 @@ const teamplayerstats = async (teamid) => {
     }
 }
 
-
+module.exports.getmatchinfo = getmatchinfo;
 module.exports.teaminfo = teaminfo;
 module.exports.teamallmatchinfo = teamallmatchinfo;
 module.exports.matchcard = matchcard;
