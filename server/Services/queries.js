@@ -97,7 +97,7 @@ const teaminfo = async (teamid) => {
                     try {
                         const res4 = await pool.query(text4, values4)
                         const text5 = 'SELECT playerid, player_name, runs_given/wickets*1.0 FROM matchwise_player_performance natural join players WHERE teamid = $1\
-                                       and runs_given/wickets*1.0 = min(runs/wickets*1.0) '
+                                       and runs_given/wickets*1.0 = min(runs_given/wickets*1.0) '
                         const values5 = [teamid]                
                         try {
                             const res5 = await pool.query(text5, values5)
