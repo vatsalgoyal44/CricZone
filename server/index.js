@@ -25,6 +25,18 @@ app.get('/teaminfo/:teamid', async (request, response) => {
   User.getteaminfo(request, response)
 });
 
+app.get('/teamallmatchinfo/:teamid', async (request, response) => {
+  User.getteamallmatchinfo(request, response)
+});
+
+app.get('/matchcard/:matchid', async (request, response) => {
+  User.getmatchcard(request, response)
+});
+
+app.get('/teamplayerstats/:teamid', async (request, response) => {
+  User.getteamplayerstats(request, response)
+});
+
 
 // this is how we make a call to functions in user.js
 
