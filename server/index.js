@@ -23,7 +23,9 @@ app.use(
 )
 
 // this is how we make a call to functions in user.js
-
+app.get('/matchinfo/:matchid',async(request,response) => {
+  User.getmatchinfo(request,response)
+});
 // app.get('/instrstudinfo/:studid', async (request, response) => {
 //   User.instrstudgetinfo(request, response)
 // });
