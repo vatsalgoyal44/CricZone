@@ -4,7 +4,7 @@ import ReactLoading from "react-loading";
 import './home.css'
 import MatchCard from "../cards/matchcard";
 
-const Homepage= (props) => {
+const Teampage= (props) => {
 
   const [loading, setLoading] = useState(true)
 
@@ -16,11 +16,11 @@ const Homepage= (props) => {
     </div>)
   }
   else return (
-    <div className="homepage">
-      <h3 className="pagename">Recent Matches</h3>
+    <div className="teampage">
+      <h3 className="pagename">Hi</h3>
       <MatchCard/>
     </div>
   );
 }
 
-export default Homepage;
+export default Teampage;

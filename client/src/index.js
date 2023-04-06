@@ -2,17 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Homepage from './Components/pages/home'
 import reportWebVitals from './reportWebVitals';
-import Sidebar from './Components/sidebar/sidebar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <div className='main'>
-    <Sidebar /><Homepage />
-    </div>
-    
+      <App />
   </React.StrictMode>
 );
 
