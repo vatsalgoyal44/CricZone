@@ -15,7 +15,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Homepage />}/>
           <Route exact path="/home" element={<Homepage />}/>
-          <Route exact path="/teams/:team" element={<Teampage />}/>
+          <Route exact path="/teams/:teamname" element={<Teampage />}/>
         </Routes>
       </BrowserRouter>
     </>

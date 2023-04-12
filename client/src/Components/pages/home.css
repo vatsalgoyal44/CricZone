@@ -4,18 +4,102 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;;
+    
 }
 
 
 .homepage{
     padding: 20px;
+    padding-top: 8vh;
     height: 100vw;
     width: 100%;
     background-color: rgb(50, 53, 81);
     border-radius: 10px;
+    max-width: 100%;
+    overflow-x: hidden;
+
 }
 
 .pagename{
     font-size: 25px;    
     color: rgb(252, 253, 256);
+}
+
+.gridcontainer{
+    display: grid;
+    padding: 20px;
+    padding-top: 8vh;
+    height: 100vw;
+    width: 100%;
+    background-color: rgb(50, 53, 81);
+    border-radius: 10px;
+    grid-template-rows: 60px min-content min-content;
+}
+
+.fixtures{
+    display: grid;
+    grid-template-rows: 50px min-content;
+}
+
+.playercards{
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.stats{
+    display: grid;
+    grid-template-rows: 50px min-content;
+}
+
+.secondrow{
+    /* background-color: rgb(70,0,0); */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.teamname{
+    font-size: 30px;    
+    color: rgb(252, 253, 256);
+    margin-left: 10px;
+}
+
+.playercard{
+    background-color: rgb(70,75,106);
+    margin: 5px;
+    height: 7vh;
+    border-radius: 10px;
+    padding-top: 17px;
+}
+
+.playercard a{
+    font-size: 20px;    
+    padding-left: 20px;
+    color: rgb(252, 253, 256);
+}
+
+.players{
+    display: grid;
+    grid-template-rows: 50px min-content;
+}
+
+.players h3{
+    font-size: 23px;    
+    color: rgb(252, 253, 256);
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.stats h3{
+    font-size: 23px;    
+    color: rgb(252, 253, 256);
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.fixtures h3{
+    font-size: 23px;    
+    color: rgb(252, 253, 256);
+    margin-left: 10px;
+    margin-top: 10px;
 }
