@@ -6,7 +6,7 @@ import MatchCard from "../cards/matchcard";
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
 
 
-const Teampage= (props) => {
+const Teampage = (props) => {
 
   const [loading, setLoading] = useState(true)
 
