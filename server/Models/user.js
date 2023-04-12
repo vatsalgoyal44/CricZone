@@ -4,7 +4,7 @@ const queries         = require('../Services/queries')
 
 const getmatchinfo = async function(req, res){
     const { matchid } = req.params
-    const queryresponse = await queries.match(matchid);
+    const queryresponse = await queries.matchinfo(matchid);
     console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
@@ -23,24 +23,6 @@ const getteamallmatchinfo = async function(req, res){
     res.status(200).send(queryresponse)
 }
 
-const getmatchcard = async function(req, res){
-    const { matchid } = req.params
-    const queryresponse = await queries.matchcard(matchid);
-    console.log(queryresponse)
-    res.status(200).send(queryresponse)
-}
-
-const getteamplayerstats = async function(req, res){
-    const { teamid } = req.params
-    const queryresponse = await queries.teamplayerstats(teamid);
-    console.log(queryresponse)
-    res.status(200).send(queryresponse)
-}
-
 module.exports.getmatchinfo = getmatchinfo;
 module.exports.getteaminfo = getteaminfo;
 module.exports.getteamallmatchinfo = getteamallmatchinfo;
-module.exports.getmatchcard = getmatchcard;
-module.exports.getteamplayerstats = getteamplayerstats;
-
-// module.exports.instrstudgetinfo = instrstudgetinfo;
