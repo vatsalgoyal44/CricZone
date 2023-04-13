@@ -1,12 +1,13 @@
 .matchcard{
-    background-color: rgb(70,75,106);
+    background-color: rgb(252, 253, 256);
     padding: 10px;
     width: 300px;
     border-radius: 10px;
     margin-top: 10px;
 }
 p{
-    color: rgb(252, 253, 256);
+    color: rgb(50, 50, 93);
+    height: min-content;
 }
 
 .tournament{

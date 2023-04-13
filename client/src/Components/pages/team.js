@@ -23,6 +23,10 @@ const Teampage = (props) => {
   }
 
   const matches = [1,2,3,4,5,5,6,7]
+  const mostwickets = [
+    {"data":[{"playerid":"1","player":"X", "value":2}, {"playerid":"2","player":"Y", "value":1}], "heading":"Most Wickets", "col":"Wickets"},
+    {"data":[{"playerid":"1","player":"X", "value":2}, {"playerid":"2","player":"Y", "value":1}], "heading":"Most Runs", "col":"Runs"}
+    ]
 
   const Players = ["Sachin Tendulkar", "MS Dhoni", "Virat Kohli", "Rohit Sharma"]
 
@@ -36,13 +40,13 @@ const Teampage = (props) => {
         <div class = "fixtures">
             <div><h3>Recent Fixtures</h3></div>
             <div className="overflow-x-hidden relative flex items-center">
-                <MdChevronLeft size = {40} onClick={slideLeft} className="opacity-50 cursor-pointer hover:opacity-100"/>
+                <MdChevronLeft size = {40} onClick={slideLeft} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/>
                 <div className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth" id="slider">
                     {matches.map(item=>{
                         return (<div className='inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300'><MatchCard/></div>)
                     })}
                 </div>
-                <MdChevronRight size = {40} onClick={slideRight} className="cursor-pointer hover:opacity-100 ease-in-out duration-300"/></div>
+                <MdChevronRight size = {40} onClick={slideRight} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/></div>
            
             </div>
         <div class = "secondrow">
@@ -57,9 +61,38 @@ const Teampage = (props) => {
                 })}</div>
             </div>
             <div class = "stats">
-                <div><h3>Statistics</h3></div>
+                <div className="stathead"><h3>Statistics</h3></div>
                 <div className="statcards">
-
+                    <div className="mostwickets">
+                    <div><h3>Most Wickets</h3></div>
+                    <table className="wicketstable">
+                        <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>Wickets</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {mostwickets.map(item => {
+                            return (
+                            <tr key={item.playerid}>
+                                <td>{item.player}</td>
+                                <td>{item.wickets}</td>
+                            </tr>
+                            );
+                        })}
+                        </tbody>
+                    </table>
+                    </div>
+                    <div className="mostruns">
+                        
+                    </div>
+                    <div className="highestscore">
+                        
+                    </div>
+                    <div className="bestaverage">
+                        
+                    </div>
                 </div>
             </div>  
         </div>  

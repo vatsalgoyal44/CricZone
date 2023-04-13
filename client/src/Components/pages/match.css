@@ -1,0 +1,44 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;;
+    
+}
+
+.matchpage{
+    padding: 20px;
+    padding-top: 8vh;
+    height: 100vw;
+    width: 100%;
+    background-color: rgb(50, 53, 81);
+    border-radius: 10px;
+    max-width: 100%;
+    overflow-x: hidden;
+
+}
+
+.gridcontainermatch{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+}
+
+.firstcol{
+    display: grid;
+    grid-template-rows: 300px min-content;
+}
+
+.curscore{
+    background-color: rgb(252, 253, 256);
+    margin-top: 20px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 60px 240px;
+    overflow: hidden;
+}
+
+.curscore .info{
+    background-color: #c0b7dc;
+    
+}
