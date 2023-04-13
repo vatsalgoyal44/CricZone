@@ -33,12 +33,60 @@
     background-color: rgb(252, 253, 256);
     margin-top: 20px;
     border-radius: 10px;
-    display: grid;
-    grid-template-rows: 60px 240px;
     overflow: hidden;
 }
 
-.curscore .info{
+.curscore .info, .batter, .baller{
     background-color: #c0b7dc;
-    
+}
+
+.commentarycomp{
+    background-color: rgb(252, 253, 256);
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.comphead{
+    background-color: #c0b7dc;
+}
+
+.scorehead{
+    background-color: #c0b7dc;
+}
+
+.scoreboard{
+        background-color: rgb(252, 253, 256);
+        margin-top: 20px;
+        border-radius: 10px;
+        margin-left: 10px;
+        overflow: hidden;
+}
+
+.scoreboard .nav .active {
+    background-color: #c0b7dc;
+}
+
+.squads{
+    background-color: rgb(252, 253, 256);
+    margin-top: 20px;
+    border-radius: 10px;
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+.squads .nav .active {
+background-color: #c0b7dc;
+}
+
+.battertable{
+    background-color: rgb(252, 253, 256);
+}
+
+.battertable thead th{
+    background-color: #c0b7dc;
+}
+
+.ballertable thead th{
+    background-color: #c0b7dc;
 }
