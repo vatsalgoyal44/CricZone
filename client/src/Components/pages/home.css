@@ -66,7 +66,7 @@
 }
 
 .playercard{
-    background-color: #c0b7dc;
+    background-color: #27293F;
     margin: 5px;
     height: 7vh;
     border-radius: 10px;
@@ -76,7 +76,7 @@
 .playercard a{
     font-size: 20px;    
     padding-left: 20px;
-    color: rgb(50, 50, 93);
+    color: rgb(252, 253, 256);
 }
 
 .players{

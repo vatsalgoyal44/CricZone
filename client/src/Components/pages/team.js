@@ -54,9 +54,11 @@ const Teampage = (props) => {
                 <div><h3>Players</h3></div>
                 <div class="playercards">{Players.map(item => {
                     return (
-                        <div class = "playercard">
+                        <Link to="/player/1">
+                        <div class = "playercard cursor-pointer">
                             <a>{item}</a>
                         </div>
+                        </Link>
                     )
                 })}</div>
             </div>
