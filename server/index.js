@@ -29,6 +29,18 @@ app.get('/teamallmatchinfo/:teamid', async (request, response) => {
   User.getteamallmatchinfo(request, response)
 });
 
+app.get('/allmatchinfo', async (request, response) => {
+  User.getallmatchinfo(request, response)
+});
+
+// app.get('/recordinfo', async (request, response) => {
+//   User.getrecordinfo(request, response)
+// });
+
+app.get('/playerinfo/:playerid', async (request, response) => {
+  User.getplayerinfo(request, response)
+});
+
 app.get('/matchinfo/:matchid',async(request,response) => {
   User.getmatchinfo(request,response)
 });

@@ -23,6 +23,28 @@ const getteamallmatchinfo = async function(req, res){
     res.status(200).send(queryresponse)
 }
 
+const getallmatchinfo = async function(req, res){
+    const queryresponse = await queries.allmatchinfo();
+    console.log(queryresponse)
+    res.status(200).send(queryresponse)
+}
+
+// const getrecordinfo = async function(req, res){
+//     const queryresponse = await queries.recordinfo();
+//     console.log(queryresponse)
+//     res.status(200).send(queryresponse)
+// }
+
+const getplayerinfo = async function(req, res){
+    const { playerid } = req.params
+    const queryresponse = await queries.playerinfo(playerid);
+    console.log(queryresponse)
+    res.status(200).send(queryresponse)
+}
+
 module.exports.getmatchinfo = getmatchinfo;
 module.exports.getteaminfo = getteaminfo;
+// module.exports.getrecordinfo = getrecordinfo;
+module.exports.getplayerinfo = getplayerinfo;
 module.exports.getteamallmatchinfo = getteamallmatchinfo;
+module.exports.getallmatchinfo = getallmatchinfo;

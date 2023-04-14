@@ -35,14 +35,14 @@ const matchinfo = async (matchid) => {
                         //ideally 22 rows
                         //each row contains playerid, teamid, matchid and other details as shown in the schema (separate them teamwise from the frontend)
                         player_deets: res2.rows 
-                    } 
+                    };
                 }else{
                     return {
                         match_deets: null, 
                         team1: null, 
                         team2: null, 
                         player_deets: null
-                    } 
+                    }; 
                 }
             }catch (err) {
                 console.log(err.stack)
@@ -70,7 +70,7 @@ const teaminfo = async (teamid) => {
                 mostwickets: null,
                 highestscore: null,
                 bestbowlavg: null,
-            }        
+            };        
         }
 
         const text1 = 'SELECT * FROM match WHERE team1 = $1 or team2 = $2 order by date DESC limit 3'
@@ -108,7 +108,7 @@ const teaminfo = async (teamid) => {
                                mostwickets: res3.rows,
                                highestscore: res4.rows,
                                bestbowlavg: res5.rows,
-                            }        
+                            };        
    
                         } catch (err) {
                             console.log(err.stack)
@@ -132,7 +132,7 @@ const teaminfo = async (teamid) => {
 }
 
 const teamallmatchinfo = async (teamid) => {
-    const text0 = 'SELECT * FROM match WHERE team1 = $1 or team2 = $2 order by date DESC limit 3'
+    const text0 = 'SELECT * FROM match WHERE team1 = $1 or team2 = $2 order by date DESC'
     const values0 = [teamid,teamid]
 
     try {
@@ -144,6 +144,73 @@ const teamallmatchinfo = async (teamid) => {
 
 }
 
+const playerinfo = async (playerid) => {
+    const text0 = 'SELECT * FROM player WHERE playerid = $1'
+    const values0 = [playerid]
+
+    try {
+        const res0 = await pool.query(text0, values0)
+        const text1 = 'SELECT * FROM player left outer join player_team natural join team WHERE playerid = $1'
+        const values1 = [playerid]
+    
+        try {
+            const res1 = await pool.query(text1, values1)
+            return {
+                playerinfo : res0.rows,
+                playerteaminfo : res1.rows
+            };
+        } catch (err) {
+            console.log(err.stack)
+        }
+    } catch (err) {
+        console.log(err.stack)
+    }
+
+}
+
+
+const allmatchinfo = async () => {
+    const text0 = 'SELECT * FROM match order by date DESC'
+    const values0 = [teamid,teamid]
+
+    try {
+        const res0 = await pool.query(text0, values0)
+        return res0.rows;
+    } catch (err) {
+        console.log(err.stack)
+    }
+
+}
+
+// const recordinfo = async () => {
+//     const text0 = 'SELECT * FROM player WHERE playerid = $1'
+//     const values0 = [playerid]
+
+//     try {
+//         const res0 = await pool.query(text0, values0)
+//         const text1 = 'SELECT * FROM player left outer join player_team natural join team WHERE playerid = $1'
+//         const values1 = [playerid]
+    
+//         try {
+//             const res1 = await pool.query(text1, values1)
+//             return {
+//                 playerinfo : res0.rows,
+//                 playerteaminfo : res1.rows
+//             };
+//         } catch (err) {
+//             console.log(err.stack)
+//         }
+//     } catch (err) {
+//         console.log(err.stack)
+//     }
+
+// }
+
+
+
 module.exports.matchinfo = matchinfo;
 module.exports.teaminfo = teaminfo;
+module.exports.playerinfo = playerinfo;
+// module.exports.recordinfo = recordinfo;
 module.exports.teamallmatchinfo = teamallmatchinfo;
+module.exports.allmatchinfo = allmatchinfo;
