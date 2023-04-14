@@ -1,0 +1,47 @@
+
+.playerpage{
+    padding: 20px;
+    padding-top: 8vh;
+    height: 100vw;
+    width: 100%;
+    background-color: rgb(50, 53, 81);
+    border-radius: 10px;
+    max-width: 100%;
+    overflow-x: hidden;
+
+}
+
+.infotable{
+    background-color: rgb(252, 253, 256);
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.playername{
+    font-size: 80px;
+    font-weight: 600;
+    margin-top: -15px;
+    color: rgb(252, 253, 256);;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.careersum{
+    color: rgb(252, 253, 256);
+    margin-bottom: 10px;
+
+}
+
+.careersumtable{
+    background-color: rgb(252, 253, 256);
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.careersumtable thead th{
+    background-color: #c0b7dc;
+}
+
+.careersumtable thead th{
+    background-color: #c0b7dc;
+}
