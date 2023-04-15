@@ -169,3 +169,13 @@ table tbody tr:last-of-type td:last-child{
     
     border-radius: 0 0 10px 0; 
 } 
+
+.pointtable{
+    background-color: rgb(252, 253, 256);
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.pointtable thead th{
+    background-color: #c0b7dc;
+}
