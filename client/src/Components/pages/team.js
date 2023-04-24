@@ -38,7 +38,7 @@ const Teampage = (props) => {
             <h3 className="teamname">{teamname}</h3>
         </div>
         <div class = "fixtures">
-            <div><h3>Recent Fixtures</h3></div>
+            <div class = "fixtureshead"><h3>Recent Fixtures</h3></div>
             <div className="overflow-x-hidden relative flex items-center">
                 <MdChevronLeft size = {40} onClick={slideLeft} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/>
                 <div className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth" id="slider">

@@ -15,12 +15,29 @@ const MatchCard= (props) => {
   }
   else return (
     <div className="matchcard">
-      <p className="tournament">Tournament Name</p><p className="format">ODI</p>
-      <p className="team">Team 1</p>
-      <p className="score">100-10</p>
-      <p className="team">Team 2</p>
-      <p className="score">10-1</p>
-      <p className="result">Team 1 needs 90 runs to win</p>
+      <div class="flex flex-col">
+        <div class="cardbox1 basis-1/5 bg-pinkcustom ">
+          <h3 class="font-bold">Indian Premier League</h3>
+            <div class="relative flex">
+              <a class="">Date</a>
+              <a class="mx-3">Chennai</a>
+              <a>T20</a>
+            </div>
+        </div>
+        <div className="basis-3/5 flex flex-col h-full">
+          <div class="basis-1/2 relative flex flex-row">
+            <h3 class="basis-3/4 font-bold ml-3 my-2">Chennai Super Kings</h3>
+            <h3 class="basis-1/4 font-bold my-2 text-xl">100/8</h3>
+          </div>
+          <div class="basis-1/2 relative flex flex-row">
+            <h3 class="basis-3/4 font-bold ml-3 my-2">Mumbai Indians*</h3>
+            <h3 class="basis-1/4 font-bold my-2 text-xl">100/8</h3>
+          </div>
+        </div>
+        <div className="basis-1/5">
+          <a class="ml-2 mb-2">Mumbai Indians won by 2 wickets</a>
+        </div>
+      </div>
     </div>
   );
 }
