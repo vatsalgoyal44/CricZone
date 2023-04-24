@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navigate, useNavigate , Link } from 'react-router-dom';
 import ReactLoading from "react-loading";
 import './matchcard.css'
-const MatchCard= (props) => {
+const MatchListCard= (props) => {
 
   const [loading, setLoading] = useState(true)
 
@@ -14,7 +14,7 @@ const MatchCard= (props) => {
     </div>)
   }
   else return (
-    <div className="matchcard">
+    <div className="matchlistcard">
       <div class="flex flex-col">
         <div class="cardbox1 basis-1/5 bg-pinkcustom ">
           <h3 class="font-bold">Indian Premier League</h3>
@@ -22,6 +22,7 @@ const MatchCard= (props) => {
               <a class="">Date</a>
               <a class="mx-3">Chennai</a>
               <a>T20</a>
+              <a class="mx-3">7:30 PM</a>
             </div>
         </div>
         <div className="basis-3/5 flex flex-col h-full">
@@ -42,4 +43,4 @@ const MatchCard= (props) => {
   );
 }
 
-export default MatchCard;
+export default MatchListCard;

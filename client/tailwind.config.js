@@ -4,7 +4,9 @@ module.exports = {
 './src/Components/pages/team.js',"./src/**/*.{html,js}", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
-      'pinkcustom': '#c0b7dc'
+      'pinkcustom': '#c0b7dc',
+      'lightfont':'rgb(252, 253, 256)',
+      'darkbg':'#27293F;'
     },
     extend: {},
   },

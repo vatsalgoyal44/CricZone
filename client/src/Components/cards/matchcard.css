@@ -5,6 +5,15 @@
     margin-top: 10px;
     overflow: hidden;
 }
+
+.matchlistcard{
+    background-color: rgb(252, 253, 256);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    
+}
+
 p{
     color: rgb(50, 50, 93);
     height: min-content;

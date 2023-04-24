@@ -8,6 +8,7 @@ import Navbar from './Components/NavigationBar/navbar';
 import Teampage from './Components/pages/team';
 import Tournamentpage from './Components/pages/tournament';
 import { BrowserRouter, Routes, Switch, Route } from "react-router-dom";
+import MatchListPage from './Components/pages/allmatches';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Homepage />}/>
           <Route exact path="/home" element={<Homepage />}/>
+          <Route exact path="/matches" element={<MatchListPage />}/>
           <Route exact path="/teams/:teamname" element={<Teampage />}/>
           <Route exact path="/match/:matchid" element={<Matchpage />}/>
           <Route exact path="/player/:playerid" element={<Playerpage />}/>
