@@ -2,6 +2,12 @@ const queries         = require('../Services/queries')
 
 // sample, functions in this file are called by index.js
 
+const gethome = async function(req, res){
+    const queryresponse = await queries.homeinfo();
+    console.log(queryresponse)
+    res.status(200).send(queryresponse)
+}
+
 const getmatchinfo = async function(req, res){
     const { matchid } = req.params
     const queryresponse = await queries.matchinfo(matchid);
@@ -54,7 +60,7 @@ const getplayerinfo = async function(req, res){
     console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
-
+module.exports.gethome = gethome;
 module.exports.gettournamentinfo = gettournamentinfo;
 module.exports.getalltournamentinfo = getalltournamentinfo;
 module.exports.getmatchinfo = getmatchinfo;

@@ -11,8 +11,55 @@ const pool = new Pool({
     port: config.port,
 })
 
-// sample:
-// function for getting match specific info (completed match)
+const homeinfo = async () => {
+    const text0 = 'select id,date,venue,tour_name,teamid,result,total_score,total_wickets from match inner join matchwise_team_performance on id=matchid order by date desc,matchid LIMIT 6;'
+    try{
+        const res0 = await pool.query(text0)
+        const text1 = 'SELECT * FROM tournament'
+
+        try{
+            const res1 = await pool.query(text1)
+            const text2 = 'SELECT playerid,player_name,runs,innings,runs/innings as runs_per_innings FROM player where innings>0 and role ilike \'%Batsman%\' order by runs/innings desc;'
+            try{
+                const res2 = await pool.query(text2)
+                const text3 = 'SELECT playerid,player_name,runs_conceded,balls,runs_conceded/balls as per_ball_average FROM player where balls>0 and role ilike \'%Bowler%\' order by runs_conceded/balls;'
+                try{
+                    const res3 = await pool.query(text3)
+                    const text4 = 'SELECT playerid,player_name,wickets,matches,wickets/matches as wickets_per_match FROM player where matches>0 and role ilike \'%Bowler%\' order by wickets/matches desc;'
+                    try{
+                        const res4 = await pool.query(text4)
+                        const text5 = 'SELECT playerid,player_name,runs,wickets,runs+25*wickets as rating FROM player where role ilike \'%All-rounder%\' order by runs+25*wickets desc;'
+                        try{
+                            const res5 = await pool.query(text5)
+                                return {
+                                    recent_matches: res0.rows,
+                                    tours: res1.rows,
+                                    batting: res2.rows,
+                                    wickets: res3.rows,
+                                    bowling: res4.rows,
+                                    allrounders: res5.rows
+                                };
+                        }catch (err) {
+                            console.log(err.stack)
+                        }
+                    }catch (err) {
+                        console.log(err.stack)
+                    }
+                }catch (err) {
+                    console.log(err.stack)
+                }
+            }catch (err) {
+                console.log(err.stack)
+            }
+        }catch (err) {
+            console.log(err.stack)
+        }
+    }catch (err) {
+        console.log(err.stack)
+    }
+}
+
+
 const matchinfo = async (matchid) => {
     const text0 = 'SELECT * FROM match WHERE id = $1'
     const values0 = [matchid]
@@ -163,16 +210,14 @@ const playerinfo = async (playerid) => {
     } catch (err) {
         console.log(err.stack)
     }
-
 }
 
 
 const allmatchinfo = async () => {
-    const text0 = 'SELECT * FROM match order by date DESC'
-    const values0 = [teamid,teamid]
+    const text0 = 'select id,date,venue,tour_name,teamid,result,total_score,total_wickets from match inner join matchwise_team_performance on id=matchid order by date desc;'
 
     try {
-        const res0 = await pool.query(text0, values0)
+        const res0 = await pool.query(text0)
         return res0.rows;
     } catch (err) {
         console.log(err.stack)
@@ -215,32 +260,8 @@ const tournamentinfo = async (tour_name) => {
 
 }
 
-// const recordinfo = async () => {
-//     const text0 = 'SELECT * FROM player WHERE playerid = $1'
-//     const values0 = [playerid]
 
-//     try {
-//         const res0 = await pool.query(text0, values0)
-//         const text1 = 'SELECT * FROM player left outer join player_team natural join team WHERE playerid = $1'
-//         const values1 = [playerid]
-    
-//         try {
-//             const res1 = await pool.query(text1, values1)
-//             return {
-//                 playerinfo : res0.rows,
-//                 playerteaminfo : res1.rows
-//             };
-//         } catch (err) {
-//             console.log(err.stack)
-//         }
-//     } catch (err) {
-//         console.log(err.stack)
-//     }
-
-// }
-
-
-
+module.exports.homeinfo = homeinfo;
 module.exports.tournamentinfo = tournamentinfo;
 module.exports.alltournamentinfo = alltournamentinfo;
 module.exports.matchinfo = matchinfo;
