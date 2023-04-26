@@ -23,6 +23,19 @@ const getteamallmatchinfo = async function(req, res){
     res.status(200).send(queryresponse)
 }
 
+const gettournamentinfo = async function(req, res){
+    const { tour_name } = req.params
+    const queryresponse = await queries.tournamentinfo(tour_name);
+    console.log(queryresponse)
+    res.status(200).send(queryresponse)
+}
+
+const getalltournamentinfo = async function(req, res){
+    const queryresponse = await queries.alltournamentinfo();
+    console.log(queryresponse)
+    res.status(200).send(queryresponse)
+}
+
 const getallmatchinfo = async function(req, res){
     const queryresponse = await queries.allmatchinfo();
     console.log(queryresponse)
@@ -42,6 +55,8 @@ const getplayerinfo = async function(req, res){
     res.status(200).send(queryresponse)
 }
 
+module.exports.gettournamentinfo = gettournamentinfo;
+module.exports.getalltournamentinfo = getalltournamentinfo;
 module.exports.getmatchinfo = getmatchinfo;
 module.exports.getteaminfo = getteaminfo;
 // module.exports.getrecordinfo = getrecordinfo;

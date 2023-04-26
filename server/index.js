@@ -29,6 +29,14 @@ app.get('/teamallmatchinfo/:teamid', async (request, response) => {
   User.getteamallmatchinfo(request, response)
 });
 
+app.get('/alltournament', async (request, response) => {
+  User.getalltournamentinfo(request, response)
+});
+
+app.get('/tournament/:tour_name', async (request, response) => {
+  User.gettournamentinfo(request, response)
+});
+
 app.get('/allmatchinfo', async (request, response) => {
   User.getallmatchinfo(request, response)
 });

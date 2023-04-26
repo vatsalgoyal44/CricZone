@@ -1,7 +1,6 @@
 {
-  "user": "sanyam",
+  "user": "postgres",
   "host": "localhost",
-  "database": "lab4_big",
-  "password": "easy",
+  "database": "criczone",
   "port": "5432"
 }

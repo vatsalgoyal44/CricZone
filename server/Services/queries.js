@@ -78,27 +78,26 @@ const teaminfo = async (teamid) => {
     
         try {
             const res1 = await pool.query(text1, values1)
-            const text2 = 'SELECT playerid,player_name,sum(runs) FROM matchwise_player_performance natural join players WHERE teamid = $1\
-                           group by playerid having sum(runs) >= all(SELECT sum(runs) FROM matchwise_player_performance WHERE teamid = $1 group by playerid) '
+            const text2 = 'SELECT playerid, player_name,sum(matchwise_player_performance.runs)  as total_runs FROM matchwise_player_performance join player using(playerid) WHERE teamid = $1\
+                           group by playerid, player_name having sum(matchwise_player_performance.runs) >= all(SELECT sum(runs) FROM matchwise_player_performance WHERE teamid = $1 group by playerid)'
             const values2 = [teamid]
 
             try {
                 const res2 = await pool.query(text2, values2)
-                const text3 = 'SELECT playerid,player_name,sum(wickets) FROM matchwise_player_performance natural join players WHERE teamid = $1\
-                               group by playerid having sum(wickets) >= all(SELECT sum(wickets) FROM matchwise_player_performance WHERE teamid = $1 group by playerid) '
+                const text3 = 'SELECT playerid,player_name,sum(matchwise_player_performance.wickets) as total_wickets FROM matchwise_player_performance join player using(playerid) WHERE teamid = $1\
+                               group by playerid,player_name having sum(matchwise_player_performance.wickets) >= all(SELECT sum(wickets) FROM matchwise_player_performance WHERE teamid = $1 group by playerid) '
                 const values3 = [teamid]
                
                 try {
                     const res3 = await pool.query(text3, values3)
-                    const text4 = 'SELECT playerid, player_name, runs FROM matchwise_player_performance natural join players WHERE teamid = $1\
-                                   and runs = max(runs)'
+                    const text4 = 'SELECT playerid, player_name, matchwise_player_performance.runs FROM matchwise_player_performance join player using(playerid) WHERE teamid = $1\
+                                   and matchwise_player_performance.runs >= all (select runs from matchwise_player_performance where teamid = $1)'
                     const values4 = [teamid]
    
                     try {
                         const res4 = await pool.query(text4, values4)
-                        const text5 = 'SELECT playerid, player_name, runs_given/wickets*1.0 FROM matchwise_player_performance natural join players WHERE teamid = $1\
-                                       and runs_given/wickets*1.0 = min(runs_given/wickets*1.0) '
-                        const values5 = [teamid]                
+                        const text5 = 'SELECT playerid, player_name FROM player_team join player using(playerid) WHERE teamid = $1'
+                        const values5 = [teamid]
                         try {
                             const res5 = await pool.query(text5, values5)
                             return {
@@ -107,9 +106,8 @@ const teaminfo = async (teamid) => {
                                mostruns: res2.rows,
                                mostwickets: res3.rows,
                                highestscore: res4.rows,
-                               bestbowlavg: res5.rows,
+                               players: res5.rows,
                             };        
-   
                         } catch (err) {
                             console.log(err.stack)
                         }
@@ -150,7 +148,7 @@ const playerinfo = async (playerid) => {
 
     try {
         const res0 = await pool.query(text0, values0)
-        const text1 = 'SELECT * FROM player left outer join player_team natural join team WHERE playerid = $1'
+        const text1 = 'SELECT * FROM player_team natural join team WHERE playerid = $1'
         const values1 = [playerid]
     
         try {
@@ -176,6 +174,41 @@ const allmatchinfo = async () => {
     try {
         const res0 = await pool.query(text0, values0)
         return res0.rows;
+    } catch (err) {
+        console.log(err.stack)
+    }
+
+}
+
+const alltournamentinfo = async () => {
+    const text0 = 'SELECT * FROM tournament'
+    try {
+        const res0 = await pool.query(text0)
+        return res0.rows;
+    } catch (err) {
+        console.log(err.stack)
+    }
+
+}
+
+const tournamentinfo = async (tour_name) => {
+    const text0 = 'SELECT * FROM tour_team where tour_name = $1'
+    const values0 = [tour_name]
+
+    try {
+        const res0 = await pool.query(text0, values0)
+        const text1 = 'SELECT * FROM match where tour_name = $1 order by date DESC'
+        const values1 = [tour_name]
+    
+        try {
+            const res1 = await pool.query(text1, values1)
+            return {
+                teams: res0.rows,
+                matches: res1.rows,
+            };
+        } catch (err) {
+            console.log(err.stack)
+        }
     } catch (err) {
         console.log(err.stack)
     }
@@ -208,6 +241,8 @@ const allmatchinfo = async () => {
 
 
 
+module.exports.tournamentinfo = tournamentinfo;
+module.exports.alltournamentinfo = alltournamentinfo;
 module.exports.matchinfo = matchinfo;
 module.exports.teaminfo = teaminfo;
 module.exports.playerinfo = playerinfo;
