@@ -37,6 +37,10 @@ app.get('/alltournament', async (request, response) => {
   User.getalltournamentinfo(request, response)
 });
 
+app.get('/allteam', async (request, response) => {
+  User.getallteaminfo(request, response)
+});
+
 app.get('/tournament/:tour_name', async (request, response) => {
   User.gettournamentinfo(request, response)
 });

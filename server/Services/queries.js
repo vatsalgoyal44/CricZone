@@ -236,6 +236,16 @@ const alltournamentinfo = async () => {
 
 }
 
+const allteaminfo = async() => {
+    const text0 = 'SELECT * FROM team'
+    try {
+        const res0 = await pool.query(text0)
+        return res0.rows;
+    } catch (err) {
+        console.log(err.stack)
+    }
+}
+
 const tournamentinfo = async (tour_name) => {
     const text0 = 'SELECT * FROM tour_team where tour_name = $1'
     const values0 = [tour_name]
@@ -270,3 +280,4 @@ module.exports.playerinfo = playerinfo;
 // module.exports.recordinfo = recordinfo;
 module.exports.teamallmatchinfo = teamallmatchinfo;
 module.exports.allmatchinfo = allmatchinfo;
+module.exports.allteaminfo = allteaminfo;

@@ -4,16 +4,38 @@ import ReactLoading from "react-loading";
 import './home.css'
 import MatchCard from "../cards/matchcard";
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
+import {getalltournament} from '../data/data' 
 
 
 const Homepage= (props) => {
 
   const [loading, setLoading] = useState(true)
+  const [res, setRes] = useState('')
+  const [tournaments, setTournaments] = useState('')
   const slideLeft = () => {
     var slider = document.getElementById("slider")
     slider.scrollLeft = slider.scrollLeft - 500
   }
   const [activeTab, setActiveTab] = useState("tab1");
+
+  const fetchdata = ()=>{
+    getalltournament().then((res)=>{
+      console.log(res.data)
+      setTournaments(res.data);
+      
+      setLoading(false)
+      if(res.status != 200){
+        setLoading(true)
+      }
+    }).catch(()=>{
+      console.log(res.status)
+      setLoading(true)
+    })
+  }
+
+  useEffect(() => {
+    fetchdata()
+  }, [])
 
   const handleTab1 = () => {
     // update the state to tab1
@@ -37,7 +59,7 @@ const Homepage= (props) => {
   }
   const matches = [1,2,3,4,5,5,6,7]
 
-  if (!loading){
+  if (loading){
     return(
     <div>
       <ReactLoading type="bubbles" color="#263238" className="loading"
@@ -58,8 +80,17 @@ const Homepage= (props) => {
                 <MdChevronRight size = {40} onClick={slideRight} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/></div>
             </div>
             
-      <div className="tournaments mt-8">
         <div class = "fixtureshead"><h3 class=" font-bold">Series</h3></div>
+        <div class="series flex flex-col w-full">
+        <div class="seriescards">{tournaments.map(item => {
+                    return (
+                        <Link to={`/tournament/${item.tour_name}`}>
+                        <div class = "playercard cursor-pointer">
+                            <a>{item.tour_name}</a>
+                        </div>
+                        </Link>
+                    )
+                })}</div>
       </div>
 
       <div class = "rankings mt-8">

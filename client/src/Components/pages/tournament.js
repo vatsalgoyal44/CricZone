@@ -4,13 +4,35 @@ import ReactLoading from "react-loading";
 import './home.css'
 import MatchCard from "../cards/matchcard";
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
+import { gettournamentinfo } from "../data/data";
 
 
 const Tournamentpage = (props) => {
 
   const [loading, setLoading] = useState(true)
+  const [tournamentinfo, setInfo] = useState()
+  const [matchinfo, setMatch] = useState()
+ 
+  let { tourid } = useParams();
+  const fetchdata = ()=>{
+    gettournamentinfo(tourid).then((res)=>{
+      console.log(res.data)
+      setInfo(res.data);
+      setMatch(res.data.matches);
+      setLoading(false);
+      console.log(loading);
+      if(res.status != 200){
+        setLoading(true)
+      }
+    }).catch(()=>{
+    //   console.log(res.status)
+    //   setLoading(true)
+    })
+  }
 
-  let { teamname } = useParams();
+  useEffect(() => {
+    fetchdata()
+  }, [])
 
   const slideLeft = () => {
     var slider = document.getElementById("slider")
@@ -22,28 +44,34 @@ const Tournamentpage = (props) => {
     slider.scrollLeft = slider.scrollLeft + 500
   }
 
-  const matches = [1,2,3,4,5,5,6,7]
+
   const mostwickets = [
     {"data":[{"playerid":"1","player":"X", "value":2}, {"playerid":"2","player":"Y", "value":1}], "heading":"Most Wickets", "col":"Wickets"},
     {"data":[{"playerid":"1","player":"X", "value":2}, {"playerid":"2","player":"Y", "value":1}], "heading":"Most Runs", "col":"Runs"}
     ]
 
   const Players = ["Sachin Tendulkar", "MS Dhoni", "Virat Kohli", "Rohit Sharma"]
-
-  if (true){
+  if (loading){
+    return(
+    <div>
+      <ReactLoading type="bubbles" color="#263238" className="loading"
+        height={500} width={250} />
+    </div>)
+  }
+  else{
     return(
     <div class = "teampage">
     <div class = "gridcontainer">
         <div class = "team">
-            <h3 className="teamname">ICC World Cup 2023</h3>
+            <h3 className="teamname">{tourid}</h3>
         </div>
         <div class = "fixtures">
-            <div><h3>Recent Fixtures</h3></div>
+            <div><h3 className="head">Recent Fixtures</h3></div>
             <div className="overflow-x-hidden relative flex items-center">
                 <MdChevronLeft size = {40} onClick={slideLeft} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/>
                 <div className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth" id="slider">
-                    {matches.map(item=>{
-                        return (<div className='inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300'><Link to="/match/1"><MatchCard/></Link></div>)
+                    {matchinfo.map(item=>{
+                        return (<div className='inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300'><Link to="/match/1"><MatchCard date = {item.date.substring(0,item.date.indexOf("T"))} team1 = {item.team1} team2 = {item.team2} location = {item.venue} tourid = {item.tour_name} matchid = {item.id}/></Link></div>)
                     })}
                 </div>
                 <MdChevronRight size = {40} onClick={slideRight} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/></div>
@@ -87,7 +115,7 @@ const Tournamentpage = (props) => {
                     </table>
                        
             </div>
-            <div class = "stats">
+            {/* <div class = "stats">
                 <div className="stathead"><h3>Statistics</h3></div>
                 <div className="statcards">
                     <div className="mostwickets">
@@ -121,7 +149,7 @@ const Tournamentpage = (props) => {
                         
                     </div>
                 </div>
-            </div>  
+            </div>   */}
         </div>  
     </div>
     </div>

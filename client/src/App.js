@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<Homepage />}/>
           <Route exact path="/home" element={<Homepage />}/>
           <Route exact path="/matches" element={<MatchListPage />}/>
-          <Route exact path="/teams/:teamname" element={<Teampage />}/>
+          <Route exact path="/teams/:teamid" element={<Teampage />}/>
           <Route exact path="/match/:matchid" element={<Matchpage />}/>
           <Route exact path="/player/:playerid" element={<Playerpage />}/>
           <Route exact path="/tournament/:tourid" element={<Tournamentpage/>}/>
