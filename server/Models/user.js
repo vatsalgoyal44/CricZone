@@ -75,3 +75,4 @@ module.exports.getteaminfo = getteaminfo;
 module.exports.getplayerinfo = getplayerinfo;
 module.exports.getteamallmatchinfo = getteamallmatchinfo;
 module.exports.getallteaminfo = getallteaminfo;
+module.exports.getallmatchinfo = getallmatchinfo;
