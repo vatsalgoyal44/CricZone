@@ -1,0 +1,17 @@
+playerid,player_name,role,batting_style,bowling_style
+NZL001,Kane Williamson,Batsman,Right-handed,Right-arm offbreak
+NZL002,Ross Taylor,Batsman,Right-handed,Part-time offbreak
+NZL003,Tom Latham,WK-Batsman,Left-handed,Occasional offbreak
+NZL004,Henry Nicholls,Batsman,Left-handed,Right-arm medium
+NZL005,Devon Conway,Batsman,Left-handed,Right-arm medium
+NZL006,Colin de Grandhomme,All-rounder,Right-handed,Right-arm medium-fast
+NZL007,Daryl Mitchell,All-rounder,Right-handed,Right-arm medium
+NZL008,Mitchell Santner,All-rounder,Left-handed,Slow left-arm orthodox
+NZL009,Ish Sodhi,Bowler,Right-handed,Legbreak googly
+NZL010,Tim Southee,Bowler,Right-handed,Right-arm medium-fast
+NZL011,Trent Boult,Bowler,Left-handed,Left-arm fast-medium
+NZL012,Neil Wagner,Bowler,Left-handed,Left-arm fast-medium
+NZL013,Lockie Ferguson,Bowler,Right-handed,Right-arm fast
+NZL014,Matt Henry,Bowler,Right-handed,Right-arm fast-medium
+NZL015,Ajaz Patel,Bowler,Right-handed,Slow left-arm orthodox
+NZL016,Kyle Jamieson,All-rounder,Right-handed,Right-arm fast-medium

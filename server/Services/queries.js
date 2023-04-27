@@ -73,23 +73,29 @@ const matchinfo = async (matchid) => {
             const values2 = [matchid]
             try{
                 const res2 = await pool.query(text2, values2)
-                if(res0.rows.length>0 && res1.rows.length>=2){
-                    return {
-                        match_deets: res0.rows, //one row contains id,date,venue,tour_name,team1(id),team2(id),year
-                        //2rows. each row contains teamid, matchid, result (winner/loser/draw), total_score (of the team), total_wickets (taken by the team)
-                        team1: res1.rows[0], 
-                        team2: res1.rows[1], 
-                        //ideally 22 rows
-                        //each row contains playerid, teamid, matchid and other details as shown in the schema (separate them teamwise from the frontend)
-                        player_deets: res2.rows 
-                    };
-                }else{
-                    return {
-                        match_deets: null, 
-                        team1: null, 
-                        team2: null, 
-                        player_deets: null
-                    }; 
+                const text3 = 'SELECT * FROM commentary WHERE matchid = $1 order by over,ball desc'
+                const values3 = [matchid]
+                try{
+                    const res3 = await pool.query(text3, values3)
+                    if(res0.rows.length>0 && res1.rows.length>=2){
+                        return {
+                            match_deets: res0.rows, 
+                            team1: res1.rows[0], 
+                            team2: res1.rows[1], 
+                            player_deets: res2.rows,
+                            commentary: res3.rows,
+                        };
+                    }else{
+                        return {
+                            match_deets: null, 
+                            team1: null, 
+                            team2: null, 
+                            player_deets: null,
+                            commentary: null,
+                        }; 
+                    }
+                }catch (err) {
+                    console.log(err.stack)
                 }
             }catch (err) {
                 console.log(err.stack)

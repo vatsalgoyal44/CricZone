@@ -1,0 +1,11 @@
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('46852','2023-04-27','Chinnaswami','Asia Cup 2023','IND','BAN','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('70685','2023-04-27','Wankhede','Asia Cup 2023','IND','AFG','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('34912','2023-04-27','Chepauk','ICC ODI Worldcup 2023','IND','AFG','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('74377','2023-04-27','Chepauk','ICC ODI Worldcup 2023','AUS','AFG','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('90260','2023-04-27','Wankhede','ICC ODI Worldcup 2023','AUS','ENG','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('52761','2023-04-27','Wankhede','ICC ODI Worldcup 2023','IND','ENG','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('31315','2023-04-27','Wankhede','ICC ODI Worldcup 2023','IND','NZL','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('15016','2023-04-27','Wankhede','ICC T20 Worldcup 2021','IND','NZL','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('42767','2023-04-27','Chepauk','ICC T20 Worldcup 2021','IND','AUS','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('33886','2023-04-27','Chepauk','ICC T20 Worldcup 2021','AFG','AUS','2023');
+INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES ('55651','2023-04-27','Chepauk','ICC T20 Worldcup 2021','AFG','NZL','2023');

@@ -1,0 +1,17 @@
+playerid,player_name,role,batting_style,bowling_style
+BAN001,Tamim Iqbal,Batsman,Left-handed,Right-arm offspin
+BAN002,Mominul Haque,Batsman,Left-handed,Right-arm offspin
+BAN003,Mushfiqur Rahim,WK-Batsman,Right-handed,Legbreak
+BAN004,Mahmudullah,All-rounder,Right-handed,Right-arm offspin
+BAN005,Mohammad Mithun,Batsman,Right-handed,Right-arm offspin
+BAN006,Sabbir Rahman,Batsman,Right-handed,Right-arm legbreak
+BAN007,Mosaddek Hossain,All-rounder,Right-handed,Right-arm offspin
+BAN008,Shakib Al Hasan,All-rounder,Left-handed,Left-arm spin
+BAN009,Mahedi Hasan,Bowler,Right-handed,Right-arm offspin
+BAN010,Mehidy Hasan,Bowler,Right-handed,Right-arm offspin
+BAN011,Mustafizur Rahman,Bowler,Left-handed,Left-arm fast medium
+BAN012,Taskin Ahmed,Bowler,Right-handed,Right-arm fast medium
+BAN013,Rubel Hossain,Bowler,Right-handed,Right-arm fast medium
+BAN014,Shoriful Islam,Bowler,Left-handed,Left-arm fast medium
+BAN015,Nasum Ahmed,Bowler,Left-handed,Left-arm spin
+BAN016,Mohammad Saifuddin,All-rounder,Right-handed,Right-arm fast medium

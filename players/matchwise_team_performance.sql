@@ -1,0 +1,12 @@
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('AUS','82759','win','262','7');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('AFG','82759','lost','126','10');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('AUS','77235','win','249','8');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('BAN','77235','lost','193','10');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('ENG','60413','win','198','10');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('BAN','60413','lost','178','10');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('ENG','68795','lost','166','10');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('IND','68795','win','233','10');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('NZL','52996','win','211','10');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('IND','52996','lost','157','10');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('NZL','54848','lost','100','10');
+INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES ('AFG','54848','win','239','9');

@@ -1,0 +1,16 @@
+playerid,player_name,role,batting_style,bowling_style
+ENG001,Joe Root,Batsman,Right-handed,Offbreak
+ENG002,Eoin Morgan,All-rounder,Left-handed,Right Arm Medium
+ENG003,Jofra Archer,Bowler,Right-handed,Right Arm Fast
+ENG004,Stuart Broad,Bowler,Left-handed,Right Arm Fast Medium
+ENG005,Jonny Bairstow,WK-Batsman,Right-handed,Right Arm Medium
+ENG006,Ben Stokes,All-rounder,Left-handed,Right Arm Fast Medium
+ENG007,James Anderson,Bowler,Left-handed,Right Arm Fast Medium
+ENG008,Moeen Ali,All-rounder,Left-handed,Right Arm Offspin
+ENG009,Mark Wood,Bowler,Right-handed,Right Arm Fast
+ENG010,Adil Rashid,Bowler,Right-handed,Legbreak
+ENG011,Jason Roy,Batsman,Right-handed,Right Arm Bowler
+ENG012,Chris Woakes,All-rounder,Right-handed,Right Arm Fast Medium
+ENG013,Chris Jordan,Bowler,Right-handed,Right Arm Fast Medium
+ENG014,Sam Billings,WK-Batsman,Right-handed,Right Arm Offspin
+ENG015,David Willey,All-rounder,Left-handed,Left Arm Fast Medium

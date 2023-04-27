@@ -1,0 +1,15 @@
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC ODI Worldcup 2023','AFG');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC ODI Worldcup 2023','AUS');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC ODI Worldcup 2023','BAN');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC ODI Worldcup 2023','ENG');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC ODI Worldcup 2023','IND');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC ODI Worldcup 2023','NZL');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC T20 Worldcup 2021','AFG');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC T20 Worldcup 2021','AUS');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC T20 Worldcup 2021','BAN');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC T20 Worldcup 2021','ENG');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC T20 Worldcup 2021','IND');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('ICC T20 Worldcup 2021','NZL');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('Asia Cup 2023','AFG');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('Asia Cup 2023','BAN');
+INSERT INTO tour_team (tour_name,teamid) VALUES ('Asia Cup 2023','IND'); 

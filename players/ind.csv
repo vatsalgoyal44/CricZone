@@ -1,0 +1,17 @@
+playerid,player_name,role,batting_style,bowling_style
+IND001,Virat Kohli,Batsman,Right-handed,Right Arm Medium
+IND002,Rohit Sharma,Batsman,Right-handed,Right Arm Offbreak
+IND003,Shikhar Dhawan,Batsman,Left-handed,Right Arm Offbreak
+IND004,KL Rahul,Batsman,Right-handed,Right Arm Medium
+IND005,Prithvi Shaw,Batsman,Right-handed,Right Arm Offbreak
+IND006,Mayank Agarwal,Batsman,Right-handed,Right Arm Offbreak
+IND007,Suryakumar Yadav,Batsman,Right-handed,Right Arm Medium
+IND008,Ishan Kishan,WK-Batsman,Left-handed,Right Arm Medium
+IND009,Hardik Pandya,All-rounder,Right-handed,Right Arm Medium
+IND010,Ravindra Jadeja,All-rounder,Left-handed,Left Arm Orthodox
+IND011,Krunal Pandya,All-rounder,Left-handed,Left Arm Orthodox
+IND012,Yuzvendra Chahal,Bowler,Right-handed,Legbreak
+IND013,Kuldeep Yadav,Bowler,Left-handed,Left Arm Chinaman
+IND014,Shardul Thakur,Bowler,Right-handed,Right Arm Medium
+IND015,Bhuvneshwar Kumar,Bowler,Right-handed,Right Arm Medium
+IND016,Navdeep Saini,Bowler,Right-handed,Right Arm Fast

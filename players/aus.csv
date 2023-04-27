@@ -1,0 +1,17 @@
+playerid,player_name,role,batting_style,bowling_style
+AUS001,Steve Smith,Batsman,Right-handed,Legbreak
+AUS002,Aaron Finch,Batsman,Right-handed,Slow left-arm orthodox
+AUS003,Glenn Maxwell,All-rounder,Right-handed,Right-arm off-spin
+AUS004,Marcus Stoinis,All-rounder,Right-handed,Right-arm medium-fast
+AUS005,Alex Carey,WK-Batsman,Left-handed,Legbreak
+AUS006,Ashton Agar,Bowler,Left-handed,Slow left-arm orthodox
+AUS007,Jhye Richardson,Bowler,Right-handed,Right-arm fast
+AUS008,Adam Zampa,Bowler,Right-handed,Right-arm legbreak
+AUS009,Kane Richardson,Bowler,Right-handed,Right-arm fast-medium
+AUS010,Pat Cummins,Bowler,Right-handed,Right-arm fast
+AUS011,Josh Hazlewood,Bowler,Right-handed,Right-arm fast-medium
+AUS012,Mitchell Starc,Bowler,Left-handed,Left-arm fast
+AUS013,David Warner,Batsman,Left-handed,Legbreak
+AUS014,Usman Khawaja,Batsman,Left-handed,Slow left-arm orthodox
+AUS015,Mitchell Marsh,All-rounder,Right-handed,Right-arm fast-medium
+AUS016,Matthew Wade,WK-Batsman,Left-handed,Right-arm medium

@@ -1,0 +1,17 @@
+playerid,player_name,role,batting_style,bowling_style
+AFG001,Mohammad Shahzad,WK-Batsman,Right-handed,Legbreak
+AFG002,Rahmat Shah,Batsman,Right-handed,Legbreak
+AFG003,Asghar Afghan,Middle-order batsman,Right-handed,Legbreak
+AFG004,Najibullah Zadran,Middle-order batsman,Left-handed,Slow left-arm orthodox
+AFG005,Gulbadin Naib,All-rounder,Right-handed,Right-arm medium-fast
+AFG006,Mohammad Nabi,All-rounder,Right-handed,Offbreak
+AFG007,Rashid Khan,Bowler,Right-handed,Legbreak googly
+AFG008,Dawlat Zadran,Bowler,Right-handed,Right-arm fast-medium
+AFG009,Mujeeb Ur Rahman,Bowler,Right-handed,Offbreak
+AFG010,Shapoor Zadran,Bowler,Left-handed,Left-arm fast-medium
+AFG011,Hamid Hassan,Bowler,Right-handed,Right-arm fast-medium
+AFG012,Hashmatullah Shahidi,Batsman,Left-handed,Slow left-arm orthodox
+AFG013,Ikram Ali Khil,WK-Batsman,Right-handed,Offbreak
+AFG014,Rahmanullah Gurbaz,WK-Batsman,Right-handed,Offbreak
+AFG015,Naveen-ul-Haq,Bowler,Right-handed,Right-arm medium-fast
+AFG016,Hasan Afghan,Batsman,Right-handed,Slow left-arm orthodox
