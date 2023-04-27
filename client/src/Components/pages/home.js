@@ -4,7 +4,7 @@ import ReactLoading from "react-loading";
 import './home.css'
 import MatchCard from "../cards/matchcard";
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
-import {getalltournament} from '../data/data' 
+import {getalltournament, getallmatch, gethome} from '../data/data' 
 
 
 const Homepage= (props) => {
@@ -12,18 +12,22 @@ const Homepage= (props) => {
   const [loading, setLoading] = useState(true)
   const [res, setRes] = useState('')
   const [tournaments, setTournaments] = useState('')
+  const [matches, setMatch] = useState('')
   const slideLeft = () => {
     var slider = document.getElementById("slider")
     slider.scrollLeft = slider.scrollLeft - 500
   }
   const [activeTab, setActiveTab] = useState("tab1");
+  const [batting, setBat] = useState('')
+  const [wickets, setWick] = useState('')
 
   const fetchdata = ()=>{
-    getalltournament().then((res)=>{
-      console.log(res.data)
-      setTournaments(res.data);
+    gethome().then((res)=>{
+      console.log(res.data);
+      setTournaments(res.data.tours);
+      setMatch(res.data.recent_matches);
+      setLoading(false);
       
-      setLoading(false)
       if(res.status != 200){
         setLoading(true)
       }
@@ -57,7 +61,6 @@ const Homepage= (props) => {
     var slider = document.getElementById("slider")
     slider.scrollLeft = slider.scrollLeft + 500
   }
-  const matches = [1,2,3,4,5,5,6,7]
 
   if (loading){
     return(
@@ -73,9 +76,9 @@ const Homepage= (props) => {
             <div className="overflow-x-hidden relative flex items-center">
                 <MdChevronLeft size = {40} onClick={slideLeft} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/>
                 <div className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth" id="slider">
-                    {matches.map(item=>{
+                    {/* {matches.map(item=>{
                         return (<div className='inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300'><Link to="/match/1"><MatchCard/></Link></div>)
-                    })}
+                    })} */}
                 </div>
                 <MdChevronRight size = {40} onClick={slideRight} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/></div>
             </div>

@@ -1,14 +1,85 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate , Link } from 'react-router-dom';
+import React, { useState, useEffect  } from "react";
+import { Navigate, useNavigate , Link, useParams } from 'react-router-dom';
 import ReactLoading from "react-loading";
 import './match.css'
-import MatchCard from "../cards/matchcard";
+import {getmatchinfo, getallteam} from '../data/data' 
 
 const Matchpage= (props) => {
 
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("tab1");
   const [activeTab2, setActiveTab2] = useState("tab1");
+
+  const [res, setRes] = useState('')
+  const [matchinfo, setMatchinfo] = useState();
+
+  const [finalres, setFinalres] = useState();
+
+  const [teaminfo, setTeaminfo] = useState();
+
+  let { matchid } = useParams();
+
+  const fetchdata = ()=>{
+    getmatchinfo(matchid).then((res)=>{
+      console.log(res.data);
+      setMatchinfo(res.data);
+      if(res.status != 200){
+        setLoading(true);
+      }
+    }).catch((res)=>{
+      console.log(res);
+      setLoading(true);
+    });
+    
+    getallteam().then((res)=>{
+        console.log(res.data);
+        setTeaminfo(res.data);
+        }).catch(()=>{
+            console.log(res);
+        setLoading(true);
+        })
+  }
+
+  useEffect(() => {
+    fetchdata();
+  }, []);
+
+  useEffect(() =>{
+    console.log(matchinfo);
+    if(matchinfo){
+        if(matchinfo.match_deets && teaminfo){
+            setLoading(false);
+        }
+        getfinalres();
+    }
+  },[matchinfo]);
+
+  useEffect(()=>{
+    if(matchinfo && teaminfo && matchinfo.match_deets){
+        setLoading(false);
+    }
+  }, [matchinfo, teaminfo])
+
+  const getfinalres = ()=>{
+    console.log(matchinfo);
+    const scoreteam1 = matchinfo.team1.total_score;
+    const wicteam1 = matchinfo.team1.total_wickets;
+    const scoreteam2 = matchinfo.team2.total_score;
+    const wicteam2 = matchinfo.team2.total_wickets;
+
+    if(matchinfo.team1.result == "win"){
+        const result = `${matchinfo.team1.teamid} won by ${scoreteam1-scoreteam2} runs`;
+        setFinalres(result) 
+    }
+    else{
+        const result = `${matchinfo.team2.teamid} won by ${10-wicteam2} wickets`;
+        setFinalres(result) 
+    }
+  }
+
+ 
+
+
 
   const handleTab1 = () => {
     // update the state to tab1
@@ -28,18 +99,18 @@ const Matchpage= (props) => {
     setActiveTab2("tab2");
   };
 
-  if (true){
+  if (!loading){
     return(
     <div class = "matchpage">
     <div class = "gridcontainermatch">
         <div class = "firstcol">
         <div class = "curscore flex flex-col">
             <div class = "info basis-1/5 border-b-2 border-violet-950">
-                    <h3 class="font-bold mx-3 my-1 text-lg">Indian Premier League</h3>
+                    <h3 class="font-bold mx-3 my-1 text-lg">{matchinfo.match_deets[0].tour_name}</h3>
                     <div class="relative flex">
-                        <a class="mx-3">Date</a>
-                        <a>Chennai</a>
-                        <a class="mx-3">T20</a>
+                        <a class="mx-3">{matchinfo.match_deets[0].date.substring(0, matchinfo.match_deets[0].date.indexOf("T"))}</a>
+                        <a>{matchinfo.match_deets[0].venue}</a>
+                        <a class="mx-3">ODI</a>
                     </div>
                 </div>
             <div class = "status basis-4/5">
@@ -48,14 +119,15 @@ const Matchpage= (props) => {
                     <h3 class="font-bold mx-3 my-1 text-xl">Live</h3>
                     <div class="flex flex-col">
                         <div class="basis-1/2 relative flex flex-row">
-                            <h3 class="basis-3/4 font-bold ml-10 my-5 text-xl">Chennai Super Kings</h3>
-                            <h3 class="basis-1/4 font-bold my-5 text-xl">100/8</h3>
+                            <h3 class="basis-3/4 font-bold ml-10 my-5 text-xl">{teaminfo.find(t => t.teamid === matchinfo.match_deets[0].team1).team_name}</h3>
+                            <h3 class="basis-1/4 font-bold my-5 text-xl">{matchinfo.team1.total_score}/{matchinfo.team1.total_wickets}</h3>
                         </div>
                         <div class="basis-1/2 relative flex flex-row">
-                            <h3 class="basis-3/4 font-bold ml-10 my-5 text-xl">Mumbai Indians*</h3>
-                            <h3 class="basis-1/4 font-bold my-5 text-xl">100/8</h3>
+                            <h3 class="basis-3/4 font-bold ml-10 my-5 text-xl">{teaminfo.find(t => t.teamid === matchinfo.match_deets[0].team2).team_name}</h3>
+                            <h3 class="basis-1/4 font-bold my-5 text-xl">{matchinfo.team2.total_score}/{matchinfo.team2.total_wickets}</h3>
                         </div>
                     </div>
+                    <h3 class="mx-3 my-1 text-xl">{finalres}</h3>
                 </div>
                 <div class="basis-2/5 flex flex-col h-full">
                     <div class="basis-3/5">
