@@ -288,7 +288,17 @@ const tournamentpointstable = async (tour_name) => {
 
     try {
         const res0 = await pool.query(text0, values0)
-        return res0.rows;
+        const text1 = 'SELECT teamid,team_name FROM tour_team join team using(teamid) where tour_name = $1'
+        const values1 = [tour_name]
+        try {
+            const res1 = await pool.query(text1, values1)            
+            return {
+                teams:res1.rows,
+                table:res0.rows,
+            };
+        } catch (err) {
+            console.log(err.stack)
+        }
     } catch (err) {
         console.log(err.stack)
     }
