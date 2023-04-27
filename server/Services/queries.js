@@ -267,13 +267,33 @@ const tournamentinfo = async (tour_name) => {
     } catch (err) {
         console.log(err.stack)
     }
-
 }
+
+const tournamentpointstable = async (tour_name) => {
+    const text0 = 'select * from (SELECT matchwise_team_performance.teamid, count(*) as wins FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
+                   where tour_name = $1 and result = \'win\' group by matchwise_team_performance.teamid) as A\
+                    full outer join \
+                   (SELECT matchwise_team_performance.teamid, count(*) as losses FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
+                        where tour_name = $1 and result = \'lost\' group by matchwise_team_performance.teamid) as B using(teamid)\
+                    full outer join \
+                    (SELECT matchwise_team_performance.teamid, count(*) as matches FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
+                            where tour_name = $1 group by matchwise_team_performance.teamid) as C using(teamid)'
+    const values0 = [tour_name]
+
+    try {
+        const res0 = await pool.query(text0, values0)
+        return res0.rows;
+    } catch (err) {
+        console.log(err.stack)
+    }
+}
+
 
 
 module.exports.homeinfo = homeinfo;
 module.exports.tournamentinfo = tournamentinfo;
 module.exports.alltournamentinfo = alltournamentinfo;
+module.exports.tournamentpointstable = tournamentpointstable;
 module.exports.matchinfo = matchinfo;
 module.exports.teaminfo = teaminfo;
 module.exports.playerinfo = playerinfo;

@@ -45,6 +45,10 @@ app.get('/tournament/:tour_name', async (request, response) => {
   User.gettournamentinfo(request, response)
 });
 
+app.get('/tournamentpointstable/:tour_name', async (request, response) => {
+  User.gettournamentpointstable(request, response)
+});
+
 app.get('/allmatchinfo', async (request, response) => {
   User.getallmatchinfo(request, response)
 });
