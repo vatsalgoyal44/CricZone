@@ -221,7 +221,7 @@ const playerinfo = async (playerid) => {
                 const text3 =   'with fw(w5) as (select count(*) from matchwise_player_performance where wickets>=5 and playerid=$1),\
                                 tw(w10) as (select count(*) from matchwise_player_performance where wickets>=10 and playerid=$1),\
                                 num_innings(num) as (select count(*) from matchwise_player_performance where overs>0 and playerid=$1)\
-                                SELECT count(*) as matches,num as inns, sum(overs) as overs, sum(runs_conceded) as runs, sum(wickets) as wicks, sum(runs)/sum(overs) as eco, 6*sum(overs)/sum(wickets) as avg, sum(runs)/sum(wickets) as sr, sum(w5) as fives, sum(w10) as tens\
+                                SELECT count(*) as matches,num as inns, sum(overs) as overs, sum(runs_conceded) as runs, sum(wickets) as wicks, sum(runs_conceded)/sum(overs) as eco, 6*sum(overs)/sum(wickets) as avg, sum(runs_conceded)/sum(wickets) as sr, sum(w5) as fives, sum(w10) as tens\
                                 FROM matchwise_player_performance, num_innings,fw,tw where playerid=$1 \
                                 group by (num,w5,w10)'
                 const values3 = [playerid]
