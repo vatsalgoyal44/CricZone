@@ -83,18 +83,18 @@ const Playerpage= (props) => {
                         </thead>
                         <tbody>
                         <tr key="test">
-                                <td></td>
-                                <td></td>
-                                <td>8273</td>
-                                <td>254</td>
-                                <td>48.32</td>
-                                <td>16324</td>
-                                <td>55.33</td>
-                                <td>28</td>
-                                <td>7</td>
-                                <td>58</td>
-                                <td>932</td>
-                                <td>24</td>
+                                <td> {player.batting_summary[0].matches}</td>
+                                <td> {player.batting_summary[0].inns}</td>
+                                <td> {player.batting_summary[0].runs}</td>
+                                <td> {player.batting_summary[0].hs}</td>
+                                <td> {player.batting_summary[0].avg}</td>
+                                <td> {player.batting_summary[0].balls}</td>
+                                <td> {player.batting_summary[0].sr}</td>
+                                <td> {player.batting_summary[0].fif}</td>
+                                <td> {player.batting_summary[0].hund}</td>
+                                <td> {player.batting_summary[0].dual}</td>
+                                <td> {player.batting_summary[0].fours}</td>
+                                <td> {player.batting_summary[0].sixes}</td>
                             </tr>
                             
                         </tbody>
@@ -103,32 +103,30 @@ const Playerpage= (props) => {
             <table className="careersumtable table-auto ">
                         <thead>
                         <tr>
-                            <th>Format</th>
-                            <th>M</th>
-                            <th>Inn</th>
-                            <th>B</th>
+                            <th>Matches</th>
+                            <th>Innings</th>
+                            <th>Overs</th>
                             <th>Runs</th>
-                            <th>Wkts</th>
-                            <th>Econ</th>
-                            <th>Avg</th>
-                            <th>SR</th>
-                            <th>5W</th>
-                            <th>10W</th>
+                            <th>Wickets</th>
+                            <th>Economy</th>
+                            <th> Average</th>
+                            <th>Strike Rate</th>
+                            <th>5W</th>       
+                            <th>10W</th>                     
                         </tr>
                         </thead>
                         <tbody>
                         <tr key="test">
-                                <td class="font-bold">Test</td>
-                                <td>108</td>
-                                <td>11</td>
-                                <td>175</td>
-                                <td>84</td>
-                                <td>0</td>
-                                <td>2.88</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <td> {player.bowling_summary[0].matches}</td>
+                                <td> {player.bowling_summary[0].inns}</td>
+                                <td> {player.bowling_summary[0].overs}</td>
+                                <td> {player.bowling_summary[0].runs}</td>
+                                <td> {player.bowling_summary[0].wicks}</td>
+                                <td> {player.bowling_summary[0].eco}</td>
+                                <td> {player.bowling_summary[0].avg}</td>
+                                <td> {player.bowling_summary[0].sr}</td>
+                                <td> {player.bowling_summary[0].fives}</td>
+                                <td> {player.bowling_summary[0].tens}</td>
                             </tr>
                             
                         </tbody>
