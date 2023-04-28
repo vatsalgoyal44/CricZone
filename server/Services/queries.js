@@ -212,7 +212,7 @@ const playerinfo = async (playerid) => {
                         with num_200s(h) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1)\
                             SELECT count(*),num,sum(runs) as s,max(runs),s/num, sum(balls) as s2, 100*s/s2 \
                             sum(fours),sum(sixes)\
-                             FROM player_team natural join team,num_innings WHERE playerid = $1'
+                            FROM player_team natural join team,num_innings WHERE playerid = $1'
             const values1 = [playerid]
             return {
                 playerinfo : res0.rows,
