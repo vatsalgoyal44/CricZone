@@ -141,7 +141,7 @@ if __name__ == "__main__":
                 team2score+=int(shot)
                 df.loc[df['playerid'] == bowler[0], 'runs_conceded'] += int(shot)
                 df.loc[df['playerid'] == bat[0], 'balls'] += 1
-                df.loc[df['playerid'] == bat[0], 'strike_rate'] = df.loc[df['playerid'] == bat[0], 'runs']/df.loc[df['playerid'] == bat[0], 'balls']
+                df.loc[df['playerid'] == bat[0], 'strike_rate'] = 100*(df.loc[df['playerid'] == bat[0], 'runs']/df.loc[df['playerid'] == bat[0], 'balls'])
                 if shot == '4':
                     df.loc[df['playerid'] == bat[0], 'fours'] += 1
                 elif shot == '6':
