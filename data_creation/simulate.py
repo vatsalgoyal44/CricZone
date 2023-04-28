@@ -23,7 +23,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     #connect to database
-    conn = pg.connect(database=args.database,host="localhost",user="postgres")
+    conn = pg.connect(database=args.database,host="localhost",user="postgres",password="Mittal@279")
     # conn = pg.connect(database=args.database)
     cur = conn.cursor()
 
@@ -39,7 +39,6 @@ if __name__ == "__main__":
     team2 = cur.fetchall() 
     cur.execute(f"SELECT * FROM player_team natural join player WHERE teamid ilike '{args.team2}'  AND role != 'WK-Batsman' ORDER BY RANDOM() LIMIT 10")
     team2.extend(cur.fetchall())
-
     #Choose number of balls based on format
     # if args.format == 'T20':
     #     overs = 20
@@ -158,10 +157,10 @@ if __name__ == "__main__":
     # df.to_sql('matchwise_player_performance', conn, if_exists='append', index=False)
     # df.to_csv('matchwise_player_performance.csv', index=False)
     # df = pd.read_csv('matchwise_player_performance.csv')
-    for i, row in df.iterrows():
-        cur.execute("INSERT INTO %s (%s) VALUES %s" % ('matchwise_player_performance', ','.join(df.columns), tuple(row)))
     #Close the database connection
     cur.execute("INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES (%s,%s,%s,%s,%s,%s,%s)", (matchid,current_date, 'Vankhede',"ICC-Worldcup",args.team1,args.team2,current_year))
+    for i, row in df.iterrows():
+        cur.execute("INSERT INTO %s (%s) VALUES %s" % ('matchwise_player_performance', ','.join(df.columns), tuple(row)))
     if(team1score>team2score):
         cur.execute("INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES (%s,%s,%s,%s,%s)", (args.team1,matchid,"win",team1score,team1wicks))
         cur.execute("INSERT INTO matchwise_team_performance (teamid,matchid,result,total_score,total_wickets) VALUES (%s,%s,%s,%s,%s)", (args.team2,matchid,"lost",team2score,team2wicks))

@@ -69,11 +69,11 @@ const matchinfo = async (matchid) => {
         const values1 = [matchid]
         try{
             const res1 = await pool.query(text1, values1)
-            const text2 = 'SELECT * FROM matchwise_player_performance WHERE matchid = $1'
+            const text2 = 'SELECT mp.matchid,mp.teamid,mp.playerid,player.player_name,mp.balls,mp.runs,mp.fours,mp.sixes,mp.wickets,mp.runs_conceded,mp.overs FROM matchwise_player_performance as mp inner join player using (playerid) WHERE matchid = $1'
             const values2 = [matchid]
             try{
                 const res2 = await pool.query(text2, values2)
-                const text3 = 'SELECT * FROM commentary WHERE matchid = $1 order by over,ball desc'
+                const text3 = 'SELECT action,c.innings,ball,over,bat.player_name as batsman, bowl.player_name as bowler FROM (commentary as c inner join player as bat on c.batsman=bat.playerid) inner join player as bowl on c.bowler=bowl.playerid WHERE matchid = $1 order by innings desc ,over desc ,ball desc;'
                 const values3 = [matchid]
                 try{
                     const res3 = await pool.query(text3, values3)
