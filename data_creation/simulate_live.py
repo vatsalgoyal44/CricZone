@@ -90,6 +90,8 @@ if __name__ == "__main__":
                 wickets += 1
                 df.loc[df['playerid'] == bowler[0], 'overs'] += 0.1
                 df.loc[df['playerid'] == bowler[0], 'wickets'] += 1
+                df.loc[df['playerid'] == bat[0], 'balls'] += 1
+                df.loc[df['playerid'] == bat[0], 'strike_rate'] = df.loc[df['playerid'] == bat[0], 'runs']/df.loc[df['playerid'] == bat[0], 'balls']
                 team1wicks+=1
                 if wickets == 10:
                     break
@@ -146,6 +148,8 @@ if __name__ == "__main__":
                 wickets += 1
                 df.loc[df['playerid'] == bowler[0], 'overs'] += 0.1
                 df.loc[df['playerid'] == bowler[0], 'wickets'] += 1
+                df.loc[df['playerid'] == bat[0], 'balls'] += 1
+                df.loc[df['playerid'] == bat[0], 'strike_rate'] = df.loc[df['playerid'] == bat[0], 'runs']/df.loc[df['playerid'] == bat[0], 'balls']
                 team2wicks+=1
                 if wickets == 10:
                     break
