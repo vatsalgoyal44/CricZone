@@ -42,6 +42,6 @@
     background-color: #c0b7dc;
 }
 
-.careersumtable thead th{
-    background-color: #c0b7dc;
+.careersumtable tbody td{
+    padding-left: 30px;
 }

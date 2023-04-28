@@ -19,6 +19,8 @@ const Matchpage= (props) => {
 
   const [teaminfo, setTeaminfo] = useState();
 
+  const [live, setLive] = useState(false);
+
   let { matchid } = useParams();
 
   const fetchdata = ()=>{
@@ -51,6 +53,13 @@ const Matchpage= (props) => {
     if(matchinfo){
         if(matchinfo.match_deets && teaminfo){
             setLoading(false);
+            if(matchinfo.team1.result == "In Progress"){
+                setLive(true);
+                setInterval(fetchdata(), 1000);
+            }
+            else{
+                setLive(false);
+            }
         }
         getfinalres();
         getteam1team2();
@@ -81,7 +90,7 @@ const Matchpage= (props) => {
   }
   const getteam1team2 =()=>{
     const teamIds = [...new Set(matchinfo.player_deets.map((player) => player.teamid))];
-    const team1Id = teamIds[0];
+    const team1Id = matchinfo.team1.teamid;
     setTeam1Players(matchinfo.player_deets.filter((player) => player.teamid === team1Id));
     setTeam2Players(matchinfo.player_deets.filter((player) => player.teamid !== team1Id));
   }
@@ -111,10 +120,10 @@ const Matchpage= (props) => {
   if (!loading){
     return(
     <div class = "matchpage">
-    <div class = "gridcontainermatch">
-        <div class = "firstcol">
+    <div class = "gridcontainermatch flex flex-row">
+        <div class = "firstcol basis-3/5">
         <div class = "curscore flex flex-col">
-            <div class = "info basis-1/5 border-b-2 border-violet-950">
+            <div class = "info basis-1/4 border-b-2 border-violet-950">
                     <h3 class="font-bold mx-3 my-1 text-lg">{matchinfo.match_deets[0].tour_name}</h3>
                     <div class="relative flex">
                         <a class="mx-3">{matchinfo.match_deets[0].date.substring(0, matchinfo.match_deets[0].date.indexOf("T"))}</a>
@@ -122,23 +131,23 @@ const Matchpage= (props) => {
                         <a class="mx-3">ODI</a>
                     </div>
                 </div>
-            <div class = "status basis-4/5">
-            <div class="flex flex-row h-full">
-                <div class="basis-3/5 border-r-2 border-violet-950">
-                    <h3 class="font-bold mx-3 my-1 text-xl">Live</h3>
+            <div class = "status basis-3/4">
+            <div class="w-full h-fit">
+                <div class="border-violet-950">
+                    <div className="mx-3 my-1">{live && <h3 class="font-bold text-xl">Live</h3>}</div>
                     <div class="flex flex-col">
                         <div class="basis-1/2 relative flex flex-row">
-                            <h3 class="basis-3/4 font-bold ml-10 my-5 text-xl">{teaminfo.find(t => t.teamid === matchinfo.match_deets[0].team1).team_name}</h3>
+                            <h3 class="basis-3/4 font-bold ml-10 my-5 text-xl">{teaminfo.find(t => t.teamid === matchinfo.team1.teamid).team_name}</h3>
                             <h3 class="basis-1/4 font-bold my-5 text-xl">{matchinfo.team1.total_score}/{matchinfo.team1.total_wickets}</h3>
                         </div>
                         <div class="basis-1/2 relative flex flex-row">
-                            <h3 class="basis-3/4 font-bold ml-10 my-5 text-xl">{teaminfo.find(t => t.teamid === matchinfo.match_deets[0].team2).team_name}</h3>
+                            <h3 class="basis-3/4 font-bold ml-10 my-5 text-xl">{teaminfo.find(t => t.teamid === matchinfo.team2.teamid).team_name}</h3>
                             <h3 class="basis-1/4 font-bold my-5 text-xl">{matchinfo.team2.total_score}/{matchinfo.team2.total_wickets}</h3>
                         </div>
                     </div>
-                    <h3 class="mx-3 my-1 text-xl">{finalres}</h3>
+                    {!live && <h3 class="mx-3 my-1 text-xl">{finalres}</h3>}
                 </div>
-                <div class="basis-2/5 flex flex-col h-full">
+                {/* <div class="basis-2/5 flex flex-col h-full">
                     <div class="basis-3/5">
                         <table className="battertable table-auto h-full">
                         <thead>
@@ -184,14 +193,7 @@ const Matchpage= (props) => {
                         </tr>
                         </thead>
                         <tbody>
-                        {/* {mostwickets.map(item => {
-                            return (
-                            <tr key={item.playerid}>
-                                <td>{item.player}</td>
-                                <td>{item.wickets}</td>
-                            </tr>
-                            );
-                        })} */}
+                      
                             <tr key="Bumrah">
                                 <td>Bumrah</td>
                                 <td>2</td>
@@ -203,7 +205,7 @@ const Matchpage= (props) => {
                         </tbody>
                     </table>
                     </div>
-                </div>
+                </div> */}
             </div>
             </div>
         </div>
@@ -213,8 +215,8 @@ const Matchpage= (props) => {
                     {/*display commentary here*/}
                     <div class="commentary p-5">
                       {matchinfo.commentary.map((comment) => (
-                        <p key={`${comment.innings}-${comment.over}-${comment.ball}`}>
-                          {comment.action === "W" ? `${comment.batsman} is out!` : `Great shot by ${comment.batsman} for ${comment.action} run${comment.action === "1" ? "" : "s"}!`}
+                        <p key={`${comment.innings}-${comment.over}-${comment.ball}`} className="py-2">
+                          <a className="font-bold mr-2">{comment.over}.{comment.ball} </a>{comment.action === "W" ? `${comment.batsman} is out!` : `Great shot by ${comment.batsman} for ${comment.action} run${comment.action === "1" ? "" : "s"}!`}
                         </p>
                       ))}
                     </div>
@@ -222,31 +224,29 @@ const Matchpage= (props) => {
                 </div>
             </div>
         </div>
-        <div class = "secondcol flex flex-col">
+        <div class = "secondcol basis-2/5 flex flex-col flex-initial">
             
-            <div class = "scoreboard flex flex-col">
+            <div class = "scoreboardmatch flex flex-col w-full">
                 <div className="scorehead basis-5 border-b-2 border-violet-950"><h3 class="font-bold mx-3 my-2 text-lg align-middle">Scorecard</h3></div>
-                <div className="Tabs">
+                <div className="Tabs bg-lightfont">
                     {/* Tab nav */}
-                    <ul className="nav relative flex flex-row">
-                        <div class={`${activeTab === "tab1" ? "active" : ""} basis-1/2 `}><li class={`font-bold p-3 text-center border-r-2 border-violet-950 cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab1}>Team 1</li></div>
-                        <div class={`${activeTab === "tab2" ? "active" : ""} basis-1/2 `}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab2}>Team 2</li></div>
+                    <ul className="nav relative flex flex-row bg-pinkcustom">
+                        <div class={`${activeTab === "tab1" ? "active" : ""} basis-1/2 `}><li class={`font-bold p-3 text-center border-r-2 border-violet-950 cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab1}>{matchinfo.team1.teamid}</li></div>
+                        <div class={`${activeTab === "tab2" ? "active" : ""} basis-1/2 `}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab2}>{matchinfo.team2.teamid}</li></div>
                     </ul>
                     <div className="outlet">
                     {activeTab === "tab1" && (
             <div>
                 {/* Team 1 player table */}
-                <h3>Team 1 Players</h3>
-                <table>
+                <table className="battertablescore table-fixed">
                     <thead>
-                        <tr>
-                            <th>Player ID</th>
-                            <th>Name</th>
-                            <th>Runs</th>
-                            <th>Balls</th>
-                            <th>Fours</th>
-                            <th>Sixes</th>
-                            <th>Strike Rate</th>
+                        <tr className="my-10">
+                            <th className="w-1/3">Batter</th>
+                            <th className="w-2/15">Runs</th>
+                            <th className="w-2/15">Balls</th>
+                            <th className="w-2/15">Fours</th>
+                            <th className="w-2/15">Sixes</th>
+                            <th className="w-2/15">SR</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -254,7 +254,6 @@ const Matchpage= (props) => {
                         .filter((player) => player.balls > 0)
                         .map((player) => (
                             <tr key={player.playerid}>
-                                <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
                                 <td>{player.runs}</td>
                                 <td>{player.balls}</td>
@@ -266,15 +265,13 @@ const Matchpage= (props) => {
                     </tbody>
                 </table>
                 {/* Team 2 player table */}
-                <h3>Team 2 Players</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th>Player ID</th>
-                            <th>Name</th>
-                            <th>Overs</th>
-                            <th>Wickets</th>
-                            <th>Runs Conceded</th>
+                            <th className="w-2/5">Bowler</th>
+                            <th className="w-1/5">Overs</th>
+                            <th className="w-1/5">Wickets</th>
+                            <th className="w-1/5">Runs</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -282,7 +279,6 @@ const Matchpage= (props) => {
                         .filter((player) => player.overs > 0)
                         .map((player) => (
                             <tr key={player.playerid}>
-                                <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
                                 <td>{player.overs}</td>
                                 <td>{player.wickets}</td>
@@ -298,17 +294,15 @@ const Matchpage= (props) => {
             {team1Players.some(player => player.balls > 0) && (
                 <div>
                     {/* Team 1 player table */}
-                    <h3>Team 2 Players</h3>
                     <table>
                         <thead>
                             <tr>
-                                <th>Player ID</th>
-                                <th>Name</th>
-                                <th>Runs</th>
-                                <th>Balls</th>
-                                <th>Fours</th>
-                                <th>Sixes</th>
-                                <th>Strike Rate</th>
+                            <th className="battertablescore w-1/3">Batter</th>
+                            <th className="w-2/15">Runs</th>
+                            <th className="w-2/15">Balls</th>
+                            <th className="w-2/15">Fours</th>
+                            <th className="w-2/15">Sixes</th>
+                            <th className="w-2/15">SR</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -316,7 +310,6 @@ const Matchpage= (props) => {
                         .filter((player) => player.balls > 0)
                         .map((player) => (
                                 <tr key={player.playerid}>
-                                    <td>{player.playerid}</td>
                                     <td>{player.player_name}</td>
                                     <td>{player.runs}</td>
                                     <td>{player.balls}</td>
@@ -332,15 +325,13 @@ const Matchpage= (props) => {
         {team2Players.some(player => player.overs > 0) && (
             <div>
                 {/* Team 2 player table */}
-                <h3>Team 1 Players</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th>Player ID</th>
-                            <th>Name</th>
-                            <th>Overs</th>
-                            <th>Wickets</th>
-                            <th>Runs Conceded</th>
+                        <th className="w-2/5">Bowler</th>
+                            <th className="w-1/5">Overs</th>
+                            <th className="w-1/5">Wickets</th>
+                            <th className="w-1/5">Runs</th>
                         </tr>
                     </thead>
                     <tbody>                         
@@ -348,7 +339,6 @@ const Matchpage= (props) => {
                         .filter((player) => player.overs > 0)
                         .map((player) => (
                             <tr key={player.playerid}>
-                                <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
                                 <td>{player.overs}</td>
                                 <td>{player.wickets}</td>
@@ -370,26 +360,23 @@ const Matchpage= (props) => {
                 <div className="Tabs">
                     {/* Tab nav */}
                     <ul className="nav relative flex flex-row">
-                        <div class={`${activeTab2 === "tab1" ? "active" : ""} basis-1/2 `}><li class={`font-bold p-3 text-center border-r-2 border-violet-950 cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab12}>Team 1</li></div>
-                        <div class={`${activeTab2 === "tab2" ? "active" : ""} basis-1/2 `}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab22}>Team 2</li></div>
+                        <div class={`${activeTab2 === "tab1" ? "active" : ""} basis-1/2 `}><li class={`font-bold p-3 text-center border-r-2 border-violet-950 cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab12}>{matchinfo.team1.teamid}</li></div>
+                        <div class={`${activeTab2 === "tab2" ? "active" : ""} basis-1/2 `}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab22}>{matchinfo.team2.teamid}</li></div>
                     </ul>
                     <div className="outlet">
                     {activeTab2 === "tab1" && (
             <div>
                 {/* Team 1 player table */}
-                <h3>Team 1 Players</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th>Player ID</th>
                             <th>Name</th>
                         </tr>
                     </thead>
                     <tbody>
                         {team1Players.map((player) => (
                             <tr key={player.playerid}>
-                                <td>{player.playerid}</td>
-                                <td>{player.player_name}</td>
+                                <td className="cursor-pointer"><Link to={`/player/${player.playerid}`}>{player.player_name}</Link></td>
 
                             </tr>
                         ))}
@@ -400,19 +387,16 @@ const Matchpage= (props) => {
         {activeTab2 === "tab2" && (
             <div>
                 {/* Team 1 player table */}
-                <h3>Team 2 Players</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th>Player ID</th>
                             <th>Name</th>
                         </tr>
                     </thead>
                     <tbody>
                         {team2Players.map((player) => (
                             <tr key={player.playerid}>
-                                <td>{player.playerid}</td>
-                                <td>{player.player_name}</td>
+                               <td className="cursor-pointer"><Link to={`/player/${player.playerid}`}>{player.player_name}</Link></td>
 
                             </tr>
                         ))}

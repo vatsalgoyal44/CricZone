@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+
 module.exports = {
   content: ['./src/**/**/*.{html,js}',
 './src/Components/pages/team.js',"./src/**/*.{html,js}", "./src/**/*.{js,jsx,ts,tsx}"],
@@ -10,6 +12,10 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [],
+  width: {
+    '2/15':'13.3%'
+  },
+  plugins: [
+  ],
 }
 

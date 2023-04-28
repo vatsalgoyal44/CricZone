@@ -139,13 +139,13 @@ table{
     /* column-width: 1px; */
 }
 
-table thead tr{
+.homepage table thead tr, .teampage table thead tr{
     background-color: #f8f5fb;
     text-align: left;
     font-weight: bold;
 }
 
-table th,
+.homepage table th,
 table td{
     padding: 7px 12px;
     width: 150px;
@@ -154,7 +154,23 @@ table td{
 
 }
 
-table tbody tr{
+.teampage table th,
+table td{
+    padding: 7px 12px;
+    width: 150px;
+    background-color: #f8f5fb;
+    overflow: hidden;
+
+}
+
+.homepage table tbody tr{
+    border-bottom: 1px #263238;
+    overflow: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.teampage table tbody tr{
     border-bottom: 1px #263238;
     overflow: hidden;
     border-radius: 10px;
