@@ -1,4 +1,5 @@
 const Pool = require('pg').Pool
+const { group } = require('console');
 const fs = require("fs");
 const path = require("path");
 
@@ -207,17 +208,37 @@ const playerinfo = async (playerid) => {
         try {
             const res1 = await pool.query(text1, values1)
             const text2 = 'with num_innings(num) as (select count(*) from matchwise_player_performance where balls>0 and playerid=$1),\
-                        with num_50s(h) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1),\
-                        with num_100s(h) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1),\
-                        with num_200s(h) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1)\
-                            SELECT count(*),num,sum(runs) as s,max(runs),s/num, sum(balls) as s2, 100*s/s2 \
-                            sum(fours),sum(sixes)\
-                            FROM player_team natural join team,num_innings WHERE playerid = $1'
-            const values1 = [playerid]
-            return {
-                playerinfo : res0.rows,
-                playerteaminfo : res1.rows
-            };
+                        num_50s(f) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1),\
+                        num_100s(h) as (select count(*) from matchwise_player_performance where runs>=100 and playerid=$1),\
+                        num_200s(d) as (select count(*) from matchwise_player_performance where runs>=200 and playerid=$1)\
+                            SELECT count(*) as matches ,num as inns,sum(runs) as runs,max(runs) as hs,sum(runs)/num as avg, sum(balls) as balls, 100*sum(runs)/sum(balls) as sr, \
+                            f as fif, h as hund, d as dual, sum(fours) as fours,sum(sixes) as sixes\
+                             FROM matchwise_player_performance, num_innings,num_50s,num_100s,num_200s where playerid=$1 \
+                             group by (num,f,h,d)'
+            const values2 = [playerid]   
+            try {
+                const res2 = await pool.query(text2, values2)
+                const text3 =   'with 5w(w5) as (select count(*) from matchwise_player_performance where wickets>=5 and playerid=$1),\
+                                10w(w10) as (select count(*) from matchwise_player_performance where wickets>=10 and playerid=$1),\
+                                num_innings(num) as (select count(*) from matchwise_player_performance where overs>0 and playerid=$1)\
+                                SELECT count(*) as matches,num as inns, sum(overs) as overs, sum(runs_conceded) as runs, sum(wickets) as wicks, 6*sum(overs)/sum(wickets) as avg, sum(runs)/sum(wickets) as sr, sum(w5) as fives, sum(w10) as tens\
+                                FROM matchwise_player_performance, num_innings,w5,w10 where playerid=$1 \
+                                group by (num,w5,w10)'
+                const values3 = [playerid]
+                try {
+                    const res3 = await pool.query(text3, values3)
+                    return {
+                        playerinfo : res0.rows,
+                        playerteaminfo : res1.rows,
+                        batting_summary : res2.rows,
+                        bowling_summary : res3.rows
+                    };
+                } catch (err) {
+                    console.log(err.stack)
+                }
+            } catch (err) {
+                console.log(err.stack)
+            }
         } catch (err) {
             console.log(err.stack)
         }
