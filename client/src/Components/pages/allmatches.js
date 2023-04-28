@@ -6,15 +6,15 @@ import MatchListCard from "../cards/matchlistcard";
 import {getallmatches} from '../data/data' 
 const MatchListPage = (props) => {
 
-  // const matches = [1,2,3,4,5,5,6,7]
+  const matches = [1,2,3,4,5,5,6,7]
   const [loading, setLoading] = useState(true)
-  const [matches, setMatches] = useState()
+  const [allMatches, setAllMatches] = useState()
   const [activeTab, setActiveTab] = useState("tab1");
 
   const fetchdata = ()=>{
     getallmatches().then((res)=>{
       console.log(res.data);
-      setMatches(res.data);
+      setAllMatches(res.data);
       if(res.status != 200){
         setLoading(true);
       }
