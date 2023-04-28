@@ -47,3 +47,7 @@ export const gethome = () => {
     const res = axios.get(API_URL + "home");
     return res;
 }
+
+export const getpointstable = () =>{
+    const res = axios.get(API_URL + "tournamentpointstable")
+}
