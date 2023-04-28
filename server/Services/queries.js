@@ -1,4 +1,5 @@
 const Pool = require('pg').Pool
+const { group } = require('console');
 const fs = require("fs");
 const path = require("path");
 
@@ -207,12 +208,19 @@ const playerinfo = async (playerid) => {
         try {
             const res1 = await pool.query(text1, values1)
             const text2 = 'with num_innings(num) as (select count(*) from matchwise_player_performance where balls>0 and playerid=$1),\
-                        with num_50s(h) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1),\
-                        with num_100s(h) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1),\
-                        with num_200s(h) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1)\
-                            SELECT count(*),num,sum(runs) as s,max(runs),s/num, sum(balls) as s2, 100*s/s2 \
-                            sum(fours),sum(sixes)\
-                             FROM player_team natural join team,num_innings WHERE playerid = $1'
+                        num_50s(f) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1),\
+                        num_100s(h) as (select count(*) from matchwise_player_performance where runs>=100 and playerid=$1),\
+                        num_200s(d) as (select count(*) from matchwise_player_performance where runs>=200 and playerid=$1)\
+                            SELECT count(*),num,sum(runs) as s,max(runs),sum(runs)/num, sum(balls) as s2, 100*sum(runs)/sum(balls), \
+                            f, h, d, sum(fours),sum(sixes)\
+                             FROM matchwise_player_performance, num_innings,num_50s,num_100s,num_200s where playerid=$1 \
+                             group by num,f,h,d'
+            const text3 = 'with 5w(w5) as (select count(*) from matchwise_player_performance where wickets>=5 and playerid=$1),\
+                            10w(w10) as (select count(*) from matchwise_player_performance where wickets>=10 and playerid=$1)\
+                            num_innings(num) as (select count(*) from matchwise_player_performance where overs>0 and playerid=$1)\
+                            SELECT count(*),num, sum(overs) as o, sum(runs_conceded) as r, sum(wickets) as w, 6*sum(overs)/sum(wickets), sum(runs)/sum(wickets, sum(w5), sum(w10)\
+                            FROM matchwise_player_performance, num_innings,w5,w10 where playerid=$1 \
+                            group by num,w5,w10'
             const values1 = [playerid]
             return {
                 playerinfo : res0.rows,

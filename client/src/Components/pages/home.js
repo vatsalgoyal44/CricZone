@@ -97,7 +97,7 @@ const Homepage= (props) => {
       </div>
 
       <div class = "rankings mt-8">
-        <div class = "fixtureshead"><h3 class=" font-bold">Rankings</h3></div>
+        <div class = "fixtureshead"><h3 class=" font-bold">Records</h3></div>
         <div className="selector mx-20 mt-5">
                     {/* Tab nav */}
             <ul className="nav relative flex flex-row w-1/2">
@@ -106,15 +106,17 @@ const Homepage= (props) => {
                 <div class={`${activeTab === "tab3" ? "active" : ""} basis-1/3 rounded-t-xl`}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300 text-lightfont`} onClick={handleTab3}>All-Rounder</li></div>
                 <div class={`${activeTab === "tab4" ? "active" : ""} basis-1/3 rounded-t-xl`}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300 text-lightfont`} onClick={handleTab4}>Teams</li></div>
                 </ul>
+
+
             <div className="outlet bg-darkbg h-full p-10 flex flex-row">
                         {/* content will be shown here */}
                   <div className="mostwickets basis-1/3">
-                    <div><h3>Test</h3></div>
+                    <div><h3>Most Runs</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
                             <th class="w-4/5">Player/Team</th>
-                            <th>Rating</th>
+                            <th>Runs</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -123,12 +125,12 @@ const Homepage= (props) => {
                     </table>
                   </div>
                   <div className="mostwickets basis-1/3">
-                    <div><h3>ODI</h3></div>
+                    <div><h3>Highest Average</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
                             <th class="w-4/5">Player/Team</th>
-                            <th>Rating</th>
+                            <th>Average</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -137,12 +139,12 @@ const Homepage= (props) => {
                     </table>
                   </div>
                   <div className="mostwickets basis-1/3">
-                    <div><h3>T20</h3></div>
+                    <div><h3>Best Strike Rate</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
                             <th class="w-4/5">Player/Team</th>
-                            <th>Rating</th>
+                            <th>SR</th>
                         </tr>
                         </thead>
                         <tbody>
