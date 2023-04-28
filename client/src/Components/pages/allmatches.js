@@ -3,16 +3,38 @@ import { Navigate, useNavigate , Link } from 'react-router-dom';
 import ReactLoading from "react-loading";
 import './allmatches.css'
 import MatchListCard from "../cards/matchlistcard";
-
-
+import {getallmatches} from '../data/data' 
 const MatchListPage = (props) => {
 
-  const matches = [1,2,3,4,5,5,6,7]
+  // const matches = [1,2,3,4,5,5,6,7]
   const [loading, setLoading] = useState(true)
-
+  const [matches, setMatches] = useState()
   const [activeTab, setActiveTab] = useState("tab1");
 
-  
+  const fetchdata = ()=>{
+    getallmatches().then((res)=>{
+      console.log(res.data);
+      setMatches(res.data);
+      if(res.status != 200){
+        setLoading(true);
+      }
+    }).catch((res)=>{
+      console.log(res);
+      setLoading(true);
+    });
+  }
+  useEffect(() => {
+    fetchdata();
+  }, []);
+  useEffect(() => {
+    if(matches){
+      getFiltered();
+    }
+  }, [matches]);
+  const getFiltered =()=>{
+    
+  }
+
   const handleTab1 = () => {
     // update the state to tab1
     setActiveTab("tab1");

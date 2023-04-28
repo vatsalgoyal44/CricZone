@@ -32,6 +32,11 @@ export const getmatchinfo = (match_id) => {
     return res;
 };
 
+export const getallmatches = () => {
+    const res = axios.get(API_URL + "allmatchinfo");
+    return res;
+};
+
 export const getplayerinfo = (playerid) =>{
     const res = axios.get(API_URL + "playerinfo/" + playerid);
     console.log(API_URL + "playerinfo/" + playerid);
