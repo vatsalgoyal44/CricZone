@@ -257,7 +257,7 @@ const Matchpage= (props) => {
                                 <td>{player.runs}</td>
                                 <td>{player.fours}</td>
                                 <td>{player.sixes}</td>
-                                <td>{player.strike_rate}</td>
+                                <td>{player.runs/player.balls}</td>
                                 <td>{player.balls}</td>
                             </tr>
                         ))}
@@ -313,7 +313,7 @@ const Matchpage= (props) => {
                                 <td>{player.runs}</td>
                                 <td>{player.fours}</td>
                                 <td>{player.sixes}</td>
-                                <td>{player.strike_rate}</td>
+                                <td>{player.runs/player.balls}</td>
                                 <td>{player.balls}</td>
                             </tr>
                         ))}
@@ -373,13 +373,14 @@ const Matchpage= (props) => {
                             <tr key={player.playerid}>
                                 <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
+
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
         )}
-                    {activeTab2 === "tab2" && (
+        {activeTab2 === "tab2" && (
             <div>
                 {/* Team 1 player table */}
                 <h3>Team 2 Players</h3>
@@ -395,6 +396,7 @@ const Matchpage= (props) => {
                             <tr key={player.playerid}>
                                 <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
+
                             </tr>
                         ))}
                     </tbody>
