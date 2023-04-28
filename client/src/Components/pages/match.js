@@ -210,7 +210,15 @@ const Matchpage= (props) => {
         <div class = "commentarycomp flex flex-col">
                 <div class="comphead basis-5 border-b-2 border-violet-950"><h3 class="font-bold mx-3 my-1 text-lg">Commentary</h3></div>
                 <div class="commentary p-5">
-                    <p>Commentary data not available</p>
+                    {/*display commentary here*/}
+                    <div class="commentary p-5">
+                      {matchinfo.commentary.map((comment) => (
+                        <p key={`${comment.innings}-${comment.over}-${comment.ball}`}>
+                          {comment.action === "W" ? `${comment.batsman} is out!` : `Great shot by ${comment.batsman} for ${comment.action} run${comment.action === "1" ? "" : "s"}!`}
+                        </p>
+                      ))}
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -238,7 +246,7 @@ const Matchpage= (props) => {
                             <th>Fours</th>
                             <th>Sixes</th>
                             <th>Strike Rate</th>
-                            <th>Overs</th>
+                            <th>Balls</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -250,7 +258,7 @@ const Matchpage= (props) => {
                                 <td>{player.fours}</td>
                                 <td>{player.sixes}</td>
                                 <td>{player.strike_rate}</td>
-                                <td>{player.overs}</td>
+                                <td>{player.balls}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -262,7 +270,7 @@ const Matchpage= (props) => {
                         <tr>
                             <th>Player ID</th>
                             <th>Name</th>
-                            <th>Balls</th>
+                            <th>Overs</th>
                             <th>Wickets</th>
                             <th>Runs Conceded</th>
                         </tr>
@@ -272,7 +280,7 @@ const Matchpage= (props) => {
                             <tr key={player.playerid}>
                                 <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
-                                <td>{player.balls}</td>
+                                <td>{player.overs}</td>
                                 <td>{player.wickets}</td>
                                 <td>{player.runs_conceded}</td>
                             </tr>
@@ -294,7 +302,7 @@ const Matchpage= (props) => {
                             <th>Fours</th>
                             <th>Sixes</th>
                             <th>Strike Rate</th>
-                            <th>Overs</th>
+                            <th>Balls</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -306,7 +314,7 @@ const Matchpage= (props) => {
                                 <td>{player.fours}</td>
                                 <td>{player.sixes}</td>
                                 <td>{player.strike_rate}</td>
-                                <td>{player.overs}</td>
+                                <td>{player.balls}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -318,7 +326,7 @@ const Matchpage= (props) => {
                         <tr>
                             <th>Player ID</th>
                             <th>Name</th>
-                            <th>Balls</th>
+                            <th>Overs</th>
                             <th>Wickets</th>
                             <th>Runs Conceded</th>
                         </tr>
@@ -328,7 +336,7 @@ const Matchpage= (props) => {
                             <tr key={player.playerid}>
                                 <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
-                                <td>{player.balls}</td>
+                                <td>{player.overs}</td>
                                 <td>{player.wickets}</td>
                                 <td>{player.runs_conceded}</td>
                             </tr>
@@ -349,7 +357,50 @@ const Matchpage= (props) => {
                         <div class={`${activeTab2 === "tab2" ? "active" : ""} basis-1/2 `}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab22}>Team 2</li></div>
                     </ul>
                     <div className="outlet">
-                        {/* content will be shown here */}
+                    {activeTab2 === "tab1" && (
+            <div>
+                {/* Team 1 player table */}
+                <h3>Team 1 Players</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Player ID</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {team1Players.map((player) => (
+                            <tr key={player.playerid}>
+                                <td>{player.playerid}</td>
+                                <td>{player.player_name}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}
+                    {activeTab2 === "tab2" && (
+            <div>
+                {/* Team 1 player table */}
+                <h3>Team 2 Players</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Player ID</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {team2Players.map((player) => (
+                            <tr key={player.playerid}>
+                                <td>{player.playerid}</td>
+                                <td>{player.player_name}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}
                     </div>
                     </div>
             </div>  
