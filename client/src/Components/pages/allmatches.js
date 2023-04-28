@@ -9,6 +9,8 @@ const MatchListPage = (props) => {
   const matches = [1,2,3,4,5,5,6,7]
   const [loading, setLoading] = useState(true)
   const [allMatches, setAllMatches] = useState()
+  const [liveMatches, setLiveMatches] = useState()
+  const [recentMatches, setRecentMatches] = useState()
   const [activeTab, setActiveTab] = useState("tab1");
 
   const fetchdata = ()=>{
@@ -27,12 +29,14 @@ const MatchListPage = (props) => {
     fetchdata();
   }, []);
   useEffect(() => {
-    if(matches){
+    if(allMatches){
       getFiltered();
     }
-  }, [matches]);
+  }, [allMatches]);
+
   const getFiltered =()=>{
-    
+    setLiveMatches(allMatches.filter((match) => match.result.indexOf("In Progress") !== -1));
+    setRecentMatches(allMatches.filter((match) => match.result.indexOf("In Progress") === -1));
   }
 
   const handleTab1 = () => {
@@ -42,10 +46,6 @@ const MatchListPage = (props) => {
   const handleTab2 = () => {
     // update the state to tab2
     setActiveTab("tab2");
-  };
-  const handleTab3 = () => {
-    // update the state to tab3
-    setActiveTab("tab3");
   };
 
   if (!loading){
@@ -64,7 +64,6 @@ const MatchListPage = (props) => {
             <ul className="nav relative flex flex-row w-1/2">
                 <div class={`${activeTab === "tab1" ? "active" : ""} basis-1/3 rounded-t-xl`}><li class={`font-bold p-3 text-center border-violet-950 cursor-pointer hover:text-violet-500 ease-in-out duration-300 text-lightfont`} onClick={handleTab1}>Live</li></div>
                 <div class={`${activeTab === "tab2" ? "active" : ""} basis-1/3 rounded-t-xl`}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300 text-lightfont`} onClick={handleTab2}>Recent</li></div>
-                <div class={`${activeTab === "tab3" ? "active" : ""} basis-1/3 rounded-t-xl`}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300 text-lightfont`} onClick={handleTab3}>Upcoming</li></div>
                 </ul>
             <div className="outlet bg-darkbg h-full p-10">
                         {/* content will be shown here */}
