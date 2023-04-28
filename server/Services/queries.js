@@ -223,10 +223,13 @@ const allmatchinfo = async () => {
     const text0 = 'select id,date,venue,tour_name,teamid,result,total_score,total_wickets from match inner join matchwise_team_performance on id=matchid order by date desc;'
 
     try {
-        const res0 = await pool.query(text0)
-        return res0.rows;
+        const res0 = await pool.query(text0);
+        console.log(res0);
+        return {
+            matches:res0.rows
+        };
     } catch (err) {
-        console.log(err.stack)
+        console.log(err.stack);
     }
 
 }
@@ -234,10 +237,10 @@ const allmatchinfo = async () => {
 const alltournamentinfo = async () => {
     const text0 = 'SELECT * FROM tournament'
     try {
-        const res0 = await pool.query(text0)
+        const res0 = await pool.query(text0);
         return res0.rows;
     } catch (err) {
-        console.log(err.stack)
+        console.log(err.stack);
     }
 
 }
