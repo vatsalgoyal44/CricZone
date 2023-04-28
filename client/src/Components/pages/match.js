@@ -243,10 +243,10 @@ const Matchpage= (props) => {
                             <th>Player ID</th>
                             <th>Name</th>
                             <th>Runs</th>
+                            <th>Balls</th>
                             <th>Fours</th>
                             <th>Sixes</th>
                             <th>Strike Rate</th>
-                            <th>Balls</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -255,10 +255,10 @@ const Matchpage= (props) => {
                                 <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
                                 <td>{player.runs}</td>
+                                <td>{player.balls}</td>
                                 <td>{player.fours}</td>
                                 <td>{player.sixes}</td>
-                                <td>{player.runs/player.balls}</td>
-                                <td>{player.balls}</td>
+                                <td>{(player.runs*100/player.balls).toFixed(2)}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -299,10 +299,10 @@ const Matchpage= (props) => {
                             <th>Player ID</th>
                             <th>Name</th>
                             <th>Runs</th>
+                            <th>Balls</th>
                             <th>Fours</th>
                             <th>Sixes</th>
                             <th>Strike Rate</th>
-                            <th>Balls</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -311,10 +311,10 @@ const Matchpage= (props) => {
                                 <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
                                 <td>{player.runs}</td>
+                                <td>{player.balls}</td>
                                 <td>{player.fours}</td>
                                 <td>{player.sixes}</td>
-                                <td>{player.runs/player.balls}</td>
-                                <td>{player.balls}</td>
+                                <td>{(player.runs*100/player.balls).toFixed(2)}</td>
                             </tr>
                         ))}
                     </tbody>
