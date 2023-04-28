@@ -47,21 +47,9 @@ if __name__ == "__main__":
     cur.execute(f"SELECT * FROM player_team natural join player WHERE teamid ilike '{args.team2}'  AND role != 'WK-Batsman' ORDER BY RANDOM() LIMIT 10")
     team2.extend(cur.fetchall())
 
-    #Choose number of balls based on format
-    # if args.format == 'T20':
-    #     overs = 20
-    # elif args.format == 'ODI':
-    #     overs = 50
     overs=args.over
 
     shots = ['0', '1', '2', '3', '4', '6', 'W']        #list of possible shots
-
-    #Simulate the game
-    # toss = np.random.randint(0,2)
-    # if toss == 0:
-    #     temp = team1
-    #     team1 = team2
-    #     team2 = temp
 
     #make match scorecard dataframe
     df = pd.DataFrame(columns = ['playerid', 'matchid', 'teamid', 'runs', 'balls', 'fours', 'sixes', 'strike_rate', 'wickets', 'runs_conceded', 'overs'])
@@ -102,6 +90,8 @@ if __name__ == "__main__":
                 wickets += 1
                 df.loc[df['playerid'] == bowler[0], 'overs'] += 0.1
                 df.loc[df['playerid'] == bowler[0], 'wickets'] += 1
+                df.loc[df['playerid'] == bat[0], 'balls'] += 1
+                df.loc[df['playerid'] == bat[0], 'strike_rate'] = df.loc[df['playerid'] == bat[0], 'runs']/df.loc[df['playerid'] == bat[0], 'balls']
                 team1wicks+=1
                 if wickets == 10:
                     break
@@ -149,6 +139,8 @@ if __name__ == "__main__":
         bowler = bowlers[over%5]
         bat = bat1
         for ball in range(6):
+            if(team2score>team1score):
+                break
             sleep(args.sleep)
             shot = random.choices(shots, k=1, weights = [0.1, 0.3, 0.2, 0.1, 0.1, 0.1, 0.1])
             shot = shot[0]
@@ -156,6 +148,8 @@ if __name__ == "__main__":
                 wickets += 1
                 df.loc[df['playerid'] == bowler[0], 'overs'] += 0.1
                 df.loc[df['playerid'] == bowler[0], 'wickets'] += 1
+                df.loc[df['playerid'] == bat[0], 'balls'] += 1
+                df.loc[df['playerid'] == bat[0], 'strike_rate'] = df.loc[df['playerid'] == bat[0], 'runs']/df.loc[df['playerid'] == bat[0], 'balls']
                 team2wicks+=1
                 if wickets == 10:
                     break

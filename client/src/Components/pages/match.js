@@ -250,7 +250,9 @@ const Matchpage= (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {team1Players.map((player) => (
+                        {team1Players
+                        .filter((player) => player.balls > 0)
+                        .map((player) => (
                             <tr key={player.playerid}>
                                 <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
@@ -276,7 +278,9 @@ const Matchpage= (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {team2Players.map((player) => (
+                        {team2Players
+                        .filter((player) => player.overs > 0)
+                        .map((player) => (
                             <tr key={player.playerid}>
                                 <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
@@ -291,36 +295,44 @@ const Matchpage= (props) => {
         )}
         {activeTab === "tab2" && (
             <div>
-                {/* Team 1 player table */}
-                <h3>Team 1 Players</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Player ID</th>
-                            <th>Name</th>
-                            <th>Runs</th>
-                            <th>Balls</th>
-                            <th>Fours</th>
-                            <th>Sixes</th>
-                            <th>Strike Rate</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {team2Players.map((player) => (
-                            <tr key={player.playerid}>
-                                <td>{player.playerid}</td>
-                                <td>{player.player_name}</td>
-                                <td>{player.runs}</td>
-                                <td>{player.balls}</td>
-                                <td>{player.fours}</td>
-                                <td>{player.sixes}</td>
-                                <td>{(player.runs*100/player.balls).toFixed(2)}</td>
+            {team1Players.some(player => player.balls > 0) && (
+                <div>
+                    {/* Team 1 player table */}
+                    <h3>Team 2 Players</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Player ID</th>
+                                <th>Name</th>
+                                <th>Runs</th>
+                                <th>Balls</th>
+                                <th>Fours</th>
+                                <th>Sixes</th>
+                                <th>Strike Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {team2Players
+                        .filter((player) => player.balls > 0)
+                        .map((player) => (
+                                <tr key={player.playerid}>
+                                    <td>{player.playerid}</td>
+                                    <td>{player.player_name}</td>
+                                    <td>{player.runs}</td>
+                                    <td>{player.balls}</td>
+                                    <td>{player.fours}</td>
+                                    <td>{player.sixes}</td>
+                                    <td>{(player.runs*100/player.balls).toFixed(2)}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+            </div>
+        )}
+        {team2Players.some(player => player.overs > 0) && (
+            <div>
                 {/* Team 2 player table */}
-                <h3>Team 2 Players</h3>
+                <h3>Team 1 Players</h3>
                 <table>
                     <thead>
                         <tr>
@@ -331,8 +343,10 @@ const Matchpage= (props) => {
                             <th>Runs Conceded</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {team1Players.map((player) => (
+                    <tbody>                         
+                        {team1Players
+                        .filter((player) => player.overs > 0)
+                        .map((player) => (
                             <tr key={player.playerid}>
                                 <td>{player.playerid}</td>
                                 <td>{player.player_name}</td>
@@ -345,6 +359,9 @@ const Matchpage= (props) => {
                 </table>
             </div>
         )}
+        </div>
+    )}
+
                     </div>
                 </div>
             </div>  
