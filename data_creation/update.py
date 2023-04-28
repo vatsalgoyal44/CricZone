@@ -14,7 +14,7 @@ register_adapter(numpy.int64, addapt_numpy_int64)
 def update(matchid):
     
     #connect to database
-    conn = pg.connect(database='criczone',host="localhost",user="postgres")
+    conn = pg.connect(database='criczone',host="localhost",user="postgres",password="Mittal@279")
     # conn = pg.connect(database='Criczone')
     cur = conn.cursor()
 

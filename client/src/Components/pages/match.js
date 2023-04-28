@@ -14,6 +14,8 @@ const Matchpage= (props) => {
   const [matchinfo, setMatchinfo] = useState();
 
   const [finalres, setFinalres] = useState();
+  const [team1Players, setTeam1Players] =useState();
+  const [team2Players, setTeam2Players] =useState();
 
   const [teaminfo, setTeaminfo] = useState();
 
@@ -51,6 +53,7 @@ const Matchpage= (props) => {
             setLoading(false);
         }
         getfinalres();
+        getteam1team2();
     }
   },[matchinfo]);
 
@@ -75,6 +78,12 @@ const Matchpage= (props) => {
         const result = `${matchinfo.team2.teamid} won by ${10-wicteam2} wickets`;
         setFinalres(result) 
     }
+  }
+  const getteam1team2 =()=>{
+    const teamIds = [...new Set(matchinfo.player_deets.map((player) => player.teamid))];
+    const team1Id = teamIds[0];
+    setTeam1Players(matchinfo.player_deets.filter((player) => player.teamid === team1Id));
+    setTeam2Players(matchinfo.player_deets.filter((player) => player.teamid !== team1Id));
   }
 
  
@@ -143,14 +152,6 @@ const Matchpage= (props) => {
                         </tr>
                         </thead>
                         <tbody>
-                        {/* {mostwickets.map(item => {
-                            return (
-                            <tr key={item.playerid}>
-                                <td>{item.player}</td>
-                                <td>{item.wickets}</td>
-                            </tr>
-                            );
-                        })} */}
                         <tr key="Dhoni">
                                 <td>MS Dhoni</td>
                                 <td>50</td>
@@ -224,9 +225,120 @@ const Matchpage= (props) => {
                         <div class={`${activeTab === "tab2" ? "active" : ""} basis-1/2 `}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300`} onClick={handleTab2}>Team 2</li></div>
                     </ul>
                     <div className="outlet">
-                        {/* content will be shown here */}
+                    {activeTab === "tab1" && (
+            <div>
+                {/* Team 1 player table */}
+                <h3>Team 1 Players</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Player ID</th>
+                            <th>Name</th>
+                            <th>Runs</th>
+                            <th>Fours</th>
+                            <th>Sixes</th>
+                            <th>Strike Rate</th>
+                            <th>Overs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {team1Players.map((player) => (
+                            <tr key={player.playerid}>
+                                <td>{player.playerid}</td>
+                                <td>{player.player_name}</td>
+                                <td>{player.runs}</td>
+                                <td>{player.fours}</td>
+                                <td>{player.sixes}</td>
+                                <td>{player.strike_rate}</td>
+                                <td>{player.overs}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                {/* Team 2 player table */}
+                <h3>Team 2 Players</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Player ID</th>
+                            <th>Name</th>
+                            <th>Balls</th>
+                            <th>Wickets</th>
+                            <th>Runs Conceded</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {team2Players.map((player) => (
+                            <tr key={player.playerid}>
+                                <td>{player.playerid}</td>
+                                <td>{player.player_name}</td>
+                                <td>{player.balls}</td>
+                                <td>{player.wickets}</td>
+                                <td>{player.runs_conceded}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}
+        {activeTab === "tab2" && (
+            <div>
+                {/* Team 1 player table */}
+                <h3>Team 1 Players</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Player ID</th>
+                            <th>Name</th>
+                            <th>Runs</th>
+                            <th>Fours</th>
+                            <th>Sixes</th>
+                            <th>Strike Rate</th>
+                            <th>Overs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {team2Players.map((player) => (
+                            <tr key={player.playerid}>
+                                <td>{player.playerid}</td>
+                                <td>{player.player_name}</td>
+                                <td>{player.runs}</td>
+                                <td>{player.fours}</td>
+                                <td>{player.sixes}</td>
+                                <td>{player.strike_rate}</td>
+                                <td>{player.overs}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                {/* Team 2 player table */}
+                <h3>Team 2 Players</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Player ID</th>
+                            <th>Name</th>
+                            <th>Balls</th>
+                            <th>Wickets</th>
+                            <th>Runs Conceded</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {team1Players.map((player) => (
+                            <tr key={player.playerid}>
+                                <td>{player.playerid}</td>
+                                <td>{player.player_name}</td>
+                                <td>{player.balls}</td>
+                                <td>{player.wickets}</td>
+                                <td>{player.runs_conceded}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}
                     </div>
-                    </div>
+                </div>
             </div>  
             <div class = "squads flex flex-col">
                 <div className="scorehead basis-5 border-b-2 border-violet-950"><h3 class="font-bold mx-3 my-2 text-lg align-middle">Squads</h3></div>

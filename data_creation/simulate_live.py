@@ -28,13 +28,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     #connect to database
-    conn = pg.connect(database=args.database,host="localhost",user="postgres")
+    conn = pg.connect(database=args.database,host="localhost",user="postgres",password="Mittal@279")
     # conn = pg.connect(database=args.database)
     cur = conn.cursor()
 
     cur.execute("INSERT INTO match (id,date,venue,tour_name,team1,team2,year) VALUES (%s,%s,%s,%s,%s,%s,%s)", (matchid,current_date, args.venue, args.tour,args.team1,args.team2,current_year))
     
-    #Choose players from player table in the database, using 3 letter code to match ID
+    #Choose pl ayers from player table in the database, using 3 letter code to match ID
     #Choose 11 players
     cur.execute(f"SELECT * FROM player_team natural join player WHERE teamid ilike '{args.team1}'  AND role = 'WK-Batsman' ORDER BY RANDOM() LIMIT 1")
     team1 = cur.fetchall()
