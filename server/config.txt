@@ -2,6 +2,7 @@
   "user": "postgres",
   "password": "1234",
   "host": "localhost",
+  "password": "1234",
   "database": "criczone",
   "port": "5432"
 }
