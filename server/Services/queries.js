@@ -218,11 +218,11 @@ const playerinfo = async (playerid) => {
             const values2 = [playerid]   
             try {
                 const res2 = await pool.query(text2, values2)
-                const text3 =   'with 5w(w5) as (select count(*) from matchwise_player_performance where wickets>=5 and playerid=$1),\
-                                10w(w10) as (select count(*) from matchwise_player_performance where wickets>=10 and playerid=$1),\
+                const text3 =   'with fw(w5) as (select count(*) from matchwise_player_performance where wickets>=5 and playerid=$1),\
+                                tw(w10) as (select count(*) from matchwise_player_performance where wickets>=10 and playerid=$1),\
                                 num_innings(num) as (select count(*) from matchwise_player_performance where overs>0 and playerid=$1)\
                                 SELECT count(*) as matches,num as inns, sum(overs) as overs, sum(runs_conceded) as runs, sum(wickets) as wicks, 6*sum(overs)/sum(wickets) as avg, sum(runs)/sum(wickets) as sr, sum(w5) as fives, sum(w10) as tens\
-                                FROM matchwise_player_performance, num_innings,w5,w10 where playerid=$1 \
+                                FROM matchwise_player_performance, num_innings,fw,tw where playerid=$1 \
                                 group by (num,w5,w10)'
                 const values3 = [playerid]
                 try {

@@ -67,26 +67,24 @@ const Playerpage= (props) => {
             <table className="careersumtable table-auto ">
                         <thead>
                         <tr>
-                            <th>Format</th>
-                            <th>M</th>
-                            <th>Inn</th>
+                            <th>Matches</th>
+                            <th>Innings</th>
                             <th>Runs</th>
-                            <th>HS</th>
-                            <th>Avg</th>
-                            <th>BF</th>
-                            <th>SR</th>
-                            <th>100</th>
-                            <th>200</th>
-                            <th>50</th>
+                            <th>High Score</th>
+                            <th>Average</th>
+                            <th>Balls Faced</th>
+                            <th>Strike Rate</th>
+                            <th>50s</th>
+                            <th>100s</th>
+                            <th>200s</th>
                             <th>4s</th>
                             <th>6s</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr key="test">
-                                <td class="font-bold">Test</td>
-                                <td>108</td>
-                                <td>183</td>
+                                <td></td>
+                                <td></td>
                                 <td>8273</td>
                                 <td>254</td>
                                 <td>48.32</td>
