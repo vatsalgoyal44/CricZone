@@ -23,10 +23,10 @@ const homeinfo = async () => {
             const text2 = 'SELECT playerid,player_name,runs,innings,runs/innings as runs_per_innings FROM player where innings>0 and role ilike \'%Batsman%\' order by runs/innings desc limit 5;'
             try{
                 const res2 = await pool.query(text2)
-                const text3 = 'SELECT playerid,player_name,runs_conceded,balls,runs_conceded/(overs*6) as per_ball_average FROM player where overs>0 and role ilike \'%Bowler%\' order by runs_conceded/(overs*6) limit 5;'
+                const text3 = 'SELECT playerid,player_name,runs_conceded,matches,overs,balls,runs_conceded/matches as per_ball_average FROM player where overs>0 and matches>0 and role ilike \'%Bowler%\' order by (runs_conceded*1000)/(matches) limit 5;'
                 try{
                     const res3 = await pool.query(text3)
-                    const text4 = 'SELECT playerid,player_name,wickets,matches,wickets/innings as wickets_per_match FROM player where matches>0 and innings>0 and  role ilike \'%Bowler%\'  order by wickets/innings desc limit 5;'
+                    const text4 = 'SELECT playerid,player_name,wickets,matches,CAST(wickets/matches AS FLOAT) as wickets_per_match FROM player where matches>0 and innings>0 and  role ilike \'%Bowler%\'  order by wickets/matches desc limit 5;'
                     try{
                         const res4 = await pool.query(text4)
                         const text5 = 'SELECT playerid,player_name,runs,wickets,runs+25*wickets as rating FROM player where role ilike \'%All-rounder%\' order by runs+25*wickets desc limit 5;'

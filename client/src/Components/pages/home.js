@@ -135,7 +135,7 @@ const Homepage= (props) => {
                     </table>
                   </div>
                   <div className="mostwickets basis-1/3">
-                    <div><h3>Economy</h3></div>
+                    <div><h3>Runs given per match</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
@@ -147,14 +147,14 @@ const Homepage= (props) => {
                         {bowl && bowl.map((item) => (
                           <tr key={item.playerid}>
                             <td>{item.player_name}</td>
-                            <td>{item.per_ball_average}</td>
+                            <td>{(item.runs_conceded/(item.matches)).toFixed(2)}</td>
                           </tr>
                         ))}
                         </tbody>
                     </table>
                   </div>
                   <div className="mostwickets basis-1/3">
-                    <div><h3>Average Wickets</h3></div>
+                    <div><h3>Average Wickets per match</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
@@ -166,7 +166,7 @@ const Homepage= (props) => {
                         {wicks && wicks.map((item) => (
                           <tr key={item.playerid}>
                             <td>{item.player_name}</td>
-                            <td>{item.wickets_per_match}</td>
+                            <td>{(item.wickets/item.matches).toFixed(2)}</td>
                           </tr>
                         ))}
               
