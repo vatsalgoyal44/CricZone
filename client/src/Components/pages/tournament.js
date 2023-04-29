@@ -33,7 +33,7 @@ const Tournamentpage = (props) => {
   }
 
   useEffect(() => {
-    fetchdata()
+    setInterval(fetchdata(), 5000);
   }, [])
 
   const slideLeft = () => {

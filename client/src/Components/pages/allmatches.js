@@ -13,6 +13,7 @@ const MatchListPage = (props) => {
   const [mergedLiveMatches, setMergedLiveMatches] = useState()
   const [mergedRecentMatches, setMergedRecentMatches] = useState()
   const [activeTab, setActiveTab] = useState("tab1");
+  const [live, setLive] = useState(false);
 
   const fetchdata = ()=>{
       getallmatches().then((res)=>{
@@ -107,6 +108,7 @@ const MatchListPage = (props) => {
   }
   useEffect(() => {
     fetchdata();
+    setInterval(fetchdata(), 5000);
   }, [allMatches]);
 
 
@@ -144,7 +146,7 @@ const MatchListPage = (props) => {
                 }))}
                 {activeTab === "tab2" && mergedRecentMatches && (mergedRecentMatches.map(match => {
                     console.log(match);
-                    return <MatchListCard matchData={match} key={match.id} />;
+                    return <MatchListCard matchid = {match.id} matchData={match} key={match.id} />;
                 }))}
             </div>
         </div>

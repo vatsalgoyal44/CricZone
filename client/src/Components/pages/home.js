@@ -44,7 +44,7 @@ const Homepage= (props) => {
   }
 
   useEffect(() => {
-    fetchdata()
+    setInterval(fetchdata(), 5000);
   }, [])
 
   const handleTab1 = () => {

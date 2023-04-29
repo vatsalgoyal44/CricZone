@@ -43,7 +43,7 @@ const pathname = window.location.pathname;
 
   useEffect(() => {
     setCurrentUrl(pathname);
-    fetchdata();
+    setInterval(fetchdata(), 5000);
   }, [pathname])
 
   let { teamname } = useParams();
