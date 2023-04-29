@@ -17,6 +17,7 @@ const pathname = window.location.pathname;
   const [highestscore, setHS] = useState();
   const [mostwickets, setMS] = useState();
   const [mostruns, setMR] = useState();
+  const [teaminfo, setTeam] = useState();
 
  
   let { teamid } = useParams();
@@ -26,7 +27,7 @@ const pathname = window.location.pathname;
       if(res.data.teaminfo==null){
         return;
       }
-        
+      setTeam(res.data.teaminfo);
       setMatch(res.data.matchinfo);
       setPlayers(res.data.players);
       setHS(res.data.highestscore);
@@ -49,8 +50,6 @@ const pathname = window.location.pathname;
     setCurrentUrl(pathname);
     setInterval(fetchdata(), 5000);
   }, [pathname])
-
-  let { teamname } = useParams();
 
   const slideLeft = () => {
     var slider = document.getElementById("slider")
@@ -76,7 +75,7 @@ const pathname = window.location.pathname;
     <div class = "teampage">
     <div class = "gridcontainer">
         <div class = "team">
-            <h3 className="teamname">{teamname}</h3>
+            <h3 className="teamname">{teaminfo[0].team_name}</h3>
         </div>
         <div class = "fixtures">
             <div class = "fixtureshead"><h3>Recent Fixtures</h3></div>
