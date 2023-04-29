@@ -48,6 +48,6 @@ export const gethome = () => {
     return res;
 }
 
-export const getpointstable = () =>{
-    const res = axios.get(API_URL + "tournamentpointstable")
+export const getpointstable = (tour_name) =>{
+    const res = axios.get(API_URL + "tournamentpointstable/" + tour_name)
 }

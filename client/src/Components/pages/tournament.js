@@ -12,24 +12,17 @@ const Tournamentpage = (props) => {
   const [loading, setLoading] = useState(true)
   const [tournamentinfo, setInfo] = useState()
   const [matchinfo, setMatch] = useState()
- 
+  const [points, setPoints] = useState()
   let { tourid } = useParams();
   const fetchdata = ()=>{
     gettournamentinfo(tourid).then((res)=>{
-      console.log(res.data)
       setInfo(res.data);
       setMatch(res.data.matches);
+      setPoints(res.data.points);
       setLoading(false);
       console.log(loading);
       if(res.status != 200){
         setLoading(true)
-      }else{
-        getpointstable(tourid).then((res)=>{
-          console.log(res.data)
-        }).catch(()=>{
-      console.log(res.status)
-      setLoading(true)
-    })
       }
     }).catch(()=>{
     //   console.log(res.status)
@@ -92,25 +85,26 @@ const Tournamentpage = (props) => {
                         <table className="pointtable table-auto h-full">
                         <thead>
                         <tr>
-                            <th class="w-1/2">Team</th>
-                            <th>P</th>
-                            <th>W</th>
-                            <th>L</th>
-                            <th>D</th>
-                            <th>Points</th>
-                            <th>NR</th>
+                            <th class="w-1/2">Team ID</th>
+                            <th>Team Name</th>
+                            <th>Wins</th>
+                            <th>Losses</th>
+                            <th>Matches</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {/* {mostwickets.map(item => {
+                        {points && points.map(item => {
                             return (
-                            <tr key={item.playerid}>
-                                <td>{item.player}</td>
-                                <td>{item.wickets}</td>
+                            <tr key={item.teamid}>
+                              <td>{item.teamid}</td>
+                                <td>{item.team_name}</td>
+                                <td>{item.wins}</td>
+                                <td>{item.losses}</td>
+                                <td>{item.matches}</td>
                             </tr>
                             );
-                        })} */}
-                        <tr key="India">
+                        })}
+                        {/* <tr key="India">
                                 <td>India</td>
                                 <td>2</td>
                                 <td>2</td>
@@ -118,7 +112,7 @@ const Tournamentpage = (props) => {
                                 <td>0</td>
                                 <td>4</td>
                                 <td>200</td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                        

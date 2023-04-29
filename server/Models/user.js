@@ -4,45 +4,46 @@ const queries         = require('../Services/queries')
 
 const gethome = async function(req, res){
     const queryresponse = await queries.homeinfo();
-    console.log(queryresponse)
+    //console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
 
 const getmatchinfo = async function(req, res){
     const { matchid } = req.params
     const queryresponse = await queries.matchinfo(matchid);
-    console.log(queryresponse)
+    //console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
 
 const getteaminfo = async function(req, res){
     const { teamid } = req.params
     const queryresponse = await queries.teaminfo(teamid);
-    console.log(queryresponse)
+    //console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
 
 const getteamallmatchinfo = async function(req, res){
     const { teamid } = req.params
     const queryresponse = await queries.teamallmatchinfo(teamid);
-    console.log(queryresponse)
+    //console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
 
 const gettournamentinfo = async function(req, res){
     const { tour_name } = req.params
     const queryresponse = await queries.tournamentinfo(tour_name);
-    console.log(queryresponse)
+    //console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
 
 const getalltournamentinfo = async function(req, res){
     const queryresponse = await queries.alltournamentinfo();
-    console.log(queryresponse)
+    //console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
 
 const gettournamentpointstable = async function(req, res){
+    console.log(req.params)
     const { tour_name } = req.params
     const queryresponse = await queries.tournamentpointstable(tour_name);
     console.log(queryresponse)
@@ -51,26 +52,26 @@ const gettournamentpointstable = async function(req, res){
 
 const getallteaminfo = async function(req, res){
     const queryresponse = await queries.allteaminfo();
-    console.log(queryresponse)
+    //console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
 
 const getallmatchinfo = async function(req, res){
     const queryresponse = await queries.allmatchinfo();
-    console.log(queryresponse)
+    //console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
 
 // const getrecordinfo = async function(req, res){
 //     const queryresponse = await queries.recordinfo();
-//     console.log(queryresponse)
+//     //console.log(queryresponse)
 //     res.status(200).send(queryresponse)
 // }
 
 const getplayerinfo = async function(req, res){
     const { playerid } = req.params
     const queryresponse = await queries.playerinfo(playerid);
-    console.log(queryresponse)
+    //console.log(queryresponse)
     res.status(200).send(queryresponse)
 }
 module.exports.gethome = gethome;

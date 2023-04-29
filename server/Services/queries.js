@@ -41,22 +41,22 @@ const homeinfo = async () => {
                                     allrounders: res5.rows
                                 };
                         }catch (err) {
-                            console.log(err.stack)
+                            //console.log(err.stack)
                         }
                     }catch (err) {
-                        console.log(err.stack)
+                        //console.log(err.stack)
                     }
                 }catch (err) {
-                    console.log(err.stack)
+                    //console.log(err.stack)
                 }
             }catch (err) {
-                console.log(err.stack)
+                //console.log(err.stack)
             }
         }catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     }catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
@@ -100,19 +100,19 @@ const matchinfo = async (matchid) => {
                         }; 
                     }
                 }catch (err) {
-                    console.log(err.stack)
+                    //console.log(err.stack)
                 }
             }catch (err) {
-                console.log(err.stack)
+                //console.log(err.stack)
             }
         }catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     }catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
     }catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
@@ -170,22 +170,22 @@ const teaminfo = async (teamid) => {
                                players: res5.rows,
                             };        
                         } catch (err) {
-                            console.log(err.stack)
+                            //console.log(err.stack)
                         }
                     } catch (err) {
-                        console.log(err.stack)
+                        //console.log(err.stack)
                     }
                 } catch (err) {
-                    console.log(err.stack)
+                    //console.log(err.stack)
                 }
             } catch (err) {
-             console.log(err.stack)
+             //console.log(err.stack)
             }
         } catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 
 }
@@ -198,7 +198,7 @@ const teamallmatchinfo = async (teamid) => {
         const res0 = await pool.query(text0, values0)
         return res0.rows;
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 
 }
@@ -241,16 +241,16 @@ const playerinfo = async (playerid) => {
                         bowling_summary : res3.rows
                     };
                 } catch (err) {
-                    console.log(err.stack)
+                    //console.log(err.stack)
                 }
             } catch (err) {
-                console.log(err.stack)
+                //console.log(err.stack)
             }
         } catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
@@ -260,12 +260,12 @@ const allmatchinfo = async () => {
 
     try {
         const res0 = await pool.query(text0);
-        console.log(res0);
+        //console.log(res0);
         return {
             matches:res0.rows
         };
     } catch (err) {
-        console.log(err.stack);
+        //console.log(err.stack);
     }
 
 }
@@ -276,7 +276,7 @@ const alltournamentinfo = async () => {
         const res0 = await pool.query(text0);
         return res0.rows;
     } catch (err) {
-        console.log(err.stack);
+        //console.log(err.stack);
     }
 
 }
@@ -287,7 +287,7 @@ const allteaminfo = async() => {
         const res0 = await pool.query(text0)
         return res0.rows;
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
@@ -302,19 +302,37 @@ const tournamentinfo = async (tour_name) => {
     
         try {
             const res1 = await pool.query(text1, values1)
-            return {
-                teams: res0.rows,
-                matches: res1.rows,
-            };
+            const text2 = 'select D.teamid, D.team_name, coalesce(matches,0) as matches, coalesce(wins,0) as wins, coalesce(losses,0) as losses from (SELECT matchwise_team_performance.teamid, count(*) as wins FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
+                   where tour_name = $1 and result = \'win\' group by matchwise_team_performance.teamid) as A\
+                    full outer join \
+                   (SELECT matchwise_team_performance.teamid, count(*) as losses FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
+                        where tour_name = $1 and result = \'lost\' group by matchwise_team_performance.teamid) as B using(teamid)\
+                    full outer join \
+                    (SELECT matchwise_team_performance.teamid, count(*) as matches FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
+                            where tour_name = $1 group by matchwise_team_performance.teamid) as C using(teamid)\
+                    full outer join \
+                    (SELECT teamid,team_name FROM tour_team join team using(teamid) where tour_name = $1) as D using(teamid)'
+    const values2 = [tour_name]
+            try{
+                const res2 = await pool.query(text2, values2)
+                return {
+                    teams: res0.rows,
+                    matches: res1.rows,
+                    points: res2.rows
+                };
+            }catch (err) {
+                //console.log(err.stack)
+            }
         } catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
 const tournamentpointstable = async (tour_name) => {
+    console.log(tour_name)
     const text0 = 'select D.teamid, D.team_name, coalesce(matches,0) as matches, coalesce(wins,0) as wins, coalesce(losses,0) as losses from (SELECT matchwise_team_performance.teamid, count(*) as wins FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
                    where tour_name = $1 and result = \'win\' group by matchwise_team_performance.teamid) as A\
                     full outer join \
@@ -331,7 +349,7 @@ const tournamentpointstable = async (tour_name) => {
         const res0 = await pool.query(text0, values0)
         return res0.rows;
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
