@@ -12,6 +12,7 @@ const Tournamentpage = (props) => {
   const [loading, setLoading] = useState(true)
   const [tournamentinfo, setInfo] = useState()
   const [matchinfo, setMatch] = useState()
+  const [live, setLive] = useState()
  
   let { tourid } = useParams();
   const fetchdata = ()=>{

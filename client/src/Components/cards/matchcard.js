@@ -12,6 +12,8 @@ const MatchCard= (props) => {
 
   const [finalres, setFinalres] = useState();
 
+  const [live, setLive] = useState(false);
+
 
   const fetchdata = ()=>{
     getmatchinfo(props.matchid).then((res)=>{
@@ -35,6 +37,10 @@ const MatchCard= (props) => {
     console.log(matchinfo);
     if(matchinfo){
         getfinalres();
+        if(matchinfo.team1.result == "In Progress"){
+          setLive(true);
+          setInterval(fetchdata(), 1000);
+        }
     }
   },[matchinfo]);
 
@@ -67,7 +73,8 @@ const MatchCard= (props) => {
     <div className="matchcard">
       <div class="flex flex-col">
         <div class="cardbox1 basis-1/5 bg-pinkcustom ">
-          <h3 class="font-bold">{props.tourid}</h3>
+        <div class="relative flex flex-row"> <h3 class="basis-5/6 font-bold">{props.tourid}</h3>
+          {live && <div class="basis-1/6 py-2"><div class="dot ml-8 w-2 h-2 bg-red-600 rounded-full"></div></div>}</div>
             <div class="relative flex">
               <a class="">{props.date}</a>
               <a class="mx-3">{props.location}</a>
@@ -85,7 +92,8 @@ const MatchCard= (props) => {
           </div>
         </div>
         <div className="basis-1/5">
-          <a class="ml-2 mb-2">{finalres}</a>
+          {!live && <a class="ml-2 mb-2">{finalres}</a>}
+          {live && <a class="ml-2 mb-2">Match in Progress</a>}
         </div>
       </div>
     </div>
