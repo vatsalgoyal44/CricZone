@@ -191,16 +191,17 @@ if __name__ == "__main__":
                      row['strike_rate'], row['wickets'], row['runs_conceded'], row['overs'], row['playerid'], row['matchid']))
         
     #Close the database connection
-    
+    print(team1score)
+    print(team2score)
     if(team1score>team2score):
-        cur.execute(f"UPDATE matchwise_team_performance SET result = 'win' where teamid = \'{args.team1}\'")
-        cur.execute(f"UPDATE matchwise_team_performance SET result = 'lost' where teamid = \'{args.team2}\'")
+        cur.execute(f"UPDATE matchwise_team_performance SET result = 'win' where teamid = \'{args.team1}\' and matchid = \'{matchid}\'")
+        cur.execute(f"UPDATE matchwise_team_performance SET result = 'lost' where teamid = \'{args.team2}\' and matchid = \'{matchid}\'")
     elif (team2score>team1score):
-        cur.execute(f"UPDATE matchwise_team_performance SET result = 'lost' where teamid = \'{args.team1}\'")
-        cur.execute(f"UPDATE matchwise_team_performance SET result = 'win' where teamid = \'{args.team2}\'")
+        cur.execute(f"UPDATE matchwise_team_performance SET result = 'lost' where teamid = \'{args.team1}\' and matchid = \'{matchid}\'")
+        cur.execute(f"UPDATE matchwise_team_performance SET result = 'win' where teamid = \'{args.team2}\' and matchid = \'{matchid}\'")
     else:
-        cur.execute(f"UPDATE matchwise_team_performance SET result = 'draw' where teamid = \'{args.team1}\'")
-        cur.execute(f"UPDATE matchwise_team_performance SET result = 'draw' where teamid = \'{args.team2}\'")
+        cur.execute(f"UPDATE matchwise_team_performance SET result = 'draw' where teamid = \'{args.team1}\' and matchid = \'{matchid}\'")
+        cur.execute(f"UPDATE matchwise_team_performance SET result = 'draw' where teamid = \'{args.team2}\' and matchid = \'{matchid}\'")
 
     conn.commit()
     cur.close()

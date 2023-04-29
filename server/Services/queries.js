@@ -305,8 +305,7 @@ const tournamentinfo = async (tour_name) => {
             const text2 = 'select D.teamid, D.team_name, coalesce(matches,0) as matches, coalesce(wins,0) as wins, coalesce(losses,0) as losses from (SELECT matchwise_team_performance.teamid, count(*) as wins FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
                    where tour_name = $1 and result = \'win\' group by matchwise_team_performance.teamid) as A\
                     full outer join \
-                   (SELECT matchwise_team_performance.teamid, count(*) as losses FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
-                        where tour_name = $1 and result = \'lost\' group by matchwise_team_performance.teamid) as B using(teamid)\
+                   (SELECT matchwise_team_performance.teamid, count(*) as losses FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid) where tour_name = $1 and result = \'lost\' group by matchwise_team_performance.teamid) as B using(teamid)\
                     full outer join \
                     (SELECT matchwise_team_performance.teamid, count(*) as matches FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
                             where tour_name = $1 group by matchwise_team_performance.teamid) as C using(teamid)\

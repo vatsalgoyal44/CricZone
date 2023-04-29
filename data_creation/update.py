@@ -59,7 +59,7 @@ def update(matchid):
                     balls = %s, \
                     wickets = %s, runs_conceded = %s, \
                     overs = %s \
-                    WHERE playerid = %s", 
+                    WHERE playerid = %s ", 
                         (df['matches'][i], df['innings'][i], 
                          df['runs'][i], df['balls'][i], 
                          df['wickets'][i], 
