@@ -13,31 +13,31 @@ const pool = new Pool({
 })
 
 const homeinfo = async () => {
-    const text0 = 'select id,date,venue,tour_name,teamid,result,total_score,total_wickets from match inner join matchwise_team_performance on id=matchid order by date desc,matchid LIMIT 6;'
+    const text0 = 'SELECT * FROM match order by date DESC limit 6'
     try{
         const res0 = await pool.query(text0)
         const text1 = 'SELECT * FROM tournament'
 
         try{
             const res1 = await pool.query(text1)
-            const text2 = 'SELECT playerid,player_name,runs,innings,runs/innings as runs_per_innings FROM player where innings>0 and role ilike \'%Batsman%\' order by runs/innings desc;'
+            const text2 = 'SELECT playerid,player_name,runs,innings,runs/innings as runs_per_innings FROM player where innings>0 and role ilike \'%Batsman%\' order by runs/innings desc limit 5;'
             try{
                 const res2 = await pool.query(text2)
-                const text3 = 'SELECT playerid,player_name,runs_conceded,balls,runs_conceded/balls as per_ball_average FROM player where balls>0 and role ilike \'%Bowler%\' order by runs_conceded/balls;'
+                const text3 = 'SELECT playerid,player_name,runs_conceded,matches,overs,balls,runs_conceded/matches as per_ball_average FROM player where overs>0 and matches>0 and role ilike \'%Bowler%\' order by (runs_conceded*1000)/(matches) limit 5;'
                 try{
                     const res3 = await pool.query(text3)
-                    const text4 = 'SELECT playerid,player_name,wickets,matches,wickets/matches as wickets_per_match FROM player where matches>0 and role ilike \'%Bowler%\' order by wickets/matches desc;'
+                    const text4 = 'SELECT playerid,player_name,wickets,matches,CAST(wickets/matches AS FLOAT) as wickets_per_match FROM player where matches>0 and innings>0 and  role ilike \'%Bowler%\'  order by wickets/matches desc limit 5;'
                     try{
                         const res4 = await pool.query(text4)
-                        const text5 = 'SELECT playerid,player_name,runs,wickets,runs+25*wickets as rating FROM player where role ilike \'%All-rounder%\' order by runs+25*wickets desc;'
+                        const text5 = 'SELECT playerid,player_name,runs,wickets,runs+25*wickets as rating FROM player where role ilike \'%All-rounder%\' order by runs+25*wickets desc limit 5;'
                         try{
                             const res5 = await pool.query(text5)
                                 return {
                                     recent_matches: res0.rows,
                                     tours: res1.rows,
                                     batting: res2.rows,
-                                    wickets: res3.rows,
-                                    bowling: res4.rows,
+                                    bowling: res3.rows,
+                                    wickets: res4.rows,
                                     allrounders: res5.rows
                                 };
                         }catch (err) {
@@ -66,10 +66,14 @@ const matchinfo = async (matchid) => {
     const values0 = [matchid]
     try{
         const res0 = await pool.query(text0, values0)
-        const text1 = 'SELECT * FROM matchwise_team_performance WHERE matchid = $1'
-        const values1 = [matchid]
+        const textteam1 = 'SELECT * FROM match, matchwise_team_performance WHERE match.id = matchwise_team_performance.matchid and team1 = teamid and matchwise_team_performance.matchid = $1'
+        const valuesteam1 = [matchid]
         try{
-            const res1 = await pool.query(text1, values1)
+            const resteam1 = await pool.query(textteam1, valuesteam1)
+            const textteam2 = 'SELECT * FROM match, matchwise_team_performance WHERE match.id = matchwise_team_performance.matchid and team2 = teamid and matchwise_team_performance.matchid = $1'
+            const valuesteam2 = [matchid]
+        try{
+            const resteam2 = await pool.query(textteam2, valuesteam2)
             const text2 = 'SELECT mp.matchid,mp.teamid,mp.playerid,player.player_name,mp.balls,mp.runs,mp.fours,mp.sixes,mp.wickets,mp.runs_conceded,mp.overs FROM matchwise_player_performance as mp inner join player using (playerid) WHERE matchid = $1'
             const values2 = [matchid]
             try{
@@ -78,11 +82,11 @@ const matchinfo = async (matchid) => {
                 const values3 = [matchid]
                 try{
                     const res3 = await pool.query(text3, values3)
-                    if(res0.rows.length>0 && res1.rows.length>=2){
+                    if(res0.rows.length>0 && resteam1.rows.length>0 && resteam2.rows.length>0){
                         return {
                             match_deets: res0.rows, 
-                            team1: res1.rows[0], 
-                            team2: res1.rows[1], 
+                            team1: resteam1.rows[0], 
+                            team2: resteam2.rows[0], 
                             player_deets: res2.rows,
                             commentary: res3.rows,
                         };
@@ -104,6 +108,9 @@ const matchinfo = async (matchid) => {
         }catch (err) {
             console.log(err.stack)
         }
+    }catch (err) {
+        console.log(err.stack)
+    }
     }catch (err) {
         console.log(err.stack)
     }
@@ -211,7 +218,7 @@ const playerinfo = async (playerid) => {
                         num_50s(f) as (select count(*) from matchwise_player_performance where runs>=50 and runs<100 and playerid=$1),\
                         num_100s(h) as (select count(*) from matchwise_player_performance where runs>=100 and playerid=$1),\
                         num_200s(d) as (select count(*) from matchwise_player_performance where runs>=200 and playerid=$1)\
-                            SELECT count(*) as matches ,num as inns,sum(runs) as runs,max(runs) as hs,sum(runs)/num as avg, sum(balls) as balls, 100*sum(runs)/sum(balls) as sr, \
+                            SELECT count(*) as matches ,num as inns,sum(runs) as runs,max(runs) as hs,sum(runs)/num as avg, sum(balls) as balls, 100*sum(runs)/sum(balls+1) as sr, \
                             f as fif, h as hund, d as dual, sum(fours) as fours,sum(sixes) as sixes\
                              FROM matchwise_player_performance, num_innings,num_50s,num_100s,num_200s where playerid=$1 \
                              group by (num,f,h,d)'
@@ -221,7 +228,7 @@ const playerinfo = async (playerid) => {
                 const text3 =   'with fw(w5) as (select count(*) from matchwise_player_performance where wickets>=5 and playerid=$1),\
                                 tw(w10) as (select count(*) from matchwise_player_performance where wickets>=10 and playerid=$1),\
                                 num_innings(num) as (select count(*) from matchwise_player_performance where overs>0 and playerid=$1)\
-                                SELECT count(*) as matches,num as inns, sum(overs) as overs, sum(runs_conceded) as runs, sum(wickets) as wicks, sum(runs)/sum(overs) as eco, 6*sum(overs)/sum(wickets) as avg, sum(runs)/sum(wickets) as sr, sum(w5) as fives, sum(w10) as tens\
+                                SELECT count(*) as matches,num as inns, sum(overs) as overs, sum(runs_conceded) as runs, sum(wickets) as wicks, sum(runs_conceded)/sum(overs) as eco, 6*sum(overs)/sum(wickets) as avg, sum(runs_conceded)/sum(wickets) as sr, sum(w5) as fives, sum(w10) as tens\
                                 FROM matchwise_player_performance, num_innings,fw,tw where playerid=$1 \
                                 group by (num,w5,w10)'
                 const values3 = [playerid]

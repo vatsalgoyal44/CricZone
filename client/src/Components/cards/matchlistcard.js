@@ -6,8 +6,6 @@ const MatchListCard= (props) => {
   const { matchData } = props;
   const [loading, setLoading] = useState(true)
 const margin = Math.abs(parseInt(matchData.score) - parseInt(matchData.score2));
-
-
   {console.log(matchData)}
   if (!loading){
     return(
@@ -37,11 +35,6 @@ const margin = Math.abs(parseInt(matchData.score) - parseInt(matchData.score2));
             <h3 class="basis-1/4 font-bold my-2">{matchData.total_score2}/{matchData.total_wickets2}</h3>
           </div>
         </div>
-  {!matchData.result.includes("In Progress") && (
-    <div className="basis-1/5">
-      <a class="ml-2 mb-2">{`${matchData.score > matchData.score2 ? matchData.teamid : matchData.teamid2} won by ${margin} runs`}</a>
-    </div>
-)}
 {matchData.result.includes("In Progress") && (
     <div className="basis-1/5">
       <a class="ml-2 mb-2">In Progress</a>

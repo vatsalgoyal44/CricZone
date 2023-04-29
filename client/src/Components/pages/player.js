@@ -42,7 +42,7 @@ const Playerpage= (props) => {
   else return (
     <div className="playerpage">
       <div className="flex flex-col">
-        <div className="basis-1/6 snap-center align-middle flex flex-row my-10">
+        <div className="basis-1/6 flex flex-row my-10">
             <div className="basis-1/5"><BiUserCircle size={200} class="md:w-48 md:h-auto mx-auto "/></div>
             <div className="basis-4/5 m-auto text-center ml-10"><h1 className="playername ">{player.playerinfo[0].player_name}</h1></div>
         </div>

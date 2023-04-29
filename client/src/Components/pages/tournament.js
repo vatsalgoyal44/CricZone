@@ -4,7 +4,7 @@ import ReactLoading from "react-loading";
 import './home.css'
 import MatchCard from "../cards/matchcard";
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
-import { gettournamentinfo } from "../data/data";
+import { gettournamentinfo, getpointstable } from "../data/data";
 
 
 const Tournamentpage = (props) => {
@@ -23,6 +23,13 @@ const Tournamentpage = (props) => {
       console.log(loading);
       if(res.status != 200){
         setLoading(true)
+      }else{
+        getpointstable(tourid).then((res)=>{
+          console.log(res.data)
+        }).catch(()=>{
+      console.log(res.status)
+      setLoading(true)
+    })
       }
     }).catch(()=>{
     //   console.log(res.status)
@@ -70,6 +77,7 @@ const Tournamentpage = (props) => {
             <div className="overflow-x-hidden relative flex items-center">
                 <MdChevronLeft size = {40} onClick={slideLeft} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/>
                 <div className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth" id="slider">
+                    {console.log(matchinfo)}
                     {matchinfo.map(item=>{
                         return (<div className='inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300'><Link to={`/match/${item.id}`}><MatchCard date = {item.date.substring(0,item.date.indexOf("T"))} team1 = {item.team1} team2 = {item.team2} location = {item.venue} tourid = {item.tour_name} matchid = {item.id}/></Link></div>)
                     })}

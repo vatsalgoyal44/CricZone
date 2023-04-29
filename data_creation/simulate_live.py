@@ -95,6 +95,7 @@ if __name__ == "__main__":
                 team1wicks+=1
                 if wickets == 10:
                     break
+                cur.execute(f"INSERT into commentary values ({matchid},{over},{ball},\'{bat[0]}\',\'{bowler[0]}\',\'{shot}\',1)")
                 bat = team1[wickets+1]
             else:
                 #update batsman's score
@@ -109,8 +110,7 @@ if __name__ == "__main__":
                     df.loc[df['playerid'] == bat[0], 'sixes'] += 1
                 #update bowler's score
                 df.loc[df['playerid'] == bowler[0], 'overs'] += 0.1
-
-            cur.execute(f"INSERT into commentary values ({matchid},{over},{ball},\'{bat[0]}\',\'{bowler[0]}\',\'{shot}\',1)")
+                cur.execute(f"INSERT into commentary values ({matchid},{over},{ball},\'{bat[0]}\',\'{bowler[0]}\',\'{shot}\',1)")
 
             #update matchwise_player_performance table
             for i, row in df.iterrows():

@@ -18,11 +18,11 @@
 
 }
 
-.gridcontainermatch{
+/* .gridcontainermatch{
     display: grid;
     grid-template-columns: 2fr 1fr;
 
-}
+} */
 
 .firstcol{
     display: grid;
@@ -47,6 +47,33 @@
     overflow: hidden;
 }
 
+.matchpage table thead tr{
+    
+    background-color: #f8f5fb;
+    text-align: left;
+    font-weight: bold;
+}
+
+.matchpage table thead th{
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    background-color: rgb(252, 253, 256);
+}
+
+.matchpage table th,
+table td{
+    background-color: rgb(252, 253, 256);
+    overflow: hidden;
+
+}
+
+.matchpage table tbody tr{
+    border-bottom: 1px #263238;
+    overflow: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
 .comphead{
     background-color: #c0b7dc;
 }
@@ -55,20 +82,20 @@
     background-color: #c0b7dc;
 }
 
-.scoreboard{
-        background-color: rgb(252, 253, 256);
+.scoreboardmatch{
+        
         margin-top: 20px;
         border-radius: 10px;
         margin-left: 10px;
         overflow: hidden;
 }
 
-.scoreboard .nav .active {
-    background-color: #c0b7dc;
+.scoreboardmatch .nav .active {
+    background-color: rgb(252, 253, 256);
 }
 
 .squads{
-    background-color: rgb(252, 253, 256);
+    background-color:  #c0b7dc;
     margin-top: 20px;
     border-radius: 10px;
     margin-left: 10px;
@@ -76,17 +103,27 @@
 }
 
 .squads .nav .active {
-background-color: #c0b7dc;
+background-color: rgb(252, 253, 256);
 }
 
 .battertable{
     background-color: rgb(252, 253, 256);
 }
 
-.battertable thead th{
+/* .battertable thead th{
     background-color: #c0b7dc;
 }
 
 .ballertable thead th{
     background-color: #c0b7dc;
-}
+} */
+
+.battertablescore table tbody tr:last-of-type td:first-child{
+    
+    border-radius: 0 0 0 0;
+} 
+
+.battertablescore table tbody tr:last-of-type td:last-child{
+    
+    border-radius: 0 0 0 0; 
+} 
