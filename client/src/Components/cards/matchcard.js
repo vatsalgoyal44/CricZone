@@ -17,14 +17,14 @@ const MatchCard= (props) => {
 
   const fetchdata = ()=>{
     getmatchinfo(props.matchid).then((res)=>{
-      console.log(res.data);
+      // console.log(res.data);
       setMatchinfo(res.data);
       setLoading(false);
       if(res.status != 200){
         setLoading(true);
       }
     }).catch((res)=>{
-      console.log(res);
+      // console.log(res);
       setLoading(true);
     });
   }
@@ -34,7 +34,7 @@ const MatchCard= (props) => {
   }, []);
 
     useEffect(() =>{
-    console.log(matchinfo);
+    // console.log(matchinfo);
     if(matchinfo){
         getfinalres();
         if(matchinfo.team1.result == "In Progress"){
@@ -45,7 +45,7 @@ const MatchCard= (props) => {
   },[matchinfo]);
 
   const getfinalres = ()=>{
-    console.log(matchinfo);
+    // console.log(matchinfo);
     const scoreteam1 = matchinfo.team1.total_score;
     const wicteam1 = matchinfo.team1.total_wickets;
     const scoreteam2 = matchinfo.team2.total_score;

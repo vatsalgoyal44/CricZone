@@ -13,50 +13,50 @@ const pool = new Pool({
 })
 
 const homeinfo = async () => {
-    const text0 = 'select id,date,venue,tour_name,teamid,result,total_score,total_wickets from match inner join matchwise_team_performance on id=matchid order by date desc,matchid LIMIT 6;'
+    const text0 = 'SELECT * FROM match order by date DESC limit 6'
     try{
         const res0 = await pool.query(text0)
         const text1 = 'SELECT * FROM tournament'
 
         try{
             const res1 = await pool.query(text1)
-            const text2 = 'SELECT playerid,player_name,runs,innings,runs/innings as runs_per_innings FROM player where innings>0 and role ilike \'%Batsman%\' order by runs/innings desc;'
+            const text2 = 'SELECT playerid,player_name,runs,innings,runs/innings as runs_per_innings FROM player where innings>0 and role ilike \'%Batsman%\' order by runs/innings desc limit 5;'
             try{
                 const res2 = await pool.query(text2)
-                const text3 = 'SELECT playerid,player_name,runs_conceded,balls,runs_conceded/balls as per_ball_average FROM player where balls>0 and role ilike \'%Bowler%\' order by runs_conceded/balls;'
+                const text3 = 'SELECT playerid,player_name,runs_conceded,matches,overs,balls,runs_conceded/matches as per_ball_average FROM player where overs>0 and matches>0 and role ilike \'%Bowler%\' order by (runs_conceded*1000)/(matches) limit 5;'
                 try{
                     const res3 = await pool.query(text3)
-                    const text4 = 'SELECT playerid,player_name,wickets,matches,wickets/matches as wickets_per_match FROM player where matches>0 and role ilike \'%Bowler%\' order by wickets/matches desc;'
+                    const text4 = 'SELECT playerid,player_name,wickets,matches,CAST(wickets/matches AS FLOAT) as wickets_per_match FROM player where matches>0 and innings>0 and  role ilike \'%Bowler%\'  order by wickets/matches desc limit 5;'
                     try{
                         const res4 = await pool.query(text4)
-                        const text5 = 'SELECT playerid,player_name,runs,wickets,runs+25*wickets as rating FROM player where role ilike \'%All-rounder%\' order by runs+25*wickets desc;'
+                        const text5 = 'SELECT playerid,player_name,runs,wickets,runs+25*wickets as rating FROM player where role ilike \'%All-rounder%\' order by runs+25*wickets desc limit 5;'
                         try{
                             const res5 = await pool.query(text5)
                                 return {
                                     recent_matches: res0.rows,
                                     tours: res1.rows,
                                     batting: res2.rows,
-                                    wickets: res3.rows,
-                                    bowling: res4.rows,
+                                    bowling: res3.rows,
+                                    wickets: res4.rows,
                                     allrounders: res5.rows
                                 };
                         }catch (err) {
-                            console.log(err.stack)
+                            //console.log(err.stack)
                         }
                     }catch (err) {
-                        console.log(err.stack)
+                        //console.log(err.stack)
                     }
                 }catch (err) {
-                    console.log(err.stack)
+                    //console.log(err.stack)
                 }
             }catch (err) {
-                console.log(err.stack)
+                //console.log(err.stack)
             }
         }catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     }catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
@@ -100,19 +100,19 @@ const matchinfo = async (matchid) => {
                         }; 
                     }
                 }catch (err) {
-                    console.log(err.stack)
+                    //console.log(err.stack)
                 }
             }catch (err) {
-                console.log(err.stack)
+                //console.log(err.stack)
             }
         }catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     }catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
     }catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
@@ -170,22 +170,22 @@ const teaminfo = async (teamid) => {
                                players: res5.rows,
                             };        
                         } catch (err) {
-                            console.log(err.stack)
+                            //console.log(err.stack)
                         }
                     } catch (err) {
-                        console.log(err.stack)
+                        //console.log(err.stack)
                     }
                 } catch (err) {
-                    console.log(err.stack)
+                    //console.log(err.stack)
                 }
             } catch (err) {
-             console.log(err.stack)
+             //console.log(err.stack)
             }
         } catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 
 }
@@ -198,7 +198,7 @@ const teamallmatchinfo = async (teamid) => {
         const res0 = await pool.query(text0, values0)
         return res0.rows;
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 
 }
@@ -228,7 +228,7 @@ const playerinfo = async (playerid) => {
                 const text3 =   'with fw(w5) as (select count(*) from matchwise_player_performance where wickets>=5 and playerid=$1),\
                                 tw(w10) as (select count(*) from matchwise_player_performance where wickets>=10 and playerid=$1),\
                                 num_innings(num) as (select count(*) from matchwise_player_performance where overs>0 and playerid=$1)\
-                                SELECT count(*) as matches,num as inns, sum(overs) as overs, sum(runs_conceded) as runs, sum(wickets) as wicks, sum(runs)/sum(overs+1) as eco, 6*sum(overs)/sum(wickets+1) as avg, sum(runs)/sum(wickets+1) as sr, sum(w5) as fives, sum(w10) as tens\
+                                SELECT count(*) as matches,num as inns, sum(overs) as overs, sum(runs_conceded) as runs, sum(wickets) as wicks, sum(runs_conceded)/sum(overs) as eco, 6*sum(overs)/sum(wickets) as avg, sum(runs_conceded)/sum(wickets) as sr, sum(w5) as fives, sum(w10) as tens\
                                 FROM matchwise_player_performance, num_innings,fw,tw where playerid=$1 \
                                 group by (num,w5,w10)'
                 const values3 = [playerid]
@@ -241,16 +241,16 @@ const playerinfo = async (playerid) => {
                         bowling_summary : res3.rows
                     };
                 } catch (err) {
-                    console.log(err.stack)
+                    //console.log(err.stack)
                 }
             } catch (err) {
-                console.log(err.stack)
+                //console.log(err.stack)
             }
         } catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
@@ -260,12 +260,12 @@ const allmatchinfo = async () => {
 
     try {
         const res0 = await pool.query(text0);
-        console.log(res0);
+        //console.log(res0);
         return {
             matches:res0.rows
         };
     } catch (err) {
-        console.log(err.stack);
+        //console.log(err.stack);
     }
 
 }
@@ -276,7 +276,7 @@ const alltournamentinfo = async () => {
         const res0 = await pool.query(text0);
         return res0.rows;
     } catch (err) {
-        console.log(err.stack);
+        //console.log(err.stack);
     }
 
 }
@@ -287,7 +287,7 @@ const allteaminfo = async() => {
         const res0 = await pool.query(text0)
         return res0.rows;
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
@@ -302,19 +302,36 @@ const tournamentinfo = async (tour_name) => {
     
         try {
             const res1 = await pool.query(text1, values1)
-            return {
-                teams: res0.rows,
-                matches: res1.rows,
-            };
+            const text2 = 'select D.teamid, D.team_name, coalesce(matches,0) as matches, coalesce(wins,0) as wins, coalesce(losses,0) as losses from (SELECT matchwise_team_performance.teamid, count(*) as wins FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
+                   where tour_name = $1 and result = \'win\' group by matchwise_team_performance.teamid) as A\
+                    full outer join \
+                   (SELECT matchwise_team_performance.teamid, count(*) as losses FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid) where tour_name = $1 and result = \'lost\' group by matchwise_team_performance.teamid) as B using(teamid)\
+                    full outer join \
+                    (SELECT matchwise_team_performance.teamid, count(*) as matches FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
+                            where tour_name = $1 group by matchwise_team_performance.teamid) as C using(teamid)\
+                    full outer join \
+                    (SELECT teamid,team_name FROM tour_team join team using(teamid) where tour_name = $1) as D using(teamid)'
+    const values2 = [tour_name]
+            try{
+                const res2 = await pool.query(text2, values2)
+                return {
+                    teams: res0.rows,
+                    matches: res1.rows,
+                    points: res2.rows
+                };
+            }catch (err) {
+                //console.log(err.stack)
+            }
         } catch (err) {
-            console.log(err.stack)
+            //console.log(err.stack)
         }
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 
 const tournamentpointstable = async (tour_name) => {
+    console.log(tour_name)
     const text0 = 'select D.teamid, D.team_name, coalesce(matches,0) as matches, coalesce(wins,0) as wins, coalesce(losses,0) as losses from (SELECT matchwise_team_performance.teamid, count(*) as wins FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
                    where tour_name = $1 and result = \'win\' group by matchwise_team_performance.teamid) as A\
                     full outer join \
@@ -331,7 +348,7 @@ const tournamentpointstable = async (tour_name) => {
         const res0 = await pool.query(text0, values0)
         return res0.rows;
     } catch (err) {
-        console.log(err.stack)
+        //console.log(err.stack)
     }
 }
 

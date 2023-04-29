@@ -14,7 +14,7 @@ register_adapter(numpy.int64, addapt_numpy_int64)
 def update(matchid):
     
     #connect to database
-    conn = pg.connect(database='criczone',host="localhost",user="postgres",password="Mittal@279")
+    conn = pg.connect(database='criczone',host="localhost",user="postgres",password="1234")
     # conn = pg.connect(database='Criczone')
     cur = conn.cursor()
 
@@ -59,7 +59,7 @@ def update(matchid):
                     balls = %s, \
                     wickets = %s, runs_conceded = %s, \
                     overs = %s \
-                    WHERE playerid = %s", 
+                    WHERE playerid = %s ", 
                         (df['matches'][i], df['innings'][i], 
                          df['runs'][i], df['balls'][i], 
                          df['wickets'][i], 

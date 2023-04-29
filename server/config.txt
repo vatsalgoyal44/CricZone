@@ -1,7 +1,8 @@
 {
-  "user": "ezpz2",
+  "user": "postgres",
+  "password": "1234",
   "host": "localhost",
-  "password": "1234ezpz",
+  "password": "1234",
   "database": "criczone",
-  "port": "5433"
+  "port": "5432"
 }

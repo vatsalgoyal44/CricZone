@@ -6,6 +6,7 @@ import MatchCard from "../cards/matchcard";
 import {BiUserCircle} from 'react-icons/bi';
 import {getplayerinfo} from '../data/data'
 
+
 const Playerpage= (props) => {
 
   const [loading, setLoading] = useState(true)
@@ -50,15 +51,25 @@ const Playerpage= (props) => {
         <div className="basis-1/5">
             <table className="infotable table-auto">
                         <tbody>
-                            
-                            <tr key="batting">
+
+                            <tr key="ID">
+                                <td class = "font-bold w-1/2">ID</td>
+                                <td>{player.playerinfo[0].playerid}</td>
+                            </tr>
+                            {/* <tr key="Country">
+                                <td class = "font-bold w-1/2">Country</td>
+                                <td>{player.playerinfo[0].country}</td>
+                            </tr>
+                             */}
+                            <tr key="Batting">
                                 <td class = "font-bold w-1/2">Batting Style</td>
                                 <td>{player.playerinfo[0].batting_style}</td>
                             </tr>
-                            <tr key="bowling">
+                            <tr key="Bowling">
                                 <td class = "font-bold w-1/2">Bowling Style</td>
                                 <td>{player.playerinfo[0].bowling_style}</td>
                             </tr>
+                            
                         </tbody>
                     </table>
             </div>
