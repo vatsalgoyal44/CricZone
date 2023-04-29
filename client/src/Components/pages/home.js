@@ -193,12 +193,17 @@ const Homepage= (props) => {
                         </tr>
                         </thead>
                         <tbody>
-                        {ar && ar.map((item) => (
-                          <tr key={item.playerid}>
-                            <td>{item.player_name}</td>
-                            <td>{item.rating}</td>
-                          </tr>
-                        ))}
+                        {ar &&
+                        ar
+                          .sort((a, b) => b.rating - a.rating) // Sort the array in descending order of rating
+                          .slice(0, 10) // Get the top 10 items
+                          .map((item, index) => ( // Add an index to enumerate the items
+                            <tr key={item.playerid}>
+                              <td>{index + 1}. {item.player_name}</td>
+                              <td>{item.rating}</td>
+                            </tr>
+                          ))}
+
                         </tbody>
                     </table>
                   </div>
