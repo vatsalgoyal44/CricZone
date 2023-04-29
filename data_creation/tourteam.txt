@@ -1,0 +1,7 @@
+insert into tournament values('ICC ODI Worldcup 2022','ODI');
+insert into tour_team values('ICC ODI Worldcup 2022','AFG');  
+insert into tour_team values('ICC ODI Worldcup 2022','NZL');  
+insert into tour_team values('ICC ODI Worldcup 2022','IND');  
+insert into tour_team values('ICC ODI Worldcup 2022','BAN');  
+insert into tour_team values('ICC ODI Worldcup 2022','AUS');  
+insert into tour_team values('ICC ODI Worldcup 2022','ENG');

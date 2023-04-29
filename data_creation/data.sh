@@ -4,14 +4,14 @@
 teams=('IND' 'AUS' 'AFG' 'BAN' 'NZL' 'ENG')
 
 # Set the tour name and number of overs
-tour='ICC T20 Worldcup 2023'
-overs=20
+tour='ICC ODI Worldcup 2022'
+overs=50
 
 # Create an array of famous stadium names
 venues=('MCG' 'Eden Gardens' 'Wankhede Stadium' 'The Oval' 'Old Trafford' 'M. Chinnaswamy Stadium' 'Newlands' 'Lahore Gaddafi Stadium' 'Sharjah Cricket Stadium' 'Dubai International Cricket Stadium' 'Sydney Cricket Ground')
 
 # Loop 100 times to play 100 random matches
-for ((i=1;i<=100;++i)); do
+for ((i=1;i<=20;++i)); do
     # Choose two random teams
     team1=${teams[$RANDOM % ${#teams[@]}]}
     team2=${teams[$RANDOM % ${#teams[@]}]}
@@ -26,5 +26,5 @@ for ((i=1;i<=100;++i)); do
 
     # Run the simulation command
     echo "Match $i: $team1 vs $team2 at $venue"
-    python simulate_live.py -t1 $team1 -t2 $team2 -tour "$tour" -v "$venue" -o $overs
+    python3 simulate_live.py -t1 $team1 -t2 $team2 -tour "$tour" -v "$venue" -o $overs
 done

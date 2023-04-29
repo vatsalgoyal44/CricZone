@@ -302,15 +302,17 @@ const tournamentinfo = async (tour_name) => {
     
         try {
             const res1 = await pool.query(text1, values1)
-            const text2 = 'select D.teamid, D.team_name, coalesce(matches,0) as matches, coalesce(wins,0) as wins, coalesce(losses,0) as losses from (SELECT matchwise_team_performance.teamid, count(*) as wins FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
+            const text2 = 'select D.teamid, D.team_name, coalesce(matches,0) as matches, coalesce(wins,0) as wins, coalesce(losses,0) as losses, coalesce(draws,0) as draws from (SELECT matchwise_team_performance.teamid, count(*) as wins FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
                    where tour_name = $1 and result = \'win\' group by matchwise_team_performance.teamid) as A\
                     full outer join \
                    (SELECT matchwise_team_performance.teamid, count(*) as losses FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid) where tour_name = $1 and result = \'lost\' group by matchwise_team_performance.teamid) as B using(teamid)\
                     full outer join \
+                    (SELECT matchwise_team_performance.teamid, count(*) as draws FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid) where tour_name = $1 and result = \'draw\' group by matchwise_team_performance.teamid) as E using(teamid)\
+                    full outer join \
                     (SELECT matchwise_team_performance.teamid, count(*) as matches FROM match join matchwise_team_performance on(match.id=matchwise_team_performance.matchid)\
                             where tour_name = $1 group by matchwise_team_performance.teamid) as C using(teamid)\
                     full outer join \
-                    (SELECT teamid,team_name FROM tour_team join team using(teamid) where tour_name = $1) as D using(teamid)'
+                    (SELECT teamid,team_name FROM tour_team join team using(teamid) where tour_name = $1) as D using(teamid) order by wins desc'
     const values2 = [tour_name]
             try{
                 const res2 = await pool.query(text2, values2)

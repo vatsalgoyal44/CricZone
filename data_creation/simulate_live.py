@@ -5,9 +5,12 @@ import argparse
 import random
 import update
 from datetime import date
+from datetime import timedelta
 from time import sleep
+from dateutil.relativedelta import relativedelta
 
-current_date = date.today()
+
+current_date = date.today() - relativedelta(years=0) + relativedelta(days=3)
 current_year = current_date.year
 # Generate a random 4-digit number
 matchid = random.randint(10000, 99999)
@@ -28,7 +31,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     #connect to database
-    conn = pg.connect(database=args.database,host="localhost",user="postgres",password="1234",port=5432)
+    conn = pg.connect(database=args.database,host="localhost",user="postgres",password="1234ezpz",port=5433)
     # conn = pg.connect(database=args.database)
     cur = conn.cursor()
 
@@ -153,6 +156,7 @@ if __name__ == "__main__":
                 team2wicks+=1
                 if wickets == 10:
                     break
+                cur.execute(f"INSERT into commentary values ({matchid},{over},{ball},\'{bat[0]}\',\'{bowler[0]}\',\'{shot}\',2)")
                 bat = team2[wickets+1]
             else:
                 df.loc[df['playerid'] == bat[0], 'runs'] += int(shot)
@@ -166,7 +170,7 @@ if __name__ == "__main__":
                     df.loc[df['playerid'] == bat[0], 'sixes'] += 1
                 df.loc[df['playerid'] == bowler[0], 'overs'] += 0.1
 
-            cur.execute(f"INSERT into commentary values ({matchid},{over},{ball},\'{bat[0]}\',\'{bowler[0]}\',\'{shot}\',2)")
+                cur.execute(f"INSERT into commentary values ({matchid},{over},{ball},\'{bat[0]}\',\'{bowler[0]}\',\'{shot}\',2)")
 
             for i, row in df.iterrows():
                 cur.execute("UPDATE %s SET runs=%s, balls=%s, fours=%s, sixes=%s, strike_rate=%s, wickets=%s, runs_conceded=%s, overs=%s \

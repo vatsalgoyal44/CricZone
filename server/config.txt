@@ -1,8 +1,7 @@
 {
   "user": "postgres",
-  "password": "1234",
   "host": "localhost",
-  "password": "1234",
+  "password": "1234ezpz",
   "database": "criczone",
-  "port": "5432"
+  "port": "5433"
 }

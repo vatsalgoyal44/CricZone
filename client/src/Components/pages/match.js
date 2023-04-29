@@ -52,7 +52,6 @@ const Matchpage= (props) => {
     console.log(matchinfo);
     if(matchinfo){
         if(matchinfo.match_deets && teaminfo){
-            setLoading(false);
             if(matchinfo.team1.result == "In Progress"){
                 setLive(true);
                 setInterval(fetchdata(), 1000);
@@ -61,8 +60,15 @@ const Matchpage= (props) => {
                 setLive(false);
             }
         }
-        getfinalres();
-        getteam1team2();
+        if(matchinfo.team1 == null){
+            setLoading(true);
+        }
+        else{
+            setLoading(false);
+            getfinalres();
+            getteam1team2();
+        }
+        
     }
   },[matchinfo]);
 
@@ -117,7 +123,14 @@ const Matchpage= (props) => {
     setActiveTab2("tab2");
   };
 
-  if (!loading){
+  if (loading){
+    return(
+    <div>
+      <ReactLoading type="bubbles" color="#263238" className="loading"
+        height={500} width={250} />
+    </div>)
+  }
+    else{
     return(
     <div class = "matchpage">
     <div class = "gridcontainermatch flex flex-row">

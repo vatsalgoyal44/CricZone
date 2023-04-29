@@ -65,8 +65,8 @@ const MatchCard= (props) => {
   if (loading){
     return(
     <div>
-      <ReactLoading type="bubbles" color="#263238" className="loading"
-        height={500} width={250} />
+      <ReactLoading type="bubbles" color="#c0b7dc" className="loading"
+        height={200} width={100} />
     </div>)
   }
   else return (

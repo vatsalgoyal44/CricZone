@@ -2,6 +2,7 @@ import pandas as pd
 import psycopg2 as pg
 from psycopg2.extensions import register_adapter, AsIs
 import numpy
+from datetime import timedelta
 
 
 def addapt_numpy_float64(numpy_float64):
@@ -14,7 +15,7 @@ register_adapter(numpy.int64, addapt_numpy_int64)
 def update(matchid):
     
     #connect to database
-    conn = pg.connect(database='criczone',host="localhost",user="postgres",password="1234")
+    conn = pg.connect(database='criczone',host="localhost",user="postgres",password="1234ezpz", port = 5433)
     # conn = pg.connect(database='Criczone')
     cur = conn.cursor()
 

@@ -13,6 +13,7 @@ const Tournamentpage = (props) => {
   const [tournamentinfo, setInfo] = useState()
   const [matchinfo, setMatch] = useState()
   const [live, setLive] = useState()
+
  
   const [points, setPoints] = useState()
   let { tourid } = useParams();
@@ -34,7 +35,11 @@ const Tournamentpage = (props) => {
 
   useEffect(() => {
     setInterval(fetchdata(), 5000);
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    setInterval(fetchdata(), 5000);
+  }, [tournamentinfo]);
 
   const slideLeft = () => {
     var slider = document.getElementById("slider")
@@ -65,7 +70,7 @@ const Tournamentpage = (props) => {
     <div class = "teampage">
     <div class = "gridcontainer">
         <div class = "team">
-            <h3 className="teamname">{tourid}</h3>
+            <h3 className="teamname">{tournamentinfo.teams[0].tour_name}</h3>
         </div>
         <div class = "fixtures">
             <div><h3 className="head">Recent Fixtures</h3></div>
@@ -87,22 +92,24 @@ const Tournamentpage = (props) => {
                         <table className="pointtable table-auto h-full">
                         <thead>
                         <tr>
-                            <th class="w-1/2">Team ID</th>
-                            <th>Team Name</th>
-                            <th>Wins</th>
-                            <th>Losses</th>
+                            <th className="w-1/4">Team Name</th>
                             <th>Matches</th>
+                            <th>Wins</th>
+                            <th>Draw</th>
+                            <th>Losses</th>
+                            <th>Points</th>
                         </tr>
                         </thead>
                         <tbody>
                         {points && points.map(item => {
                             return (
                             <tr key={item.teamid}>
-                              <td>{item.teamid}</td>
                                 <td>{item.team_name}</td>
-                                <td>{item.wins}</td>
-                                <td>{item.losses}</td>
                                 <td>{item.matches}</td>
+                                <td>{item.wins}</td>
+                                <td>{item.draws}</td>
+                                <td>{item.losses}</td>
+                                <td>{2*parseInt(item.wins) + 1*parseInt(item.draws)}</td>
                             </tr>
                             );
                         })}

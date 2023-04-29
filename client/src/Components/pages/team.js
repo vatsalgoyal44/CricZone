@@ -23,6 +23,10 @@ const pathname = window.location.pathname;
   const fetchdata = ()=>{
     getteaminfo(teamid).then((res)=>{
       console.log(res.data);
+      if(res.data.teaminfo==null){
+        return;
+      }
+        
       setMatch(res.data.matchinfo);
       setPlayers(res.data.players);
       setHS(res.data.highestscore);
@@ -34,7 +38,7 @@ const pathname = window.location.pathname;
       }
     }).catch(()=>{
     //   console.log(res.status)
-    //   setLoading(true)
+      setLoading(true)
     })
   }
 
@@ -59,7 +63,15 @@ const pathname = window.location.pathname;
   }
 
 
-  if (!loading){
+  if (loading){
+    return(
+    <div>
+      <ReactLoading type="bubbles" color="#263238" className="loading"
+        height={500} width={250} />
+    </div>)
+  }
+
+  else{
     return(
     <div class = "teampage">
     <div class = "gridcontainer">

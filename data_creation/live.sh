@@ -24,5 +24,5 @@ venue=${venues[$RANDOM % ${#venues[@]}]}
 
 # Run the simulation command
 echo "Match $i: $team1 vs $team2 at $venue"
-python simulate_live.py -t1 $team1 -t2 $team2 -tour "$tour" -v "$venue" -o $overs -s 1
+python3 simulate_live.py -t1 $team1 -t2 $team2 -tour "$tour" -v "$venue" -o $overs -s 2
 

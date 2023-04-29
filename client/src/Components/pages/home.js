@@ -44,25 +44,13 @@ const Homepage= (props) => {
   }
 
   useEffect(() => {
-    setInterval(fetchdata(), 5000);
-  }, [])
+    setInterval(fetchdata(), 3000);
+  }, []);
 
-  const handleTab1 = () => {
-    // update the state to tab1
-    setActiveTab("tab1");
-  };
-  const handleTab2 = () => {
-    // update the state to tab2
-    setActiveTab("tab2");
-  };
-  const handleTab3 = () => {
-    // update the state to tab3
-    setActiveTab("tab3");
-  };
-  const handleTab4 = () => {
-    // update the state to tab3
-    setActiveTab("tab4");
-  };
+  useEffect(() => {
+    setInterval(fetchdata(), 3000);
+  }, [tournaments]);
+
   const slideRight = () => {
     var slider = document.getElementById("slider")
     slider.scrollLeft = slider.scrollLeft + 500
@@ -114,15 +102,15 @@ const Homepage= (props) => {
                 </ul> */}
 
 
-            <div className="outlet bg-darkbg h-full p-10 flex flex-row">
+            <div className="outlet bg-darkbg h-full p-10 flex flex-row rounded-lg">
                         {/* content will be shown here */}
                   <div className="mostwickets basis-1/3">
                     <div><h3>Best Batsmen</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
-                            <th class="w-4/5"> Player</th>
-                            <th>Batting Average</th>
+                            <th class="w-4/5">Player</th>
+                            <th class="w-1/5">Batting Average</th>
                         </tr>
                         </thead>
                         {bat &&
