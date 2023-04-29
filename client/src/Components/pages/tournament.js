@@ -4,7 +4,7 @@ import ReactLoading from "react-loading";
 import './home.css'
 import MatchCard from "../cards/matchcard";
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
-import { gettournamentinfo } from "../data/data";
+import { gettournamentinfo, getpointstable } from "../data/data";
 
 
 const Tournamentpage = (props) => {
@@ -23,6 +23,13 @@ const Tournamentpage = (props) => {
       console.log(loading);
       if(res.status != 200){
         setLoading(true)
+      }else{
+        getpointstable(tourid).then((res)=>{
+          console.log(res.data)
+        }).catch(()=>{
+      console.log(res.status)
+      setLoading(true)
+    })
       }
     }).catch(()=>{
     //   console.log(res.status)

@@ -128,13 +128,13 @@ const Homepage= (props) => {
                         {bat && bat.map((item) => (
                           <tr key={item.playerid}>
                             <td>{item.player_name}</td>
-                            <td>{item.runs_per_innings}</td>
+                            <td>{(item.runs/item.innings).toFixed(2)}</td>
                           </tr>
                         ))}
 
                     </table>
                   </div>
-                  <div className="mostwickets basis-1/3">
+                  {/* <div className="mostwickets basis-1/3">
                     <div><h3>Runs given per match</h3></div>
                     <table className="wicketstable">
                         <thead>
@@ -152,7 +152,7 @@ const Homepage= (props) => {
                         ))}
                         </tbody>
                     </table>
-                  </div>
+                  </div> */}
                   <div className="mostwickets basis-1/3">
                     <div><h3>Average Wickets per match</h3></div>
                     <table className="wicketstable">
