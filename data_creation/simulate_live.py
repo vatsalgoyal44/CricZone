@@ -28,7 +28,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     #connect to database
-    conn = pg.connect(database=args.database,host="localhost",user="postgres",password="1234ezpz",port=5433)
+    conn = pg.connect(database=args.database,host="localhost",user="postgres",password="1234ezpz",port=4001)
     # conn = pg.connect(database=args.database)
     cur = conn.cursor()
 

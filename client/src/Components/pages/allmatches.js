@@ -19,98 +19,96 @@ const MatchListPage = (props) => {
       setAllMatches(res.data.matches);
       setLiveMatches(allMatches.filter((match) => match.result && match.result.toLowerCase().includes("in progress")));
       setRecentMatches(allMatches.filter((match) => !match.result || !match.result.toLowerCase().includes("in progress")));
-
-      if(allMatches){
-        getMerged();
+      if(liveMatches){
+        const mergeLive = liveMatches.reduce((matches, currentMatch) => {
+        const existingMatch = matches.find((match) => match.id === currentMatch.id);
+          if (existingMatch) {
+            if (currentMatch.teamid === existingMatch.teamid2) {
+              existingMatch.teamid2 = currentMatch.teamid;
+              existingMatch.total_score2 = currentMatch.total_score;
+              existingMatch.total_wickets2 = currentMatch.total_wickets;
+            } else {
+              existingMatch.teamid2 = existingMatch.teamid;
+              existingMatch.total_score2 = existingMatch.total_score;
+              existingMatch.total_wickets2 = existingMatch.total_wickets;
+              existingMatch.teamid = currentMatch.teamid;
+              existingMatch.total_score = currentMatch.total_score;
+              existingMatch.total_wickets = currentMatch.total_wickets;
+            }
+          } else {
+            matches.push({
+              id: currentMatch.id,
+              date: currentMatch.date,
+              venue: currentMatch.venue,
+              tour_name: currentMatch.tour_name,
+              result: currentMatch.result,
+              teamid: currentMatch.teamid,
+              total_score: currentMatch.total_score,
+              total_wickets: currentMatch.total_wickets,
+              teamid2: '',
+              total_score2: '',
+              total_wickets2: '',
+            });
+          }
+        
+          return matches;
+        }, []);
+        setMergedLiveMatches(mergeLive);
       }
+      if(recentMatches){
+        const mergeRecent = recentMatches.reduce((matches, currentMatch) => {
+          const existingMatch = matches.find((match) => match.id === currentMatch.id);
+            if (existingMatch) {
+              if (currentMatch.teamid === existingMatch.teamid2) {
+                existingMatch.teamid2 = currentMatch.teamid;
+                existingMatch.total_score2 = currentMatch.total_score;
+                existingMatch.total_wickets2 = currentMatch.total_wickets;
+              } else {
+                existingMatch.teamid2 = existingMatch.teamid;
+                existingMatch.total_score2 = existingMatch.total_score;
+                existingMatch.total_wickets2 = existingMatch.total_wickets;
+                existingMatch.teamid = currentMatch.teamid;
+                existingMatch.total_score = currentMatch.total_score;
+                existingMatch.total_wickets = currentMatch.total_wickets;
+              }
+            } else {
+              matches.push({
+                id: currentMatch.id,
+                date: currentMatch.date,
+                venue: currentMatch.venue,
+                tour_name: currentMatch.tour_name,
+                result: currentMatch.result,
+                teamid: currentMatch.teamid,
+                total_score: currentMatch.total_score,
+                total_wickets: currentMatch.total_wickets,
+                teamid2: '',
+                total_score2: '',
+                total_wickets2: '',
+              });
+            }
+          
+            return matches;
+          }, []);
+        setMergedRecentMatches(mergeRecent);
+        console.log(mergedRecentMatches)
+        }
+        // localStorage.setItem("allMatches", JSON.stringify(allMatches));
+        // localStorage.setItem("liveMatches", JSON.stringify(liveMatches));
+        // localStorage.setItem("recentMatches", JSON.stringify(recentMatches));
+        // localStorage.setItem("mergedLiveMatches", JSON.stringify(mergedLiveMatches));
+        // localStorage.setItem("mergedRecentMatches", JSON.stringify(mergedRecentMatches));
       console.log(allMatches);
       if(res.status != 200){
         setLoading(true);
       }
     }).catch((res)=>{
-      // console.log(res);
       setLoading(true);
     });
   }
   useEffect(() => {
     fetchdata();
-  }, []);
+  }, [allMatches]);
 
-  const getMerged =()=>{
-    if(liveMatches){
-    const mergeLive = liveMatches.reduce((matches, currentMatch) => {
-    const existingMatch = matches.find((match) => match.id === currentMatch.id);
-      if (existingMatch) {
-        if (currentMatch.teamid === existingMatch.teamid2) {
-          existingMatch.teamid2 = currentMatch.teamid;
-          existingMatch.total_score2 = currentMatch.total_score;
-          existingMatch.total_wickets2 = currentMatch.total_wickets;
-        } else {
-          existingMatch.teamid2 = existingMatch.teamid;
-          existingMatch.total_score2 = existingMatch.total_score;
-          existingMatch.total_wickets2 = existingMatch.total_wickets;
-          existingMatch.teamid = currentMatch.teamid;
-          existingMatch.total_score = currentMatch.total_score;
-          existingMatch.total_wickets = currentMatch.total_wickets;
-        }
-      } else {
-        matches.push({
-          id: currentMatch.id,
-          date: currentMatch.date,
-          venue: currentMatch.venue,
-          tour_name: currentMatch.tour_name,
-          result: currentMatch.result,
-          teamid: currentMatch.teamid,
-          total_score: currentMatch.total_score,
-          total_wickets: currentMatch.total_wickets,
-          teamid2: '',
-          total_score2: '',
-          total_wickets2: '',
-        });
-      }
-    
-      return matches;
-    }, []);
-    setMergedLiveMatches(mergeLive);
-    }
-    if(recentMatches){
-    const mergeRecent = recentMatches.reduce((matches, currentMatch) => {
-      const existingMatch = matches.find((match) => match.id === currentMatch.id);
-        if (existingMatch) {
-          if (currentMatch.teamid === existingMatch.teamid2) {
-            existingMatch.teamid2 = currentMatch.teamid;
-            existingMatch.total_score2 = currentMatch.total_score;
-            existingMatch.total_wickets2 = currentMatch.total_wickets;
-          } else {
-            existingMatch.teamid2 = existingMatch.teamid;
-            existingMatch.total_score2 = existingMatch.total_score;
-            existingMatch.total_wickets2 = existingMatch.total_wickets;
-            existingMatch.teamid = currentMatch.teamid;
-            existingMatch.total_score = currentMatch.total_score;
-            existingMatch.total_wickets = currentMatch.total_wickets;
-          }
-        } else {
-          matches.push({
-            id: currentMatch.id,
-            date: currentMatch.date,
-            venue: currentMatch.venue,
-            tour_name: currentMatch.tour_name,
-            result: currentMatch.result,
-            teamid: currentMatch.teamid,
-            total_score: currentMatch.total_score,
-            total_wickets: currentMatch.total_wickets,
-            teamid2: '',
-            total_score2: '',
-            total_wickets2: '',
-          });
-        }
-      
-        return matches;
-      }, []);
-    setMergedRecentMatches(mergeRecent);
-    console.log(mergedRecentMatches)
-    }
-  }
 
   const handleTab1 = () => {
     // update the state to tab1

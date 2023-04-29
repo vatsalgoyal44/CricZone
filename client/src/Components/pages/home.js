@@ -13,13 +13,16 @@ const Homepage= (props) => {
   const [res, setRes] = useState('')
   const [tournaments, setTournaments] = useState('')
   const [matches, setMatch] = useState('')
+  const [bat, setBat] = useState('')
+  const [bowl, setBowl] = useState('')
+  const [wicks, setWicks] = useState('')
+  const [ar, setAr] = useState('')
+
   const slideLeft = () => {
     var slider = document.getElementById("slider")
     slider.scrollLeft = slider.scrollLeft - 500
   }
   const [activeTab, setActiveTab] = useState("tab1");
-  const [batting, setBat] = useState('')
-  const [wickets, setWick] = useState('')
 
   const fetchdata = ()=>{
     gethome().then((res)=>{
@@ -27,7 +30,10 @@ const Homepage= (props) => {
       setTournaments(res.data.tours);
       setMatch(res.data.recent_matches);
       setLoading(false);
-      
+      setBat(res.data.batting)
+      setBowl(res.data.bowling)
+      setWicks(res.data.wickets)
+      setAr(res.data.allrounders)
       if(res.status != 200){
         setLoading(true)
       }
@@ -76,9 +82,9 @@ const Homepage= (props) => {
             <div className="overflow-x-hidden relative flex items-center">
                 <MdChevronLeft size = {40} onClick={slideLeft} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/>
                 <div className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth" id="slider">
-                    {/* {matches.map(item=>{
-                        return (<div className='inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300'><Link to="/match/1"><MatchCard/></Link></div>)
-                    })} */}
+                    {matches.map(item=>{
+                        return (<div className='inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300'><Link to="/match/1"><MatchCard date = {item.date.substring(0,item.date.indexOf("T"))} team1 = {item.team1} team2 = {item.team2} location = {item.venue} tourid = {item.tour_name} matchid = {item.id}/></Link></div>)
+                    })}
                 </div>
                 <MdChevronRight size = {40} onClick={slideRight} className="opacity-40 cursor-pointer hover:opacity-100 ease-in-out duration-300"/></div>
             </div>
@@ -100,55 +106,89 @@ const Homepage= (props) => {
         <div class = "fixtureshead"><h3 class=" font-bold">Records</h3></div>
         <div className="selector mx-20 mt-5">
                     {/* Tab nav */}
-            <ul className="nav relative flex flex-row w-1/2">
+            {/* <ul className="nav relative flex flex-row w-1/2">
                 <div class={`${activeTab === "tab1" ? "active" : ""} basis-1/3 rounded-t-xl`}><li class={`font-bold p-3 text-center border-violet-950 cursor-pointer hover:text-violet-500 ease-in-out duration-300 text-lightfont`} onClick={handleTab1}>Batting</li></div>
                 <div class={`${activeTab === "tab2" ? "active" : ""} basis-1/3 rounded-t-xl`}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300 text-lightfont`} onClick={handleTab2}>Bowling</li></div>
                 <div class={`${activeTab === "tab3" ? "active" : ""} basis-1/3 rounded-t-xl`}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300 text-lightfont`} onClick={handleTab3}>All-Rounder</li></div>
                 <div class={`${activeTab === "tab4" ? "active" : ""} basis-1/3 rounded-t-xl`}><li class={`font-bold basis-1/2 p-3 text-center cursor-pointer hover:text-violet-500 ease-in-out duration-300 text-lightfont`} onClick={handleTab4}>Teams</li></div>
-                </ul>
+                </ul> */}
 
 
             <div className="outlet bg-darkbg h-full p-10 flex flex-row">
                         {/* content will be shown here */}
                   <div className="mostwickets basis-1/3">
-                    <div><h3>Most Runs</h3></div>
+                    <div><h3>Runs per Inning</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
-                            <th class="w-4/5">Player/Team</th>
-                            <th>Runs</th>
+                            <th class="w-4/5">Player</th>
+                            <th>Avg</th>
+                        </tr>
+                        </thead>
+                        {bat && bat.map((item) => (
+                          <tr key={item.playerid}>
+                            <td>{item.player_name}</td>
+                            <td>{item.runs_per_innings}</td>
+                          </tr>
+                        ))}
+
+                    </table>
+                  </div>
+                  <div className="mostwickets basis-1/3">
+                    <div><h3>Economy</h3></div>
+                    <table className="wicketstable">
+                        <thead>
+                        <tr>
+                            <th class="w-4/5">Player</th>
+                            <th>Eco</th>
                         </tr>
                         </thead>
                         <tbody>
-                        
+                        {bowl && bowl.map((item) => (
+                          <tr key={item.playerid}>
+                            <td>{item.player_name}</td>
+                            <td>{item.per_ball_average}</td>
+                          </tr>
+                        ))}
                         </tbody>
                     </table>
                   </div>
                   <div className="mostwickets basis-1/3">
-                    <div><h3>Highest Average</h3></div>
+                    <div><h3>Average Wickets</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
-                            <th class="w-4/5">Player/Team</th>
-                            <th>Average</th>
+                            <th class="w-4/5">Player</th>
+                            <th>Avg</th>
                         </tr>
                         </thead>
                         <tbody>
-                        
+                        {wicks && wicks.map((item) => (
+                          <tr key={item.playerid}>
+                            <td>{item.player_name}</td>
+                            <td>{item.wickets_per_match}</td>
+                          </tr>
+                        ))}
+              
                         </tbody>
                     </table>
                   </div>
                   <div className="mostwickets basis-1/3">
-                    <div><h3>Best Strike Rate</h3></div>
+                    <div><h3>MVP</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
-                            <th class="w-4/5">Player/Team</th>
-                            <th>SR</th>
+                            <th class="w-4/5">Player</th>
+                            <th>Rating</th>
                         </tr>
                         </thead>
                         <tbody>
-                        
+                        {ar && ar.map((item) => (
+                          <tr key={item.playerid}>
+                            <td>{item.player_name}</td>
+                            <td>{item.rating}</td>
+                          </tr>
+                        ))}
                         </tbody>
                     </table>
                   </div>
