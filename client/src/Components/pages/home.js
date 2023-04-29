@@ -117,20 +117,25 @@ const Homepage= (props) => {
             <div className="outlet bg-darkbg h-full p-10 flex flex-row">
                         {/* content will be shown here */}
                   <div className="mostwickets basis-1/3">
-                    <div><h3>Runs per Inning</h3></div>
+                    <div><h3>Best Batsmen</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
-                            <th class="w-4/5">Player</th>
-                            <th>Avg</th>
+                            <th class="w-4/5"> Player</th>
+                            <th>Batting Average</th>
                         </tr>
                         </thead>
-                        {bat && bat.map((item) => (
-                          <tr key={item.playerid}>
-                            <td>{item.player_name}</td>
-                            <td>{(item.runs/item.innings).toFixed(2)}</td>
-                          </tr>
-                        ))}
+                        {bat &&
+                        bat
+                          .sort((a, b) => b.runs / b.innings - a.runs / a.innings) // Sort the array in descending order of runs per innings
+                          .slice(0, 10) // Get the top 10 items
+                          .map((item, index) => ( // Add an index to enumerate the items
+                            <tr key={item.playerid}>
+                              <td>{index+1}. {item.player_name}</td>
+                              <td>{(item.runs / item.innings).toFixed(2)}</td>
+                            </tr>
+                          ))}
+
 
                     </table>
                   </div>
@@ -154,27 +159,32 @@ const Homepage= (props) => {
                     </table>
                   </div> */}
                   <div className="mostwickets basis-1/3">
-                    <div><h3>Average Wickets per match</h3></div>
+                    <div><h3>Best Bowlers</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
                             <th class="w-4/5">Player</th>
-                            <th>Avg</th>
+                            <th>Bowling Average</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {wicks && wicks.map((item) => (
-                          <tr key={item.playerid}>
-                            <td>{item.player_name}</td>
-                            <td>{(item.wickets/item.matches).toFixed(2)}</td>
-                          </tr>
-                        ))}
+                        {wicks &&
+                        wicks
+                          .sort((a, b) => b.wickets / b.matches - a.wickets / a.matches) // Sort the array in descending order of wickets per match
+                          .slice(0, 10) // Get the top 10 items
+                          .map((item, index) => ( // Add an index to enumerate the items
+                            <tr key={item.playerid}>
+                              <td>{index + 1}. {item.player_name}</td> {/* Add an index to enumerate the items */}
+                              <td>{(item.wickets / item.matches).toFixed(2)}</td>
+                            </tr>
+                          ))}
+
               
                         </tbody>
                     </table>
                   </div>
                   <div className="mostwickets basis-1/3">
-                    <div><h3>MVP</h3></div>
+                    <div><h3>Most Valuable Players</h3></div>
                     <table className="wicketstable">
                         <thead>
                         <tr>
