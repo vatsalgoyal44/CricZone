@@ -33,6 +33,11 @@ const MatchCard= (props) => {
     fetchdata();
   }, []);
 
+  useEffect(() => {
+    fetchdata();
+  }, [props.team1]);
+
+
     useEffect(() =>{
     // console.log(matchinfo);
     if(matchinfo){
@@ -40,6 +45,9 @@ const MatchCard= (props) => {
         if(matchinfo.team1.result == "In Progress"){
           setLive(true);
           setInterval(fetchdata(), 1000);
+        }
+        else{
+          setLive(false);
         }
     }
   },[matchinfo]);
@@ -83,11 +91,11 @@ const MatchCard= (props) => {
         </div>
         <div className="basis-3/5 flex flex-col h-full">
           <div class="basis-1/2 relative flex flex-row mt-2">
-            <h3 class="basis-3/4 font-bold ml-3 my-2">{matchinfo.team1.teamid}</h3>
+            <h3 class="basis-3/4 font-bold ml-3 my-2">{props.team1}</h3>
             <h3 class="basis-1/4 font-bold my-2">{matchinfo.team1.total_score}/{matchinfo.team1.total_wickets}</h3>
           </div>
           <div class="basis-1/2 relative flex flex-row">
-            <h3 class="basis-3/4 font-bold ml-3 my-2">{matchinfo.team2.teamid}</h3>
+            <h3 class="basis-3/4 font-bold ml-3 my-2">{props.team2}</h3>
             <h3 class="basis-1/4 font-bold my-2">{matchinfo.team2.total_score}/{matchinfo.team2.total_wickets}</h3>
           </div>
         </div>

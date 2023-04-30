@@ -48,7 +48,8 @@ const pathname = window.location.pathname;
 
   useEffect(() => {
     setCurrentUrl(pathname);
-    setInterval(fetchdata(), 5000);
+    fetchdata();
+    setInterval(fetchdata(), 2000);
   }, [pathname])
 
   const slideLeft = () => {

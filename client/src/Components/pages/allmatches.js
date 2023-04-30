@@ -142,7 +142,7 @@ const MatchListPage = (props) => {
                         {/* content will be shown here */}
                 {activeTab === "tab1" && mergedLiveMatches && (mergedLiveMatches.map(match => {
                     console.log(match);
-                    return <MatchListCard matchData={match} key={match.id} />;
+                    return <MatchListCard matchid = {match.id} matchData={match} key={match.id} />;
                 }))}
                 {activeTab === "tab2" && mergedRecentMatches && (mergedRecentMatches.map(match => {
                     console.log(match);
