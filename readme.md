@@ -15,6 +15,7 @@ $ npm start
 After navigating to server folder, run the following commands:
 
 ```
+$npm install
 $node index.js
 ```
 
