@@ -15,7 +15,7 @@ $ npm start
 After navigating to server folder, run the following commands:
 
 ```
-$npm start
+$node index.js
 ```
 
 To simulate a match, in the data creation folder:
