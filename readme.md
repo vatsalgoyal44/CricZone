@@ -15,8 +15,8 @@ $ npm start
 After navigating to server folder, run the following commands:
 
 ```
-$npm install
-$node index.js
+$ npm install
+$ node index.js
 ```
 
 To simulate a match, in the data creation folder:
