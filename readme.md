@@ -17,3 +17,9 @@ After navigating to server folder, run the following commands:
 ```
 $npm start
 ```
+
+To simulate a match, in the data creation folder:
+
+```
+$python simulate_live.py
+```
